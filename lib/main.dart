@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/components/Buttons.dart';
 
 import 'components/Dialogs.dart';
 
@@ -65,13 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Image.asset('assets/images/petz-logo.png', width: MediaQuery.of(context).size.width/2,),
-              Text('PETZ', style: TextStyle(
-                fontSize: 50.0,
-                fontWeight: FontWeight.bold
-              ),),
-              Text('Solusi hidup anda.', style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),),
               SizedBox(height: 15.0,),
               TextField(
                 controller: controllerUsername,
@@ -79,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 obscureText: false,
                 style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     hintText: "Username",
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
               ),
@@ -89,54 +84,76 @@ class _MyHomePageState extends State<MyHomePage> {
                 obscureText: true,
                 style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     hintText: "Password",
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
               ),
               SizedBox(height: 15.0,),
-              GestureDetector(
-                onTap: (){},
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.teal[300],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Lupa password? ', style: TextStyle(color: Colors.black54,)),
+                  GestureDetector(
+                    onTap: (){},
+                    child: Text('Dapatkan bantuan. ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[400],)),
                   ),
-                  width: 100.0,
-                  height: 45.0,
-                  child: Center(child: Text('Masuk', style: TextStyle(color: Colors.white),)),
-                ),
+                ],
               ),
               SizedBox(height: 15.0,),
-              Text('atau'),
+              MyIconButton(
+                onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Hi', [FlatButton(onPressed: (){}, child: Text('OK'))])),
+                backgroundColor: Color(0xFFff971d),
+                color: Colors.white,
+                shadowColorTopLeft: Color(0xFFffffff),
+                shadowColorBottomRight: Color(0xFFa3b1c6),
+                text: 'Masuk',
+                icon: Icon(LineIcons.paper_plane, color: Colors.white,),
+              ),
+              SizedBox(height: 15.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black54,
+                      height: 1.0,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(' atau ', style: TextStyle(color: Colors.black54,)),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black54,
+                      height: 1.0,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: 15.0,),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: (){},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.blue[800],
-                      ),
-                      width: 100.0,
-                      height: 45.0,
-                      child: Center(child: Text('Facebook', style: TextStyle(color: Colors.white),)),
-                    ),
+                  MyIconButton(
+                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Hi', [FlatButton(onPressed: (){}, child: Text('OK'))])),
+                    backgroundColor: Colors.blue[800],
+                    color: Colors.white,
+                    shadowColorTopLeft: Color(0xFFffffff),
+                    shadowColorBottomRight: Color(0xFFa3b1c6),
+                    text: 'Facebook',
+                    icon: Icon(LineIcons.facebook, color: Colors.white,),
                   ),
                   SizedBox(width: 15.0,),
-                  GestureDetector(
-                    onTap: (){},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.red[600],
-                      ),
-                      width: 100.0,
-                      height: 45.0,
-                      child: Center(child: Text('Google', style: TextStyle(color: Colors.white),)),
-                    ),
+                  MyIconButton(
+                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Hi', [FlatButton(onPressed: (){}, child: Text('OK'))])),
+                    backgroundColor: Colors.red[600],
+                    color: Colors.white,
+                    shadowColorTopLeft: Color(0xFFffffff),
+                    shadowColorBottomRight: Color(0xFFa3b1c6),
+                    text: 'Google',
+                    icon: Icon(LineIcons.google, color: Colors.white,),
                   ),
                 ],
               ),
@@ -145,8 +162,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text('Lupa kata sandi?'),
-                  Text('Buat akun baru'),
+                  Text('Lupa kata sandi?', style: TextStyle(color: Colors.black54,)),
+                  Text('Buat akun baru', style: TextStyle(color: Colors.black54,)),
                 ],
               ),
             ],
