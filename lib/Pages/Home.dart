@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -66,125 +67,197 @@ class _HomePageState extends State<HomePage> {
                           width: MediaQuery.of(context).size.width,
                           height: 20.0,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Color(0xFFFAFAFA),
                             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                           ),
                         ),
                       )
                     ],
                   ),
+                  Text('Eksplorasi.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Color(0xFF606060)),),
                   Row(
                     children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10.0),
-                        width: MediaQuery.of(context).size.width/3,
-                        child: GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  offset: Offset(0, 0),
-                                  blurRadius: 5.0,
-                                  spreadRadius: 0
-                                ),
-                              ]
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Image.asset('assets/images/adopt-me.png', height: 100.0,),
-                                  ),
-                                ),
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Text('Pet Me', style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      MainFeatureCard(
+                        assetImage: 'assets/images/adoptme-bublee.png',
+                        title: 'Feed Me',
+                        onTap: (){},
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10.0),
-                        width: MediaQuery.of(context).size.width/3,
-                        child: GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  offset: Offset(0, 0),
-                                  blurRadius: 5.0,
-                                  spreadRadius: 0
-                                ),
-                              ]
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Image.asset('assets/images/save-me.png', height: 100.0,),
-                                  ),
-                                ),
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Text('Save Me', style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      MainFeatureCard(
+                        assetImage: 'assets/images/saveme-bublee.png',
+                        title: 'Feed Me',
+                        onTap: (){},
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10.0),
-                        width: MediaQuery.of(context).size.width/3,
-                        child: GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  offset: Offset(0, 0),
-                                  blurRadius: 5.0,
-                                  spreadRadius: 0
-                                ),
-                              ]
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Image.asset('assets/images/feed-me.png', height: 100.0,),
-                                  ),
-                                ),
-                                Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Text('Feed Me', style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      MainFeatureCard(
+                        assetImage: 'assets/images/feedme-bublee.png',
+                        title: 'Feed Me',
+                        onTap: (){},
                       ),
                     ],
                   ),
+                  SizedBox(height: 15.0,),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(width: 20.0,),
+                        CustomIconButtonWithTitle(
+                          backgroundColor: Colors.white,
+                          borderColor: Colors.orange[300],
+                          icon: Icon(FontAwesomeIcons.briefcaseMedical),
+                          onTap: (){},
+                          title: 'Dokter',
+                        ),
+                        SizedBox(width: 20.0,),
+                        CustomIconButtonWithTitle(
+                          backgroundColor: Colors.white,
+                          borderColor: Colors.orange[300],
+                          icon: Icon(FontAwesomeIcons.shoppingBag),
+                          onTap: (){},
+                          title: 'Pet Shop',
+                        ),
+                        SizedBox(width: 20.0,),
+                        CustomIconButtonWithTitle(
+                          backgroundColor: Colors.white,
+                          borderColor: Colors.orange[300],
+                          icon: Icon(FontAwesomeIcons.archive),
+                          onTap: (){},
+                          title: 'Shelter',
+                        ),
+                        SizedBox(width: 20.0,),
+                        CustomIconButtonWithTitle(
+                          backgroundColor: Colors.white,
+                          borderColor: Colors.orange[300],
+                          icon: Icon(FontAwesomeIcons.cat),
+                          onTap: (){},
+                          title: 'Cattery',
+                        ),
+                        SizedBox(width: 20.0,),
+                        CustomIconButtonWithTitle(
+                          backgroundColor: Colors.white,
+                          borderColor: Colors.orange[300],
+                          icon: Icon(FontAwesomeIcons.handPaper),
+                          onTap: (){},
+                          title: 'Riwayat',
+                        ),
+                        SizedBox(width: 20.0,),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15.0,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
+                        child: Text('Hewan kondisi darurat didekatmu', style: TextStyle(fontWeight: FontWeight.bold),),
+                      ),
+                    ],
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        // Request Rescue Card
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                            onTap: (){},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red[400],
+                                borderRadius: BorderRadius.circular(15.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFFD0D0D0),
+                                    offset: Offset(0, 0),
+                                    blurRadius: 10.0,
+                                    spreadRadius: 0
+                                  ),
+                                ]
+                              ),
+                              width: 250.0,
+                              height: 100.0,
+                              child: Stack(
+                                children: <Widget>[
+                                  Image.asset('assets/images/BG1.png'),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Icon(LineIcons.warning, size: 50.0, color: Colors.white,),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(5.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
+                                            Text('Jl. Kepanjen 666', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
+                                            Text('Terkapar setelah tertabrak angin.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                            onTap: (){},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red[400],
+                                borderRadius: BorderRadius.circular(15.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFFD0D0D0),
+                                    offset: Offset(0, 0),
+                                    blurRadius: 10.0,
+                                    spreadRadius: 0
+                                  ),
+                                ]
+                              ),
+                              width: 250.0,
+                              height: 100.0,
+                              child: Stack(
+                                children: <Widget>[
+                                  Image.asset('assets/images/BG1.png'),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Icon(LineIcons.warning, size: 50.0, color: Colors.white,),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(5.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
+                                            Text('Jl. Kepanjen 666', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
+                                            Text('Terkapar setelah tertabrak angin.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 120.0,)
                 ],
               ),
             )
@@ -223,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.white,
                     borderColor: Colors.orange[300],
                     icon: Icon(LineIcons.comments, color: Colors.black),
-                    title: 'Pesan',
+                    title: 'Feed',
                     onTap: (){},
                   ),
                   CustomBottomBarButton(
@@ -300,6 +373,114 @@ class CustomBottomBarButtonState extends State<CustomBottomBarButton> {
         ],
       ),
       onTap: widget.onTap,
+    );
+  }
+}
+
+class CustomIconButtonWithTitle extends StatefulWidget {
+  CustomIconButtonWithTitle({
+    this.icon,
+    this.title,
+    this.backgroundColor,
+    this.borderColor,
+    this.onTap
+  });
+
+  final Icon icon;
+  final String title;
+  final Color backgroundColor;
+  final Color borderColor;
+  final VoidCallback onTap;
+
+  @override
+  _CustomIconButtonWithTitleState createState() => _CustomIconButtonWithTitleState();
+}
+
+class _CustomIconButtonWithTitleState extends State<CustomIconButtonWithTitle> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(10.0),
+            child: widget.icon,
+            decoration: BoxDecoration(
+              color: widget.backgroundColor,
+              border: Border.all(
+                color: widget.borderColor,
+                style: BorderStyle.solid,
+                width: 5
+              ),
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
+          SizedBox(height: 10.0,),
+          Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold),)
+        ],
+      ),
+      onTap: widget.onTap,
+    );
+  }
+}
+
+class MainFeatureCard extends StatefulWidget {
+  MainFeatureCard({
+    this.assetImage,
+    this.title,
+    this.onTap,
+  });
+
+  final String assetImage;
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  _MainFeatureCardState createState() => _MainFeatureCardState();
+}
+
+class _MainFeatureCardState extends State<MainFeatureCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      width: MediaQuery.of(context).size.width/3,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFFE6E6E6),
+                offset: Offset(0, 0),
+                blurRadius: 25.0,
+                spreadRadius: 0
+              ),
+              BoxShadow(
+                color: Color(0xFFDEDEDE),
+                offset: Offset(0, 0),
+                blurRadius: 5.0,
+                spreadRadius: 0
+              ),
+            ]
+          ),
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Image.asset(widget.assetImage, height: 100.0,),
+              ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

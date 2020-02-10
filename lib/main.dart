@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
@@ -54,6 +56,23 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void checkConnection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnection();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset('assets/images/petz-logo.png', width: MediaQuery.of(context).size.width/2,),
+              Image.asset('assets/images/nyul-logo.png', width: MediaQuery.of(context).size.width/2,),
               SizedBox(height: 15.0,),
               TextField(
                 controller: controllerUsername,
