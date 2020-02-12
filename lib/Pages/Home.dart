@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -79,12 +80,12 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       MainFeatureCard(
                         assetImage: 'assets/images/adoptme-bublee.png',
-                        title: 'Feed Me',
+                        title: 'Adopt Me',
                         onTap: (){},
                       ),
                       MainFeatureCard(
                         assetImage: 'assets/images/saveme-bublee.png',
-                        title: 'Feed Me',
+                        title: 'Save Me',
                         onTap: (){},
                       ),
                       MainFeatureCard(
@@ -135,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                         CustomIconButtonWithTitle(
                           backgroundColor: Colors.white,
                           borderColor: Colors.orange[300],
-                          icon: Icon(FontAwesomeIcons.handPaper),
+                          icon: Icon(FontAwesomeIcons.fileContract),
                           onTap: (){},
                           title: 'Riwayat',
                         ),
@@ -144,116 +145,159 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 15.0,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0, 0),
-                        child: Text('Hewan kondisi darurat didekatmu', style: TextStyle(fontWeight: FontWeight.bold),),
-                      ),
-                    ],
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('Hewan kondisi darurat disekitarmu', style: TextStyle(fontWeight: FontWeight.bold),),
+                    alignment: Alignment.centerLeft,
                   ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: <Widget>[
-                        // Request Rescue Card
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: (){},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.red[400],
-                                borderRadius: BorderRadius.circular(15.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFFD0D0D0),
-                                    offset: Offset(0, 0),
-                                    blurRadius: 10.0,
-                                    spreadRadius: 0
-                                  ),
-                                ]
-                              ),
-                              width: 250.0,
-                              height: 100.0,
-                              child: Stack(
-                                children: <Widget>[
-                                  Image.asset('assets/images/BG1.png'),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Icon(LineIcons.warning, size: 50.0, color: Colors.white,),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
-                                            Text('Jl. Kepanjen 666', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
-                                            Text('Terkapar setelah tertabrak angin.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+                        // Urgent Rescue Card
+                        UrgentRescueCard(
+                          tipeHewan: 1,
+                          alamat: 'Jl. Bululawang 666',
+                          deskripsi: 'Terkapar setelah tertabrak angin',
                         ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: (){},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.red[400],
-                                borderRadius: BorderRadius.circular(15.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFFD0D0D0),
-                                    offset: Offset(0, 0),
-                                    blurRadius: 10.0,
-                                    spreadRadius: 0
-                                  ),
-                                ]
-                              ),
-                              width: 250.0,
-                              height: 100.0,
-                              child: Stack(
-                                children: <Widget>[
-                                  Image.asset('assets/images/BG1.png'),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Icon(LineIcons.warning, size: 50.0, color: Colors.white,),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
-                                            Text('Jl. Kepanjen 666', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
-                                            Text('Terkapar setelah tertabrak angin.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
+                        UrgentRescueCard(
+                          tipeHewan: 2,
+                          alamat: 'Jl. Arjosari 666',
+                          deskripsi: 'Ditikung temen, anjing emang.',
+                        ),
+                        UrgentRescueCard(
+                          tipeHewan: 3,
+                          alamat: 'Jl. Kepanjen 666',
+                          deskripsi: 'Hilang impian setelah bangun tidur.',
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+                    color: Colors.orange[400],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('Postingan adopsi terbaru', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),),
+                        Icon(LineIcons.paw, color: Colors.white),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold),),
+                    alignment: Alignment.centerLeft,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/tom.jpg',
+                          judul: 'Kucing Himalaya',
+                          jenis: 1,
+                          ras: 'British',
+                          umur: '1 Tahun',
+                          alamat: 'Tidar, Malang',
+                          metodeAdopsi: 1,
+                        ),
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/tom.jpg',
+                          judul: 'Kucing India',
+                          jenis: 1,
+                          ras: 'Persia',
+                          umur: '5 Bulan',
+                          alamat: 'Arjosari, Malang',
+                          metodeAdopsi: 2,
+                        ),
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/tom.jpg',
+                          judul: 'Kucing Manja',
+                          jenis: 1,
+                          ras: 'Lokal',
+                          umur: '2 Tahun',
+                          alamat: 'Blimbing, Malang',
+                          metodeAdopsi: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('Anjing', style: TextStyle(fontWeight: FontWeight.bold),),
+                    alignment: Alignment.centerLeft,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/dog.jpg',
+                          judul: 'Anjing Nakal',
+                          jenis: 2,
+                          ras: 'Bulldog',
+                          umur: '1 Tahun',
+                          alamat: 'Tidar, Malang',
+                          metodeAdopsi: 2,
+                        ),
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/dog.jpg',
+                          judul: 'Anjing gatau Diri',
+                          jenis: 2,
+                          ras: 'Bulldog',
+                          umur: '5 Bulan',
+                          alamat: 'Arjosari, Malang',
+                          metodeAdopsi: 1,
+                        ),
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/dog.jpg',
+                          judul: 'Anjing Kau',
+                          jenis: 2,
+                          ras: 'Bulldog',
+                          umur: '2 Tahun',
+                          alamat: 'Blimbing, Malang',
+                          metodeAdopsi: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('Kelinci', style: TextStyle(fontWeight: FontWeight.bold),),
+                    alignment: Alignment.centerLeft,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/rabbit.jpeg',
+                          judul: 'Kelinci Playboy',
+                          jenis: 2,
+                          ras: '-',
+                          umur: '1 Tahun',
+                          alamat: 'Tidar, Malang',
+                          metodeAdopsi: 2,
+                        ),
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/rabbit.jpeg',
+                          judul: 'Kelinci Pendek',
+                          jenis: 2,
+                          ras: '-',
+                          umur: '5 Bulan',
+                          alamat: 'Arjosari, Malang',
+                          metodeAdopsi: 2,
+                        ),
+                        PostAdopsiCard(
+                          imgSource: 'assets/images/rabbit.jpeg',
+                          judul: 'Kelinci loncat2',
+                          jenis: 2,
+                          ras: '-',
+                          umur: '2 Tahun',
+                          alamat: 'Blimbing, Malang',
+                          metodeAdopsi: 1,
+                        ),
                       ],
                     ),
                   ),
@@ -262,6 +306,7 @@ class _HomePageState extends State<HomePage> {
               ),
             )
           ),
+          // Custom Bottom Navigation Bar
           Positioned(
             bottom: 10,
             left: 10,
@@ -273,11 +318,11 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(15.0),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xFFa3b1c6),
-                    offset: Offset(0, 0),
-                    blurRadius: 3.0,
-                    spreadRadius: 0
-                  ),
+                    color: Colors.black12,
+                    offset: Offset(0.0, 2.0),
+                    blurRadius: 10.0,
+                    spreadRadius: 1.0
+                  )
                 ]
               ),
               padding: EdgeInsets.all(10.0),
@@ -329,6 +374,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+//  .------------------.
+// | Custom Components |=-----------------------------------------------------
+// '------------------'
 
 class CustomBottomBarButton extends StatefulWidget {
   CustomBottomBarButton({
@@ -453,17 +502,11 @@ class _MainFeatureCardState extends State<MainFeatureCard> {
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [
               BoxShadow(
-                color: Color(0xFFE6E6E6),
-                offset: Offset(0, 0),
-                blurRadius: 25.0,
-                spreadRadius: 0
-              ),
-              BoxShadow(
-                color: Color(0xFFDEDEDE),
-                offset: Offset(0, 0),
-                blurRadius: 5.0,
-                spreadRadius: 0
-              ),
+                color: Colors.grey[200],
+                offset: Offset(0.0, 2.0),
+                blurRadius: 10.0,
+                spreadRadius: 1.0
+              )
             ]
           ),
           child: Column(
@@ -477,6 +520,67 @@ class _MainFeatureCardState extends State<MainFeatureCard> {
                   child: Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                 ),
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UrgentRescueCard extends StatefulWidget {
+  UrgentRescueCard({
+    this.tipeHewan,
+    this.alamat,
+    this.deskripsi,
+  });
+
+  final int tipeHewan;
+  final String alamat;
+  final String deskripsi;
+
+  @override
+  _UrgentRescueCardState createState() => _UrgentRescueCardState();
+}
+
+class _UrgentRescueCardState extends State<UrgentRescueCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: GestureDetector(
+        onTap: (){},
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.red[400],
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          width: 250.0,
+          height: 100.0,
+          child: Stack(
+            children: <Widget>[
+              Image.asset('assets/images/BG1.png'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Icon(LineIcons.warning, size: 50.0, color: Colors.white,),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(widget.tipeHewan == 1 ? 'Kucing' : widget.tipeHewan == 2 ? 'Anjing' : widget.tipeHewan == 3 ? 'Kelinci' : 'Tidak diketahui', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
+                        Text(widget.alamat, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
+                        Text(widget.deskripsi, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
+                      ],
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),

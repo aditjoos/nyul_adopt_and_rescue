@@ -28,6 +28,7 @@ dependencies:
   flutter_spinkit: ^4.1.0
   font_awesome_flutter: ^8.5.0
   line_icons: ^0.2.0
+  flutter_icons: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
