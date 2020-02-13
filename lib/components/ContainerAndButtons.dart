@@ -87,13 +87,23 @@ class PostAdopsiCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(judul, style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text(ras),
-                      Text(umur),
+                      Text(ras+', '+umur),
                       Text(alamat),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(metodeAdopsi == 1 ? 'Paid' : 'Free', style: TextStyle(fontWeight: FontWeight.bold),), // v rabbit
+                          Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.orange[400],
+                                style: BorderStyle.solid,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(5.0)
+                            ),
+                            child: Text(metodeAdopsi == 1 ? 'Paid' : 'Free', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0),)
+                          ), // v rabbit
                           Icon(jenis == 1 ? FontAwesomeIcons.cat : jenis == 2 ? FontAwesomeIcons.dog : FontAwesomeIcons.cat, size: 15,)
                         ],
                       ),
