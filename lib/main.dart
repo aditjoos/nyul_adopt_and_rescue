@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/Pages/Home.dart';
+import 'package:petz_invention_udayana/MainPage.dart';
+// import 'package:petz_invention_udayana/Pages/Home.dart';
 import 'package:petz_invention_udayana/components/Buttons.dart';
 
 import 'components/Dialogs.dart';
@@ -121,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(height: 15.0,),
               MyIconButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => HomePage())),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage())),
                 backgroundColor: Color(0xFFff971d),
                 color: Colors.white,
                 shadowColorTopLeft: Color(0xFFffffff),

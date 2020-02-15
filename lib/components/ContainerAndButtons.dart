@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyContainer extends StatelessWidget {
-  MyContainer({this.child, this.color, this.padding});
+  MyContainer({this.child, this.color, this.padding, this.width, this.height});
 
   final Widget child;
   final Color color;
   final EdgeInsets padding;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width == null ? null : width,
+      height: height == null ? null : height,
       padding: padding,
       decoration: BoxDecoration(
         boxShadow: [
