@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/Pages/Adopsi/PostAdopsi.dart';
 import 'package:petz_invention_udayana/Pages/Feed.dart';
 import 'package:petz_invention_udayana/Pages/Home.dart';
 
@@ -10,6 +11,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int selectedPage = 0;
+  bool tambahMenuOpened = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class _MainPageState extends State<MainPage> {
                     backgroundColor: selectedPage == 0 ? Colors.orange[300] : Colors.white,
                     borderColor: Colors.orange[300],
                     icon: Icon(LineIcons.home, color: selectedPage == 0 ? Colors.white : Colors.black,),
-                    title: 'Beranda',
+                    title: 'Home',
                     onTap: (){
                       setState(() {
                         selectedPage = 0;
@@ -57,7 +59,7 @@ class _MainPageState extends State<MainPage> {
                   CustomBottomBarButton(
                     backgroundColor: selectedPage == 1 ? Colors.orange[300] : Colors.white,
                     borderColor: Colors.orange[300],
-                    icon: Icon(LineIcons.home, color: selectedPage == 1 ? Colors.white : Colors.black,),
+                    icon: Icon(LineIcons.commenting, color: selectedPage == 1 ? Colors.white : Colors.black,),
                     title: 'Feed',
                     onTap: (){
                       setState(() {
@@ -70,7 +72,11 @@ class _MainPageState extends State<MainPage> {
                     borderColor: Colors.orange[300],
                     icon: Icon(LineIcons.plus, color: Colors.black),
                     title: 'Tambah',
-                    onTap: (){},
+                    onTap: (){
+                      setState(() {
+                        tambahMenuOpened = true;
+                      });
+                    },
                   ),
                   CustomBottomBarButton(
                     backgroundColor: Colors.white,
@@ -90,6 +96,68 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
           ),
+          tambahMenuOpened ? Positioned(
+            bottom: 10,
+            child: Container(
+              // color: Colors.transparent,
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  width: (MediaQuery.of(context).size.width/5)-10,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    color: Colors.orange[300],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        offset: Offset(0.0, 2.0),
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0
+                      )
+                    ]
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      CustomBottomBarButton2(
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.orange[300],
+                        icon: Icon(LineIcons.shield, color: Colors.black),
+                        title: 'Rescue',
+                        textAndButtonPadding: 5.0,
+                        onTap: (){},
+                      ),SizedBox(height: 5.0,),
+                      CustomBottomBarButton2(
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.orange[300],
+                        icon: Icon(LineIcons.paw, color: Colors.black),
+                        title: 'Adopsi',
+                        textAndButtonPadding: 5.0,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdopsiPage())),
+                      ),SizedBox(height: 5.0,),
+                      CustomBottomBarButton2(
+                        backgroundColor: Colors.orange[300],
+                        borderColor: Colors.orange[300],
+                        icon: Icon(LineIcons.plus, color: Colors.white),
+                        title: 'Tambah',
+                        textAndButtonPadding: 10.0,
+                        onTap: (){
+                          setState(() {
+                            tambahMenuOpened = false;
+                          });
+                        },
+                      ),
+                    ],
+                  )
+                )
+              ),
+            )
+          ) : Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(),
+          )
         ],
       ),
     );
@@ -140,6 +208,55 @@ class CustomBottomBarButtonState extends State<CustomBottomBarButton> {
           ),
           SizedBox(height: 10.0,),
           Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold),)
+        ],
+      ),
+      onTap: widget.onTap,
+    );
+  }
+}
+
+class CustomBottomBarButton2 extends StatefulWidget {
+  CustomBottomBarButton2({
+    this.icon,
+    this.title,
+    this.backgroundColor,
+    this.borderColor,
+    this.onTap,
+    this.textAndButtonPadding
+  });
+
+  final Icon icon;
+  final String title;
+  final Color backgroundColor;
+  final Color borderColor;
+  final VoidCallback onTap;
+  final double textAndButtonPadding;
+
+  @override
+  CustomBottomBarButton2State createState() => CustomBottomBarButton2State();
+}
+
+class CustomBottomBarButton2State extends State<CustomBottomBarButton2> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(10.0),
+            child: widget.icon,
+            decoration: BoxDecoration(
+              color: widget.backgroundColor,
+              border: Border.all(
+                color: widget.borderColor,
+                style: BorderStyle.solid,
+                width: 2
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          SizedBox(height: widget.textAndButtonPadding,),
+          Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),)
         ],
       ),
       onTap: widget.onTap,

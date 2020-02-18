@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               MainFeatureCard(
                 assetImage: 'assets/images/adoptme-bublee.png',
-                title: 'Adopt Me',
+                title: 'Pet Me',
                 onTap: (){},
               ),
               MainFeatureCard(
