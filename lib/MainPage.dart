@@ -21,6 +21,28 @@ class _MainPageState extends State<MainPage> {
           Positioned.fill(
             child: selectedPage == 0 ? HomePage() : selectedPage == 1 ? FeedPage() : Center(child: Text('no page selected'),),
           ),
+          tambahMenuOpened ? Positioned.fill(
+            child: GestureDetector(
+              onTap: (){
+                setState(() {
+                  tambahMenuOpened = false;
+                });
+              },
+              onVerticalDragStart: (update){
+                setState(() {
+                  tambahMenuOpened = false;
+                });
+              },
+              child: Material(
+                color: Colors.transparent,
+              ),
+            ),
+          ) : Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(),
+          ),
           // Custom Bottom Navigation Bar
           Positioned(
             bottom: 10,
@@ -52,6 +74,7 @@ class _MainPageState extends State<MainPage> {
                     title: 'Home',
                     onTap: (){
                       setState(() {
+                        tambahMenuOpened = false;
                         selectedPage = 0;
                       });
                     },
@@ -63,6 +86,7 @@ class _MainPageState extends State<MainPage> {
                     title: 'Feed',
                     onTap: (){
                       setState(() {
+                        tambahMenuOpened = false;
                         selectedPage = 1;
                       });
                     },

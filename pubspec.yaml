@@ -29,11 +29,16 @@ dependencies:
   font_awesome_flutter: ^8.5.0
   line_icons: ^0.2.0
   flutter_icons: ^1.0.0+1
+  flutter_launcher_icons: "^0.7.3"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android: true 
+  ios: true
+  image_path: "assets/logo/launcher.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -52,6 +57,7 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:     
     - assets/images/
+    - assets/logo/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     ));
 
     return MaterialApp(
-      title: 'PETZ',
+      title: 'nyuL',
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
@@ -61,10 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
+        print('internet connected');
       }
     } on SocketException catch (_) {
-      print('not connected');
+      print('internet not connected');
     }
   }
 
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset('assets/images/nyul-logo.png', width: MediaQuery.of(context).size.width/2,),
+              Image.asset('assets/logo/app.png', width: MediaQuery.of(context).size.width/2,),
               SizedBox(height: 15.0,),
               TextField(
                 controller: controllerUsername,

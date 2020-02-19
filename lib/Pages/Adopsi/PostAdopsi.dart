@@ -246,6 +246,134 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
                   },
                 ),
               ),
+              SizedBox(height: 10.0,),
+              TextField(
+                // controller: controllerUsername,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  hintText: "Umur",
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+              ),
+              SizedBox(height: 10.0,),
+              MyContainer(
+                child: ListTile(
+                  title: Text('Vaksin | Pilih'),
+                  trailing: Icon(Icons.keyboard_arrow_down, color: Colors.orange,),
+                  onTap: (){
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => FunkyDialog(
+                        MyDialogTitle(title: 'Vaksin ?', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              FlatButton(
+                                child: Text('Ya'),
+                                onPressed: (){
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                              FlatButton(
+                                child: Text('Tidak'),
+                                onPressed: (){
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        MainAxisSize.min
+                      )
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 10.0,),
+              MyContainer(
+                child: ListTile(
+                  title: Text('Steril | Pilih'),
+                  trailing: Icon(Icons.keyboard_arrow_down, color: Colors.orange,),
+                  onTap: (){
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => FunkyDialog(
+                        MyDialogTitle(title: 'Steril ?', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              FlatButton(
+                                child: Text('Ya'),
+                                onPressed: (){
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                              FlatButton(
+                                child: Text('Tidak'),
+                                onPressed: (){
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        MainAxisSize.min
+                      )
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 10.0,),
+              TextField(
+                // controller: controllerUsername,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  hintText: "Alasan diadopsikan",
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+              ),
+              SizedBox(height: 10.0,),
+              TextField(
+                // controller: controllerUsername,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  hintText: "Deskripsi",
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+              ),
+              SizedBox(height: 10.0,),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.orange[400]
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(15.0),
+                    onTap: (){},
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Kirim', style: TextStyle(color: Colors.white),),
+                            Icon(LineIcons.paper_plane, color: Colors.white,)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
