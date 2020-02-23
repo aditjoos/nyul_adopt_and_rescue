@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class AdopsiPage extends StatefulWidget {
   @override
@@ -7,6 +8,17 @@ class AdopsiPage extends StatefulWidget {
 }
 
 class _AdopsiPageState extends State<AdopsiPage> {
+  
+  List data = [1,2,3,4,5];
+  bool isLoadingData = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLoadingData = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,12 +66,73 @@ class _AdopsiPageState extends State<AdopsiPage> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('1169 unggahan', style: TextStyle(color: Colors.white),)
+                        Text('${data.length} unggahan', style: TextStyle(color: Colors.white),),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5.0),
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.black12,
+                            //     offset: Offset(0.0, 2.0),
+                            //     blurRadius: 10.0,
+                            //     spreadRadius: 1.0
+                            //   )
+                            // ]
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(5.0),
+                              onTap: (){},
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(LineIcons.filter, size: 15.0,),
+                                    Text(' Filter', style: TextStyle(fontSize: 15.0),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.orange[300],
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFAFAFA),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
+                ),
+                child: !isLoadingData ? GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.660
+                  ),
+                  itemCount: data == null ? 0 : data.length,
+                  itemBuilder: (BuildContext contex, int index){
+                    return PostAdopsiCard(
+                      imgSource: 'assets/images/rabbit.jpeg',
+                      judul: 'Kelinci loncat2',
+                      jenis: 2,
+                      ras: '-',
+                      umur: '2 Tahun',
+                      alamat: 'Blimbing, Malang',
+                      metodeAdopsi: 1,
+                    );
+                  },
+                ) : Center(child: CircularProgressIndicator(),),
               ),
             ),
           ),

@@ -3,6 +3,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/PostAdopsi.dart';
 import 'package:petz_invention_udayana/Pages/Feed.dart';
 import 'package:petz_invention_udayana/Pages/Home.dart';
+import 'package:petz_invention_udayana/Pages/Rescue/PostRescue.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -126,7 +127,9 @@ class _MainPageState extends State<MainPage> {
               // color: Colors.transparent,
               width: MediaQuery.of(context).size.width,
               child: Center(
-                child: Container(
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInCirc,
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   width: (MediaQuery.of(context).size.width/5)-10,
                   decoration: BoxDecoration(
@@ -149,7 +152,13 @@ class _MainPageState extends State<MainPage> {
                         icon: Icon(LineIcons.shield, color: Colors.black),
                         title: 'Rescue',
                         textAndButtonPadding: 5.0,
-                        onTap: (){},
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => PostRescuePage()));
+
+                          setState(() {
+                            tambahMenuOpened = false;
+                          });
+                        },
                       ),SizedBox(height: 5.0,),
                       CustomBottomBarButton2(
                         backgroundColor: Colors.white,
@@ -157,7 +166,13 @@ class _MainPageState extends State<MainPage> {
                         icon: Icon(LineIcons.paw, color: Colors.black),
                         title: 'Adopsi',
                         textAndButtonPadding: 5.0,
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdopsiPage())),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdopsiPage()));
+
+                          setState(() {
+                            tambahMenuOpened = false;
+                          });
+                        },
                       ),SizedBox(height: 5.0,),
                       CustomBottomBarButton2(
                         backgroundColor: Colors.orange[300],
