@@ -30,6 +30,8 @@ dependencies:
   line_icons: ^0.2.0
   flutter_icons: ^1.0.0+1
   flutter_launcher_icons: "^0.7.3"
+  image_picker: ^0.6.3+4
+  carousel_slider: ^1.4.1
 
 dev_dependencies:
   flutter_test:

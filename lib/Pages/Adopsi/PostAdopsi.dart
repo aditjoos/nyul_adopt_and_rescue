@@ -17,12 +17,36 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 20.0,),
-              Row(
-                children: <Widget>[
-                  IconButton(icon: Icon(LineIcons.arrow_left), onPressed: () => Navigator.pop(context)),
-                  Text('Batal')
-                ],
+              SafeArea(
+                child: Row(
+                  children: <Widget>[
+                    IconButton(icon: Icon(LineIcons.close), onPressed: () => showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => FunkyDialog(
+                        Center(
+                          child: Padding(padding: EdgeInsets.only(top: 15.0), child: Text('Yakin batal?'),),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              FlatButton(onPressed: () => Navigator.pop(context), child: Text('Tidak')),
+                              FlatButton(onPressed: (){
+                                for (var i = 0; i < 2; i++) {
+                                  Navigator.pop(context);
+                                }
+                              }, child: Text('Ya')),
+                            ],
+                          ),
+                        ),
+                        MainAxisSize.min
+                      )
+                    )),
+                    Text('Batal')
+                  ],
+                ),
               ),
               Center(child: Text('Tambah Posting Adopsi', style: TextStyle(fontSize: 20.0),),),
               SizedBox(height: 20.0,),
