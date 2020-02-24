@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class AdopsiPage extends StatefulWidget {
@@ -130,6 +131,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
                       umur: '2 Tahun',
                       alamat: 'Blimbing, Malang',
                       metodeAdopsi: 1,
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
                     );
                   },
                 ) : Center(child: CircularProgressIndicator(),),

@@ -42,6 +42,7 @@ class PostAdopsiCard extends StatelessWidget {
     this.umur,
     this.alamat,
     this.metodeAdopsi,
+    this.onTap,
   });
 
   final String imgSource;
@@ -51,6 +52,7 @@ class PostAdopsiCard extends StatelessWidget {
   final String umur;
   final String alamat;
   final int metodeAdopsi;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class PostAdopsiCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(10.0),
-            onTap: (){},
+            onTap: onTap,
             child: Column(
               children: <Widget>[
                 Container(
