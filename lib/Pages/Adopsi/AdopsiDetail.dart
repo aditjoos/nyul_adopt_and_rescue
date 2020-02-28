@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
@@ -108,7 +110,14 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text('Lenna Ming', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                                    Text('Persia', style: TextStyle(color: Colors.white),),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(FontAwesomeIcons.cat, color: Colors.white, size: 10.0),
+                                        SizedBox(width: 3.0),
+                                        Text('Persia', style: TextStyle(color: Colors.white),),
+                                      ],
+                                    ),
                                   ],
                                 ),
                                 Material(
@@ -166,6 +175,9 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                             Icon(LineIcons.map_marker, color: Colors.grey, size: 15,),
                             Text('Malang kota', style: TextStyle(color: Colors.grey)),
                           ]),
+                          SizedBox(height: 5.0,),
+                          Text('Alamat lengkap'),
+                          Text('Jl. Teluk Kartini No. 666, Arjosari', style: TextStyle(color: Colors.grey)),
                         ],
                       ),
                     ),
@@ -182,7 +194,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                           SizedBox(height: 5.0,),
                           Row(
                             children: <Widget>[
-                              Text('Tipe adopsi : '),
+                              Text('Metode adopsi : '),
                               Container(
                                 padding: EdgeInsets.all(3.0),
                                 decoration: BoxDecoration(
@@ -216,6 +228,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 10.0,)
                 ],
               ),
             ),
