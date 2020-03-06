@@ -13,7 +13,9 @@ class _FeedPageState extends State<FeedPage> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          SizedBox(height: 30.0,),
+          SizedBox(height: 40.0,),
+          Center(child: Text('Feed', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),),
+          SizedBox(height: 10.0,),
           MyContainer(
             width: MediaQuery.of(context).size.width - 20,
             child: Column(

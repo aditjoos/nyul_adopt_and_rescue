@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:http/http.dart' as http;
 
 class AdopsiPage extends StatefulWidget {
   @override
@@ -10,14 +13,32 @@ class AdopsiPage extends StatefulWidget {
 
 class _AdopsiPageState extends State<AdopsiPage> {
   
-  List data = [1,2,3,4,5];
+  List data;
   bool isLoadingData = true;
+  bool isData = false;
+
+  Future getAdopsiData() async {
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/post_adopt';
+    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+
+    setState(() {
+      if(result.statusCode == 200){
+        var content = json.decode(result.body);
+        if(content['result'] = true){
+          data = content['data'];
+          isData = true;
+        }
+      }
+      isLoadingData = false;
+    });
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isLoadingData = false;
+
+    getAdopsiData();
   }
 
   @override
@@ -69,7 +90,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('${data.length} unggahan', style: TextStyle(color: Colors.white),),
+                        Text((isData ? data.length.toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -116,7 +137,8 @@ class _AdopsiPageState extends State<AdopsiPage> {
                   color: Color(0xFFFAFAFA),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
-                child: !isLoadingData ? GridView.builder(
+                child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? GridView.builder(
+                  physics: BouncingScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.660
@@ -124,17 +146,17 @@ class _AdopsiPageState extends State<AdopsiPage> {
                   itemCount: data == null ? 0 : data.length,
                   itemBuilder: (BuildContext contex, int index){
                     return PostAdopsiCard(
-                      imgSource: 'assets/images/rabbit.jpeg',
-                      judul: 'Kelinci loncat2',
-                      jenis: 2,
+                      imgSource: 'assets/images/real-cat.jpg',
+                      judul: data[index]['judul'],
+                      jenis: 1,
                       ras: '-',
-                      umur: '2 Tahun',
-                      alamat: 'Blimbing, Malang',
-                      metodeAdopsi: 1,
+                      umur: data[index]['umur'],
+                      alamat: data[index]['alamat'],
+                      metodeAdopsi: int.parse(data[index]['metode_adopsi']),
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
                     );
                   },
-                ) : Center(child: CircularProgressIndicator(),),
+                ) : Center(child: Text('Tidak ada data.'),),
               ),
             ),
           ),

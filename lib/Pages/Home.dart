@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
+import 'package:petz_invention_udayana/Pages/Feeding/FeedMe.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,10 +51,19 @@ class _HomePageState extends State<HomePage> {
                           Icon(LineIcons.bell, color: Colors.white,),
                         ],
                       ),
-                    )
-                    
+                    ),
                     //text
-
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 35, 8.0, 8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('They are people too!', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),),
+                          Text('Hidup mereka berat, bukan cuma hidup kita! Bangun skuy, jangan cuma rebahan! Mereka membutuhkan kita.', style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
+                        ],
+                      ),
+                    ),
                     //sub text -> scroll view horizontal
                   ],
                 ),
@@ -88,12 +98,13 @@ class _HomePageState extends State<HomePage> {
               MainFeatureCard(
                 assetImage: 'assets/images/feedme-bublee.png',
                 title: 'Feed Me',
-                onTap: (){},
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => FeedMePage())),
               ),
             ],
           ),
           SizedBox(height: 15.0,),
           SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
               children: <Widget>[
@@ -148,24 +159,25 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.centerLeft,
           ),
           SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
               children: <Widget>[
                 // Urgent Rescue Card
                 UrgentRescueCard(
-                  tipeHewan: 1,
+                  jenisHewan: 'Singa',
                   alamat: 'Jl. Bululawang 666',
-                  deskripsi: 'Terkapar setelah tertabrak angin',
+                  deskripsi: 'Singa lepas ke kampung sekitar.',
                 ),
                 UrgentRescueCard(
-                  tipeHewan: 2,
+                  jenisHewan: 'Kucing',
                   alamat: 'Jl. Arjosari 666',
-                  deskripsi: 'Ditikung temen, anjing emang.',
+                  deskripsi: 'Kucing terluka parah.',
                 ),
                 UrgentRescueCard(
-                  tipeHewan: 3,
+                  jenisHewan: 'Ular',
                   alamat: 'Jl. Kepanjen 666',
-                  deskripsi: 'Hilang impian setelah bangun tidur.',
+                  deskripsi: 'Ratusan ular menyerang desa warga.',
                 ),
               ],
             ),
@@ -187,12 +199,13 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.centerLeft,
           ),
           SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
               children: <Widget>[
                 PostAdopsiCard(
-                  imgSource: 'assets/images/tom.jpg',
-                  judul: 'Kucing Himalaya',
+                  imgSource: 'assets/images/real-cat.jpg',
+                  judul: 'Kucing berbulu',
                   jenis: 1,
                   ras: 'British',
                   umur: '1 Tahun',
@@ -200,8 +213,8 @@ class _HomePageState extends State<HomePage> {
                   metodeAdopsi: 1,
                 ),
                 PostAdopsiCard(
-                  imgSource: 'assets/images/tom.jpg',
-                  judul: 'Kucing India',
+                  imgSource: 'assets/images/real-cat.jpg',
+                  judul: 'Kucing Malas',
                   jenis: 1,
                   ras: 'Persia',
                   umur: '5 Bulan',
@@ -209,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                   metodeAdopsi: 2,
                 ),
                 PostAdopsiCard(
-                  imgSource: 'assets/images/tom.jpg',
+                  imgSource: 'assets/images/real-cat.jpg',
                   judul: 'Kucing Manja',
                   jenis: 1,
                   ras: 'Lokal',
@@ -226,30 +239,31 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.centerLeft,
           ),
           SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
               children: <Widget>[
                 PostAdopsiCard(
-                  imgSource: 'assets/images/dog.jpg',
-                  judul: 'Anjing Nakal',
+                  imgSource: 'assets/images/real-dog.jpg',
+                  judul: 'Anjingnya nurut',
                   jenis: 2,
-                  ras: 'Bulldog',
+                  ras: 'Kintamani',
                   umur: '1 Tahun',
                   alamat: 'Tidar, Malang',
                   metodeAdopsi: 2,
                 ),
                 PostAdopsiCard(
-                  imgSource: 'assets/images/dog.jpg',
-                  judul: 'Anjing gatau Diri',
+                  imgSource: 'assets/images/real-dog.jpg',
+                  judul: 'Warna putih',
                   jenis: 2,
-                  ras: 'Bulldog',
+                  ras: 'Siberian Husky',
                   umur: '5 Bulan',
                   alamat: 'Arjosari, Malang',
                   metodeAdopsi: 1,
                 ),
                 PostAdopsiCard(
-                  imgSource: 'assets/images/dog.jpg',
-                  judul: 'Anjing Kau',
+                  imgSource: 'assets/images/real-dog.jpg',
+                  judul: 'Anjing bulldog besar',
                   jenis: 2,
                   ras: 'Bulldog',
                   umur: '2 Tahun',
@@ -265,12 +279,13 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.centerLeft,
           ),
           SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
               children: <Widget>[
                 PostAdopsiCard(
-                  imgSource: 'assets/images/rabbit.jpeg',
-                  judul: 'Kelinci Playboy',
+                  imgSource: 'assets/images/real-rabbit.jpg',
+                  judul: 'Kelinci warna putih',
                   jenis: 2,
                   ras: '-',
                   umur: '1 Tahun',
@@ -278,8 +293,8 @@ class _HomePageState extends State<HomePage> {
                   metodeAdopsi: 2,
                 ),
                 PostAdopsiCard(
-                  imgSource: 'assets/images/rabbit.jpeg',
-                  judul: 'Kelinci Pendek',
+                  imgSource: 'assets/images/real-rabbit.jpg',
+                  judul: 'Kelinci',
                   jenis: 2,
                   ras: '-',
                   umur: '5 Bulan',
@@ -287,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                   metodeAdopsi: 2,
                 ),
                 PostAdopsiCard(
-                  imgSource: 'assets/images/rabbit.jpeg',
+                  imgSource: 'assets/images/real-rabbit.jpg',
                   judul: 'Kelinci loncat2',
                   jenis: 2,
                   ras: '-',
@@ -409,12 +424,12 @@ class _MainFeatureCardState extends State<MainFeatureCard> {
 
 class UrgentRescueCard extends StatefulWidget {
   UrgentRescueCard({
-    this.tipeHewan,
+    this.jenisHewan,
     this.alamat,
     this.deskripsi,
   });
 
-  final int tipeHewan;
+  final String jenisHewan;
   final String alamat;
   final String deskripsi;
 
@@ -452,7 +467,7 @@ class _UrgentRescueCardState extends State<UrgentRescueCard> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(widget.tipeHewan == 1 ? 'Kucing' : widget.tipeHewan == 2 ? 'Anjing' : widget.tipeHewan == 3 ? 'Kelinci' : 'Tidak diketahui', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
+                        Text(widget.jenisHewan, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
                         Text(widget.alamat, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
                         Text(widget.deskripsi, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
                       ],
