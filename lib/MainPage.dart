@@ -13,10 +13,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int selectedPage = 0;
   bool tambahMenuOpened = false;
+  double _tambahMenuHeight = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.orange[400],
       body: Stack(
         children: <Widget>[
           Positioned.fill(
@@ -27,11 +29,13 @@ class _MainPageState extends State<MainPage> {
               onTap: (){
                 setState(() {
                   tambahMenuOpened = false;
+                  _tambahMenuHeight = 0;
                 });
               },
               onVerticalDragStart: (update){
                 setState(() {
                   tambahMenuOpened = false;
+                  _tambahMenuHeight = 0;
                 });
               },
               child: Material(
@@ -77,6 +81,7 @@ class _MainPageState extends State<MainPage> {
                       setState(() {
                         tambahMenuOpened = false;
                         selectedPage = 0;
+                        _tambahMenuHeight = 0;
                       });
                     },
                   ),
@@ -89,6 +94,7 @@ class _MainPageState extends State<MainPage> {
                       setState(() {
                         tambahMenuOpened = false;
                         selectedPage = 1;
+                        _tambahMenuHeight = 0;
                       });
                     },
                   ),
@@ -100,6 +106,7 @@ class _MainPageState extends State<MainPage> {
                     onTap: (){
                       setState(() {
                         tambahMenuOpened = true;
+                        _tambahMenuHeight = 250.0;
                       });
                     },
                   ),
@@ -121,16 +128,18 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
           ),
-          tambahMenuOpened ? Positioned(
+          // tambahMenuOpened ? 
+          Positioned(
             bottom: 10,
             child: Container(
               // color: Colors.transparent,
               width: MediaQuery.of(context).size.width,
               child: Center(
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeInCirc,
+                  duration: Duration(milliseconds: 700),
+                  curve: Curves.easeInOutCubic,
                   padding: EdgeInsets.symmetric(vertical: 10.0),
+                  height: _tambahMenuHeight,
                   width: (MediaQuery.of(context).size.width/5)-10,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
@@ -144,59 +153,75 @@ class _MainPageState extends State<MainPage> {
                       )
                     ]
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      CustomBottomBarButton2(
-                        backgroundColor: Colors.white,
-                        borderColor: Colors.orange[300],
-                        icon: Icon(LineIcons.shield, color: Colors.black),
-                        title: 'Rescue',
-                        textAndButtonPadding: 5.0,
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => PostRescuePage()));
+                  child: SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Container(
+                      // color: Colors.blue,
+                      height: 230.0,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          CustomBottomBarButton2(
+                            backgroundColor: Colors.white,
+                            borderColor: Colors.orange[300],
+                            icon: Icon(LineIcons.shield, color: Colors.black),
+                            title: 'Rescue',
+                            textAndButtonPadding: 5.0,
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => PostRescuePage()));
 
-                          setState(() {
-                            tambahMenuOpened = false;
-                          });
-                        },
-                      ),SizedBox(height: 5.0,),
-                      CustomBottomBarButton2(
-                        backgroundColor: Colors.white,
-                        borderColor: Colors.orange[300],
-                        icon: Icon(LineIcons.paw, color: Colors.black),
-                        title: 'Adopsi',
-                        textAndButtonPadding: 5.0,
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdopsiPage()));
+                              setState(() {
+                                tambahMenuOpened = false;
+                                _tambahMenuHeight = 0;
+                              });
+                            },
+                          ),
+                          // SizedBox(height: 5.0,),
+                          CustomBottomBarButton2(
+                            backgroundColor: Colors.white,
+                            borderColor: Colors.orange[300],
+                            icon: Icon(LineIcons.paw, color: Colors.black),
+                            title: 'Adopsi',
+                            textAndButtonPadding: 5.0,
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => PostAdopsiPage()));
 
-                          setState(() {
-                            tambahMenuOpened = false;
-                          });
-                        },
-                      ),SizedBox(height: 5.0,),
-                      CustomBottomBarButton2(
-                        backgroundColor: Colors.orange[300],
-                        borderColor: Colors.orange[300],
-                        icon: Icon(LineIcons.plus, color: Colors.white),
-                        title: 'Tambah',
-                        textAndButtonPadding: 10.0,
-                        onTap: (){
-                          setState(() {
-                            tambahMenuOpened = false;
-                          });
-                        },
+                              setState(() {
+                                tambahMenuOpened = false;
+                                _tambahMenuHeight = 0;
+                              });
+                            },
+                          ),
+                          // SizedBox(height: 5.0,),
+                          // Expanded(child: Container()),
+                          CustomBottomBarButton2(
+                            backgroundColor: Colors.orange[300],
+                            borderColor: Colors.orange[300],
+                            icon: Icon(LineIcons.plus, color: Colors.white),
+                            title: 'Tambah',
+                            textAndButtonPadding: 10.0,
+                            onTap: (){
+                              setState(() {
+                                tambahMenuOpened = false;
+                                _tambahMenuHeight = 0;
+                              });
+                            },
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   )
                 )
               ),
             )
-          ) : Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(),
           )
+          //  : Positioned(
+          //   bottom: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: Container(),
+          // )
         ],
       ),
     );

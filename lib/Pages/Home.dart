@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         children: <Widget>[
           Stack(
@@ -82,238 +83,245 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          Text('Eksplorasi.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Color(0xFF606060)),),
-          Row(
-            children: <Widget>[
-              MainFeatureCard(
-                assetImage: 'assets/images/adoptme-bublee.png',
-                title: 'Pet Me',
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiPage())),
-              ),
-              MainFeatureCard(
-                assetImage: 'assets/images/saveme-bublee.png',
-                title: 'Save Me',
-                onTap: (){},
-              ),
-              MainFeatureCard(
-                assetImage: 'assets/images/feedme-bublee.png',
-                title: 'Feed Me',
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => FeedMePage())),
-              ),
-            ],
-          ),
-          SizedBox(height: 15.0,),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: <Widget>[
-                SizedBox(width: 20.0,),
-                CustomIconButtonWithTitle(
-                  backgroundColor: Colors.white,
-                  borderColor: Colors.orange[300],
-                  icon: Icon(FontAwesomeIcons.briefcaseMedical),
-                  onTap: (){},
-                  title: 'Dokter',
-                ),
-                SizedBox(width: 20.0,),
-                CustomIconButtonWithTitle(
-                  backgroundColor: Colors.white,
-                  borderColor: Colors.orange[300],
-                  icon: Icon(FontAwesomeIcons.shoppingBag),
-                  onTap: (){},
-                  title: 'Pet Shop',
-                ),
-                SizedBox(width: 20.0,),
-                CustomIconButtonWithTitle(
-                  backgroundColor: Colors.white,
-                  borderColor: Colors.orange[300],
-                  icon: Icon(FontAwesomeIcons.archive),
-                  onTap: (){},
-                  title: 'Shelter',
-                ),
-                SizedBox(width: 20.0,),
-                CustomIconButtonWithTitle(
-                  backgroundColor: Colors.white,
-                  borderColor: Colors.orange[300],
-                  icon: Icon(FontAwesomeIcons.cat),
-                  onTap: (){},
-                  title: 'Cattery',
-                ),
-                SizedBox(width: 20.0,),
-                CustomIconButtonWithTitle(
-                  backgroundColor: Colors.white,
-                  borderColor: Colors.orange[300],
-                  icon: Icon(FontAwesomeIcons.fileContract),
-                  onTap: (){},
-                  title: 'Riwayat',
-                ),
-                SizedBox(width: 20.0,),
-              ],
-            ),
-          ),
-          SizedBox(height: 15.0,),
           Container(
-            padding: EdgeInsets.all(10.0),
-            child: Text('Hewan kondisi darurat disekitarmu', style: TextStyle(fontWeight: FontWeight.bold),),
-            alignment: Alignment.centerLeft,
-          ),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: Row(
+            color: Color(0xFFFAFAFA),
+            child: Column(
               children: <Widget>[
-                // Urgent Rescue Card
-                UrgentRescueCard(
-                  jenisHewan: 'Singa',
-                  alamat: 'Jl. Bululawang 666',
-                  deskripsi: 'Singa lepas ke kampung sekitar.',
+                Text('Eksplorasi.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Color(0xFF606060)),),
+                Row(
+                  children: <Widget>[
+                    MainFeatureCard(
+                      assetImage: 'assets/images/adoptme-bublee.png',
+                      title: 'Pet Me',
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiPage())),
+                    ),
+                    MainFeatureCard(
+                      assetImage: 'assets/images/saveme-bublee.png',
+                      title: 'Save Me',
+                      onTap: (){},
+                    ),
+                    MainFeatureCard(
+                      assetImage: 'assets/images/feedme-bublee.png',
+                      title: 'Feed Me',
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => FeedMePage())),
+                    ),
+                  ],
                 ),
-                UrgentRescueCard(
-                  jenisHewan: 'Kucing',
-                  alamat: 'Jl. Arjosari 666',
-                  deskripsi: 'Kucing terluka parah.',
+                SizedBox(height: 15.0,),
+                SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(width: 20.0,),
+                      CustomIconButtonWithTitle(
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.orange[300],
+                        icon: Icon(FontAwesomeIcons.briefcaseMedical),
+                        onTap: (){},
+                        title: 'Dokter',
+                      ),
+                      SizedBox(width: 20.0,),
+                      CustomIconButtonWithTitle(
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.orange[300],
+                        icon: Icon(FontAwesomeIcons.shoppingBag),
+                        onTap: (){},
+                        title: 'Pet Shop',
+                      ),
+                      SizedBox(width: 20.0,),
+                      CustomIconButtonWithTitle(
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.orange[300],
+                        icon: Icon(FontAwesomeIcons.archive),
+                        onTap: (){},
+                        title: 'Shelter',
+                      ),
+                      SizedBox(width: 20.0,),
+                      CustomIconButtonWithTitle(
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.orange[300],
+                        icon: Icon(FontAwesomeIcons.cat),
+                        onTap: (){},
+                        title: 'Cattery',
+                      ),
+                      SizedBox(width: 20.0,),
+                      CustomIconButtonWithTitle(
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.orange[300],
+                        icon: Icon(FontAwesomeIcons.fileContract),
+                        onTap: (){},
+                        title: 'Riwayat',
+                      ),
+                      SizedBox(width: 20.0,),
+                    ],
+                  ),
                 ),
-                UrgentRescueCard(
-                  jenisHewan: 'Ular',
-                  alamat: 'Jl. Kepanjen 666',
-                  deskripsi: 'Ratusan ular menyerang desa warga.',
+                SizedBox(height: 15.0,),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Hewan kondisi darurat disekitarmu', style: TextStyle(fontWeight: FontWeight.bold),),
+                  alignment: Alignment.centerLeft,
                 ),
+                SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      // Urgent Rescue Card
+                      UrgentRescueCard(
+                        jenisHewan: 'Singa',
+                        alamat: 'Jl. Bululawang 666',
+                        deskripsi: 'Singa lepas ke kampung sekitar.',
+                      ),
+                      UrgentRescueCard(
+                        jenisHewan: 'Kucing',
+                        alamat: 'Jl. Arjosari 666',
+                        deskripsi: 'Kucing terluka parah.',
+                      ),
+                      UrgentRescueCard(
+                        jenisHewan: 'Ular',
+                        alamat: 'Jl. Kepanjen 666',
+                        deskripsi: 'Ratusan ular menyerang desa warga.',
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+                  color: Colors.orange[400],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Postingan adopsi terbaru', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),),
+                      Icon(LineIcons.paw, color: Colors.white),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold),),
+                  alignment: Alignment.centerLeft,
+                ),
+                SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-cat.jpg',
+                        judul: 'Kucing berbulu',
+                        jenis: 1,
+                        ras: 'British',
+                        umur: '1 Tahun',
+                        alamat: 'Tidar, Malang',
+                        metodeAdopsi: 1,
+                      ),
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-cat.jpg',
+                        judul: 'Kucing Malas',
+                        jenis: 1,
+                        ras: 'Persia',
+                        umur: '5 Bulan',
+                        alamat: 'Arjosari, Malang',
+                        metodeAdopsi: 2,
+                      ),
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-cat.jpg',
+                        judul: 'Kucing Manja',
+                        jenis: 1,
+                        ras: 'Lokal',
+                        umur: '2 Tahun',
+                        alamat: 'Blimbing, Malang',
+                        metodeAdopsi: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Anjing', style: TextStyle(fontWeight: FontWeight.bold),),
+                  alignment: Alignment.centerLeft,
+                ),
+                SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-dog.jpg',
+                        judul: 'Anjingnya nurut',
+                        jenis: 2,
+                        ras: 'Kintamani',
+                        umur: '1 Tahun',
+                        alamat: 'Tidar, Malang',
+                        metodeAdopsi: 2,
+                      ),
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-dog.jpg',
+                        judul: 'Warna putih',
+                        jenis: 2,
+                        ras: 'Siberian Husky',
+                        umur: '5 Bulan',
+                        alamat: 'Arjosari, Malang',
+                        metodeAdopsi: 1,
+                      ),
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-dog.jpg',
+                        judul: 'Anjing bulldog besar',
+                        jenis: 2,
+                        ras: 'Bulldog',
+                        umur: '2 Tahun',
+                        alamat: 'Blimbing, Malang',
+                        metodeAdopsi: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Kelinci', style: TextStyle(fontWeight: FontWeight.bold),),
+                  alignment: Alignment.centerLeft,
+                ),
+                SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-rabbit.jpg',
+                        judul: 'Kelinci warna putih',
+                        jenis: 2,
+                        ras: '-',
+                        umur: '1 Tahun',
+                        alamat: 'Tidar, Malang',
+                        metodeAdopsi: 2,
+                      ),
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-rabbit.jpg',
+                        judul: 'Kelinci',
+                        jenis: 2,
+                        ras: '-',
+                        umur: '5 Bulan',
+                        alamat: 'Arjosari, Malang',
+                        metodeAdopsi: 2,
+                      ),
+                      PostAdopsiCard(
+                        imgSource: 'assets/images/real-rabbit.jpg',
+                        judul: 'Kelinci loncat2',
+                        jenis: 2,
+                        ras: '-',
+                        umur: '2 Tahun',
+                        alamat: 'Blimbing, Malang',
+                        metodeAdopsi: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 120.0,)
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-            color: Colors.orange[400],
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Postingan adopsi terbaru', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),),
-                Icon(LineIcons.paw, color: Colors.white),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold),),
-            alignment: Alignment.centerLeft,
-          ),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: <Widget>[
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-cat.jpg',
-                  judul: 'Kucing berbulu',
-                  jenis: 1,
-                  ras: 'British',
-                  umur: '1 Tahun',
-                  alamat: 'Tidar, Malang',
-                  metodeAdopsi: 1,
-                ),
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-cat.jpg',
-                  judul: 'Kucing Malas',
-                  jenis: 1,
-                  ras: 'Persia',
-                  umur: '5 Bulan',
-                  alamat: 'Arjosari, Malang',
-                  metodeAdopsi: 2,
-                ),
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-cat.jpg',
-                  judul: 'Kucing Manja',
-                  jenis: 1,
-                  ras: 'Lokal',
-                  umur: '2 Tahun',
-                  alamat: 'Blimbing, Malang',
-                  metodeAdopsi: 1,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: Text('Anjing', style: TextStyle(fontWeight: FontWeight.bold),),
-            alignment: Alignment.centerLeft,
-          ),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: <Widget>[
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-dog.jpg',
-                  judul: 'Anjingnya nurut',
-                  jenis: 2,
-                  ras: 'Kintamani',
-                  umur: '1 Tahun',
-                  alamat: 'Tidar, Malang',
-                  metodeAdopsi: 2,
-                ),
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-dog.jpg',
-                  judul: 'Warna putih',
-                  jenis: 2,
-                  ras: 'Siberian Husky',
-                  umur: '5 Bulan',
-                  alamat: 'Arjosari, Malang',
-                  metodeAdopsi: 1,
-                ),
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-dog.jpg',
-                  judul: 'Anjing bulldog besar',
-                  jenis: 2,
-                  ras: 'Bulldog',
-                  umur: '2 Tahun',
-                  alamat: 'Blimbing, Malang',
-                  metodeAdopsi: 1,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: Text('Kelinci', style: TextStyle(fontWeight: FontWeight.bold),),
-            alignment: Alignment.centerLeft,
-          ),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: <Widget>[
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-rabbit.jpg',
-                  judul: 'Kelinci warna putih',
-                  jenis: 2,
-                  ras: '-',
-                  umur: '1 Tahun',
-                  alamat: 'Tidar, Malang',
-                  metodeAdopsi: 2,
-                ),
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-rabbit.jpg',
-                  judul: 'Kelinci',
-                  jenis: 2,
-                  ras: '-',
-                  umur: '5 Bulan',
-                  alamat: 'Arjosari, Malang',
-                  metodeAdopsi: 2,
-                ),
-                PostAdopsiCard(
-                  imgSource: 'assets/images/real-rabbit.jpg',
-                  judul: 'Kelinci loncat2',
-                  jenis: 2,
-                  ras: '-',
-                  umur: '2 Tahun',
-                  alamat: 'Blimbing, Malang',
-                  metodeAdopsi: 1,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 120.0,)
         ],
       ),
     );
