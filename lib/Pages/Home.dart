@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
-import 'package:petz_invention_udayana/Pages/Feeding/FeedMe.dart';
+import 'package:petz_invention_udayana/Pages/Events/Events.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class HomePage extends StatefulWidget {
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                     MainFeatureCard(
                       assetImage: 'assets/images/feedme-bublee.png',
                       title: 'Feed Me',
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => FeedMePage())),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => EventsPage())),
                     ),
                   ],
                 ),
