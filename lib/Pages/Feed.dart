@@ -28,7 +28,7 @@ class _FeedPageState extends State<FeedPage> {
                     leading: CircleAvatar(
                       radius: 20.0,
                       backgroundImage:
-                          NetworkImage('https://via.placeholder.com/100'),
+                          NetworkImage('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/66/66adceda7ade28d229597b106eda2735d15f8c27_full.jpg'),
                       backgroundColor: Colors.transparent,
                     ),
                     title: Text('Bagus Muhaiminul Aziz'),
@@ -87,7 +87,7 @@ class _FeedPageState extends State<FeedPage> {
                     leading: CircleAvatar(
                       radius: 20.0,
                       backgroundImage:
-                          NetworkImage('https://via.placeholder.com/100'),
+                          NetworkImage('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/66/66adceda7ade28d229597b106eda2735d15f8c27_full.jpg'),
                       backgroundColor: Colors.transparent,
                     ),
                     title: Text('Bagus Muhaiminul Aziz'),

@@ -60,8 +60,8 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                 SafeArea(
                   child: Row(
                     children: <Widget>[
-                      IconButton(icon: Icon(LineIcons.arrow_left), onPressed: () => Navigator.pop(context)),
-                      Text('Kembali')
+                      IconButton(icon: Icon(LineIcons.arrow_left, color: Colors.white,), onPressed: () => Navigator.pop(context)),
+                      Text('Kembali', style: TextStyle(color: Colors.white),)
                     ],
                   ),
                 ),

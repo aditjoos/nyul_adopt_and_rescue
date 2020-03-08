@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
+import 'package:petz_invention_udayana/Pages/Dokter/Dokter.dart';
 import 'package:petz_invention_udayana/Pages/Events/Events.dart';
+import 'package:petz_invention_udayana/Pages/Rescue/Rescue.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class HomePage extends StatefulWidget {
@@ -92,17 +94,17 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     MainFeatureCard(
                       assetImage: 'assets/images/adoptme-bublee.png',
-                      title: 'Pet Me',
+                      title: 'Adoption',
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiPage())),
                     ),
                     MainFeatureCard(
                       assetImage: 'assets/images/saveme-bublee.png',
-                      title: 'Save Me',
-                      onTap: (){},
+                      title: 'Rescue',
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescuePage())),
                     ),
                     MainFeatureCard(
                       assetImage: 'assets/images/feedme-bublee.png',
-                      title: 'Feed Me',
+                      title: 'Feeding',
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => EventsPage())),
                     ),
                   ],
@@ -118,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor: Colors.white,
                         borderColor: Colors.orange[300],
                         icon: Icon(FontAwesomeIcons.briefcaseMedical),
-                        onTap: (){},
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DokterPage())),
                         title: 'Dokter',
                       ),
                       SizedBox(width: 20.0,),

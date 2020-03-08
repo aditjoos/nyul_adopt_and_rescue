@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/Pages/Account.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/PostAdopsi.dart';
 import 'package:petz_invention_udayana/Pages/Feed.dart';
 import 'package:petz_invention_udayana/Pages/Home.dart';
@@ -22,7 +23,7 @@ class _MainPageState extends State<MainPage> {
       body: Stack(
         children: <Widget>[
           Positioned.fill(
-            child: selectedPage == 0 ? HomePage() : selectedPage == 1 ? FeedPage() : Center(child: Text('no page selected'),),
+            child: selectedPage == 0 ? HomePage() : selectedPage == 1 ? FeedPage() : selectedPage == 3 ? AccountPage() : Center(child: Text('no page selected'),),
           ),
           tambahMenuOpened ? Positioned.fill(
             child: GestureDetector(
@@ -118,11 +119,17 @@ class _MainPageState extends State<MainPage> {
                     onTap: (){},
                   ),
                   CustomBottomBarButton(
-                    backgroundColor: Colors.white,
+                    backgroundColor: selectedPage == 3 ? Colors.orange[300] : Colors.white,
                     borderColor: Colors.orange[300],
-                    icon: Icon(LineIcons.user, color: Colors.black),
+                    icon: Icon(LineIcons.user, color: selectedPage == 3 ? Colors.white : Colors.black,),
                     title: 'Akun',
-                    onTap: (){},
+                    onTap: (){
+                      setState(() {
+                        tambahMenuOpened = false;
+                        selectedPage = 3;
+                        _tambahMenuHeight = 0;
+                      });
+                    },
                   ),
                 ],
               ),

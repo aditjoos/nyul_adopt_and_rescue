@@ -2,24 +2,23 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
-import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:http/http.dart' as http;
+import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 
-class AdopsiPage extends StatefulWidget {
+class RescuePage extends StatefulWidget {
   @override
-  _AdopsiPageState createState() => _AdopsiPageState();
+  _RescuePageState createState() => _RescuePageState();
 }
 
-class _AdopsiPageState extends State<AdopsiPage> {
-  
+class _RescuePageState extends State<RescuePage> {
+
   List data;
   bool isLoadingData = true;
   bool isData = false;
 
   Future getAdopsiData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/post_adopt?fungsi=1';
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/Post_rescue';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {
@@ -72,26 +71,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
                           focusColor: Colors.black38,
                           highlightColor: Colors.black12,
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: Container(
-                              // width: MediaQuery.of(context).size.width - 100,
-                              padding: EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text('Cari ', style: TextStyle(fontWeight: FontWeight.bold),),
-                                  Icon(LineIcons.search)
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        Text('Kembali', style: TextStyle(color: Colors.white),),
                       ],
                     ),
                   ),
@@ -105,14 +85,6 @@ class _AdopsiPageState extends State<AdopsiPage> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5.0),
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.black12,
-                            //     offset: Offset(0.0, 2.0),
-                            //     blurRadius: 10.0,
-                            //     spreadRadius: 1.0
-                            //   )
-                            // ]
                           ),
                           child: Material(
                             color: Colors.transparent,
@@ -147,36 +119,51 @@ class _AdopsiPageState extends State<AdopsiPage> {
                   color: Color(0xFFFAFAFA),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
-                child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? GridView.builder(
+                child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.660
-                  ),
                   itemCount: data == null ? 0 : data.length-1,
                   itemBuilder: (BuildContext contex, int index){
-                    return PostAdopsiCard(
-                      imgSource: 'assets/images/real-cat.jpg',
-                      judul: data[index]['judul'],
-                      jenis: 1,
-                      ras: '-',
-                      umur: data[index]['umur'],
-                      alamat: data[index]['alamat'],
-                      metodeAdopsi: int.parse(data[index]['metode_adopsi']),
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
+                      child: MyContainer(
+                        padding: EdgeInsets.all(20.0),
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(5.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: data[index]['urgensi'] == "1" ? Colors.red : data[index]['urgensi'] == "2" ? Colors.yellow[700] : data[index]['urgensi'] == "3" ? Colors.green : Colors.black,
+                                  ),
+                                  child: Text(data[index]['urgensi'] == "1" ? 'Darurat' : data[index]['urgensi'] == "2" ? 'Sedang' : data[index]['urgensi'] == "3" ? 'Rendah' : '-', style: TextStyle(color: Colors.white)),
+                                ),
+                                Text(' '+data[index]['judul'], style: TextStyle(fontWeight: FontWeight.bold),),
+                              ],
+                            ),
+                            SizedBox(height: 10.0,),
+                            Text(data[index]['deskripsi'], style: TextStyle(color: Colors.grey),),
+                            SizedBox(height: 10.0,),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(data[index]['tanggal_posting']),
+                                Text(data[index]['alamat_detail']),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     );
                   },
                 ) : Center(child: Text('Tidak ada data.'),),
               ),
             ),
           ),
-          // Positioned(
-          //   child: Container(
-          //     child: SingleChildScrollView(
-          //       //
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );

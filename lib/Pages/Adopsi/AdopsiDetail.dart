@@ -1,10 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
-import 'package:petz_invention_udayana/components/Dialogs.dart';
 
 class AdopsiDetailPage extends StatefulWidget {
   @override
