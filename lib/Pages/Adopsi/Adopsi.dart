@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -45,10 +46,21 @@ class _AdopsiPageState extends State<AdopsiPage> {
     });
   }
 
+  void checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        getAdopsiData();
+      }
+    } on SocketException catch (_) {
+      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    getAdopsiData();
+    checkConnectionThenExecuteLoadDataFunction();
   }
 
   @override
@@ -100,7 +112,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text((isData ? data.length.toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
+                        Text((isData ? (data.length-1).toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,

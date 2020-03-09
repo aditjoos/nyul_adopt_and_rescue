@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/Pages/AccountTambah.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class AccountPage extends StatefulWidget {
@@ -119,7 +120,7 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                               SizedBox(height: 10.0,),
                               Text('bella.negara@email.com', style: TextStyle(color: Colors.grey),),
                               Text('081009xxxxxx', style: TextStyle(color: Colors.grey),),
-                              Text('Jl. Teluk Buntu 666', style: TextStyle(color: Colors.grey),),
+                              Text('Jl. Teluk Buntu 001', style: TextStyle(color: Colors.grey),),
                             ],
                           ),
                         ),
@@ -212,7 +213,7 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                           color: Colors.transparent,
                           child: InkWell(
                             borderRadius: BorderRadius.circular(10.0),
-                            onTap: (){},
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AccountTambahPage())),
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Center(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -17,7 +18,7 @@ class _RescuePageState extends State<RescuePage> {
   bool isLoadingData = true;
   bool isData = false;
 
-  Future getAdopsiData() async {
+  Future getRescueData() async {
     final String url = 'http://nyul.kumpulan-soal.com/index.php/Post_rescue';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
@@ -44,10 +45,21 @@ class _RescuePageState extends State<RescuePage> {
     });
   }
 
+  void checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        getRescueData();
+      }
+    } on SocketException catch (_) {
+      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    getAdopsiData();
+    checkConnectionThenExecuteLoadDataFunction();
   }
 
   @override

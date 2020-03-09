@@ -5,6 +5,7 @@ import 'package:petz_invention_udayana/Pages/Adopsi/PostAdopsi.dart';
 import 'package:petz_invention_udayana/Pages/Feed.dart';
 import 'package:petz_invention_udayana/Pages/Home.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/PostRescue.dart';
+import 'package:petz_invention_udayana/components/Dialogs.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -116,7 +117,7 @@ class _MainPageState extends State<MainPage> {
                     borderColor: Colors.orange[300],
                     icon: Icon(LineIcons.paw, color: Colors.black),
                     title: 'My Pet',
-                    onTap: (){},
+                    onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
                   ),
                   CustomBottomBarButton(
                     backgroundColor: selectedPage == 3 ? Colors.orange[300] : Colors.white,

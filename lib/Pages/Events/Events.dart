@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:petz_invention_udayana/components/Dialogs.dart';
 import 'package:petz_invention_udayana/components/WidgetBuilder.dart';
 import 'package:http/http.dart' as http;
 
@@ -35,11 +37,22 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
     });
   }
 
+  void checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        getFeedMeData();
+      }
+    } on SocketException catch (_) {
+      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    getFeedMeData();
+    checkConnectionThenExecuteLoadDataFunction();
   }
 
   @override
