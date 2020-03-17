@@ -35,6 +35,7 @@ class _DokterPageState extends State<DokterPage> {
                       ],
                     ),
                   ),
+                  Center(child: Text('Dokter Hewan', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),),),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -92,9 +93,12 @@ class _DokterPageState extends State<DokterPage> {
                           color: Colors.transparent,
                           child: ListTile(
                             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DokterDetailPage())),
-                            leading: CircleAvatar(
-                              radius: 20.0,
-                              backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
+                            leading: Hero(
+                              tag: 'dokter_foto',
+                              child: CircleAvatar(
+                                radius: 20.0,
+                                backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
+                              ),
                             ),
                             title: Text('Megumi Kobayashi', style: TextStyle(fontWeight: FontWeight.bold),),
                             subtitle: Column(

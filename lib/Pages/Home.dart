@@ -4,8 +4,10 @@ import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
 import 'package:petz_invention_udayana/Pages/Dokter/Dokter.dart';
 import 'package:petz_invention_udayana/Pages/Events/Events.dart';
+import 'package:petz_invention_udayana/Pages/PetShop/PetShop.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/Rescue.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:petz_invention_udayana/components/Dialogs.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -128,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor: Colors.white,
                         borderColor: Colors.orange[300],
                         icon: Icon(FontAwesomeIcons.shoppingBag),
-                        onTap: (){},
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopPage())),
                         title: 'Pet Shop',
                       ),
                       SizedBox(width: 20.0,),
@@ -136,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor: Colors.white,
                         borderColor: Colors.orange[300],
                         icon: Icon(FontAwesomeIcons.archive),
-                        onTap: (){},
+                        onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
                         title: 'Shelter',
                       ),
                       SizedBox(width: 20.0,),
@@ -144,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor: Colors.white,
                         borderColor: Colors.orange[300],
                         icon: Icon(FontAwesomeIcons.cat),
-                        onTap: (){},
+                        onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
                         title: 'Cattery',
                       ),
                       SizedBox(width: 20.0,),
@@ -152,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor: Colors.white,
                         borderColor: Colors.orange[300],
                         icon: Icon(FontAwesomeIcons.fileContract),
-                        onTap: (){},
+                        onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
                         title: 'Riwayat',
                       ),
                       SizedBox(width: 20.0,),

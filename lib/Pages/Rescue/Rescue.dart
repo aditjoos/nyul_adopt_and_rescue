@@ -87,6 +87,7 @@ class _RescuePageState extends State<RescuePage> {
                       ],
                     ),
                   ),
+                  Center(child: Text('Rescue', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),),),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(

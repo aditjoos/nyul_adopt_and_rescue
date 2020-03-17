@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:petz_invention_udayana/components/Dialogs.dart';
 
 class DokterDetailPage extends StatefulWidget {
   @override
@@ -75,9 +76,12 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                         Container(
                           width: 100.0,
                           height: 100.0,
-                          child: CircleAvatar(
-                            radius: 20.0,
-                            backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
+                          child: Hero(
+                            tag: 'dokter_foto',
+                            child: CircleAvatar(
+                              radius: 20.0,
+                              backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
+                            ),
                           ),
                         ),
                         SizedBox(width: 10.0,),
@@ -183,7 +187,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                                 Material(
                                   color: Colors.transparent,
                                   child: InkWell(
-                                    onTap: (){},
+                                    onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
                                     child: Padding(
                                       padding: EdgeInsets.all(5.0),
                                       child: Row(
@@ -380,9 +384,21 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
             ),
             child: Row(
               children: <Widget>[
-                Expanded(child: FlatButton(color: Colors.orange[400], onPressed: (){}, child: Text('Chat Dokter', style: TextStyle(color: Colors.white)))),
+                Expanded(
+                  child: FlatButton(
+                    color: Colors.orange[400],
+                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
+                    child: Text('Chat Dokter', style: TextStyle(color: Colors.white))
+                  )
+                ),
                 SizedBox(width: 10.0,),
-                Expanded(child: FlatButton(color: Colors.orange[400], onPressed: (){}, child: Text('Pemesanan', style: TextStyle(color: Colors.white)))),
+                Expanded(
+                  child: FlatButton(
+                    color: Colors.orange[400],
+                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
+                    child: Text('Pemesanan', style: TextStyle(color: Colors.white))
+                  )
+                ),
               ],
             ),
           )

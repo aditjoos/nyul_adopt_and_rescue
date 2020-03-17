@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/MainPage.dart';
-// import 'package:petz_invention_udayana/Pages/Home.dart';
 import 'package:petz_invention_udayana/components/Buttons.dart';
+import 'package:petz_invention_udayana/sqlite/helper.dart';
+import 'package:petz_invention_udayana/sqlite/model.dart';
 
 import 'components/Dialogs.dart';
 
@@ -38,8 +39,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  TextEditingController controllerUsername = TextEditingController();
-  TextEditingController controllerPassword = TextEditingController();
+  var db = new DatabaseHelper();
+
+  static String usernameText;
+  static String passwordText;
+  static int isWelcomeText;
+
+  TextEditingController controllerUsername;
+  TextEditingController controllerPassword;
 
   void myShowDialog(){
     showDialog(
@@ -68,10 +75,38 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Future checkUserBaru() async{
+    await db.checkUser();
+  }
+
+  void getUsername() async{
+    List resultArray = await db.getUser();
+    usernameText = resultArray[1];
+    passwordText = resultArray[2];
+    isWelcomeText = resultArray[3];
+
+    setState(() {
+      controllerUsername = TextEditingController(text: usernameText);
+      controllerPassword = TextEditingController(text: passwordText);
+    });
+    // print(usernameText);
+  }
+
+  Future updateUserLoginCredential() async{
+    String usernameInput = controllerUsername.text;
+    String passwordInput = controllerPassword.text;
+
+    var dbModel = new DatabaseModel(1, usernameInput, passwordInput, isWelcomeText);
+    await db.updateUser(dbModel);
+  }
+
   @override
   void initState() {
     super.initState();
     checkConnection();
+
+    checkUserBaru();
+    getUsername();
   }
 
   @override
@@ -122,7 +157,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(height: 15.0,),
               MyIconButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage())),
+                onPressed: (){
+                  updateUserLoginCredential();
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage()));
+                },
                 backgroundColor: Color(0xFFff971d),
                 color: Colors.white,
                 shadowColorTopLeft: Color(0xFFffffff),
