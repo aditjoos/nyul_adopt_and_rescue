@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
+import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
 import 'package:petz_invention_udayana/Pages/Dokter/Dokter.dart';
 import 'package:petz_invention_udayana/Pages/Events/Events.dart';
 import 'package:petz_invention_udayana/Pages/PetShop/PetShop.dart';
@@ -15,6 +20,97 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  //Variable for Get Adopt
+  List data;
+  bool isLoadingData = true;
+  bool isData = false;
+
+  //Variable for Get Rescue
+  List data2;
+  bool isLoadingData2 = true;
+  bool isData2 = false;
+
+  Future getRescueDaruratData() async {
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/Post_rescue_home?urgensi=1';
+    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+
+    setState(() {
+      if(result.statusCode == 200){
+        var content = json.decode(result.body);
+        if(content['result'] = true){
+          data2 = content['data'];
+          isData2 = true;
+          print(data2);
+        }else if(content['result'] = false){
+          showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (_) => FunkyOverlay(
+              content['data'],
+              [
+                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+              ]
+            )
+          );
+        }
+      }
+      isLoadingData2 = false;
+    });
+  }
+
+  //TODO :
+  //belum pakai where jenis hewan 
+  Future getAdopsiData() async {
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/post_adopt?fungsi=1';
+    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+
+    setState(() {
+      if(result.statusCode == 200){
+        var content = json.decode(result.body);
+        if(content['result'] = true){
+          data = content['data'];
+          isData = true;
+        }else if(content['result'] = false){
+          showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (_) => FunkyOverlay(
+              content['data'],
+              [
+                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+              ]
+            )
+          );
+        }
+      }
+      isLoadingData = false;
+    });
+  }
+
+  void checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        //TODO :
+        //manggil banyak function
+        // 1. get adopsi jenis kucing
+        // 2. get adopsi jenis anjing
+        // 3. get adopsi jenis kelinci
+        getRescueDaruratData();
+        getAdopsiData();
+      }
+    } on SocketException catch (_) {
+      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectionThenExecuteLoadDataFunction();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -51,7 +147,6 @@ class _HomePageState extends State<HomePage> {
                           ),
 
                           //Actions Bar
-                          Icon(LineIcons.envelope, color: Colors.white,),
                           Icon(LineIcons.heart, color: Colors.white,),
                           Icon(LineIcons.bell, color: Colors.white,),
                         ],
@@ -90,6 +185,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             color: Color(0xFFFAFAFA),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text('Eksplorasi.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Color(0xFF606060)),),
                 Row(
@@ -167,30 +263,24 @@ class _HomePageState extends State<HomePage> {
                   child: Text('Hewan kondisi darurat disekitarmu', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      // Urgent Rescue Card
-                      UrgentRescueCard(
-                        jenisHewan: 'Singa',
-                        alamat: 'Jl. Bululawang 666',
-                        deskripsi: 'Singa lepas ke kampung sekitar.',
-                      ),
-                      UrgentRescueCard(
-                        jenisHewan: 'Kucing',
-                        alamat: 'Jl. Arjosari 666',
-                        deskripsi: 'Kucing terluka parah.',
-                      ),
-                      UrgentRescueCard(
-                        jenisHewan: 'Ular',
-                        alamat: 'Jl. Kepanjen 666',
-                        deskripsi: 'Ratusan ular menyerang desa warga.',
-                      ),
-                    ],
+                isLoadingData2 ? Center(child: CircularProgressIndicator(),) : isData2 ? SizedBox(
+                  height: 120.0,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data2 == null ? 0 : data2.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return UrgentRescueCard(
+                        jenisHewan: data2[index]['Jenis_hewan'],
+                        alamat: data2[index]['alamat_detail'],
+                        judul: data2[index]['judul'],
+                        // jenisHewan: 'test',
+                        // alamat: 'test',
+                        // judul: 'test',
+                      );
+                    },
                   ),
-                ),
+                ) : Center(child: Text('Tidak ada data.'),),
                 Container(
                   padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
                   color: Colors.orange[400],
@@ -207,121 +297,76 @@ class _HomePageState extends State<HomePage> {
                   child: Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      PostAdopsiCard(
+                isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? SizedBox(
+                  height: 250.0,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data == null ? 0 : data.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return PostAdopsiCard(
                         imgSource: 'assets/images/real-cat.jpg',
-                        judul: 'Kucing berbulu',
+                        judul: data[index]['judul'],
                         jenis: 1,
-                        ras: 'British',
-                        umur: '1 Tahun',
-                        alamat: 'Tidar, Malang',
-                        metodeAdopsi: 1,
-                      ),
-                      PostAdopsiCard(
-                        imgSource: 'assets/images/real-cat.jpg',
-                        judul: 'Kucing Malas',
-                        jenis: 1,
-                        ras: 'Persia',
-                        umur: '5 Bulan',
-                        alamat: 'Arjosari, Malang',
-                        metodeAdopsi: 2,
-                      ),
-                      PostAdopsiCard(
-                        imgSource: 'assets/images/real-cat.jpg',
-                        judul: 'Kucing Manja',
-                        jenis: 1,
-                        ras: 'Lokal',
-                        umur: '2 Tahun',
-                        alamat: 'Blimbing, Malang',
-                        metodeAdopsi: 1,
-                      ),
-                    ],
+                        ras: '-',
+                        umur: data[index]['umur'],
+                        alamat: data[index]['alamat'],
+                        metodeAdopsi: int.parse(data[index]['metode_adopsi']),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
+                      );
+                    },
                   ),
-                ),
+                ) : Center(child: Text('Tidak ada data.'),),
                 Container(
                   padding: EdgeInsets.all(10.0),
                   child: Text('Anjing', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      PostAdopsiCard(
+                isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? SizedBox(
+                  height: 250.0,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data == null ? 0 : data.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return PostAdopsiCard(
                         imgSource: 'assets/images/real-dog.jpg',
-                        judul: 'Anjingnya nurut',
-                        jenis: 2,
-                        ras: 'Kintamani',
-                        umur: '1 Tahun',
-                        alamat: 'Tidar, Malang',
-                        metodeAdopsi: 2,
-                      ),
-                      PostAdopsiCard(
-                        imgSource: 'assets/images/real-dog.jpg',
-                        judul: 'Warna putih',
-                        jenis: 2,
-                        ras: 'Siberian Husky',
-                        umur: '5 Bulan',
-                        alamat: 'Arjosari, Malang',
-                        metodeAdopsi: 1,
-                      ),
-                      PostAdopsiCard(
-                        imgSource: 'assets/images/real-dog.jpg',
-                        judul: 'Anjing bulldog besar',
-                        jenis: 2,
-                        ras: 'Bulldog',
-                        umur: '2 Tahun',
-                        alamat: 'Blimbing, Malang',
-                        metodeAdopsi: 1,
-                      ),
-                    ],
+                        judul: data[index]['judul'],
+                        jenis: 1,
+                        ras: '-',
+                        umur: data[index]['umur'],
+                        alamat: data[index]['alamat'],
+                        metodeAdopsi: int.parse(data[index]['metode_adopsi']),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
+                      );
+                    },
                   ),
-                ),
+                ) : Center(child: Text('Tidak ada data.'),),
                 Container(
                   padding: EdgeInsets.all(10.0),
                   child: Text('Kelinci', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      PostAdopsiCard(
+                isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? SizedBox(
+                  height: 250.0,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data == null ? 0 : data.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return PostAdopsiCard(
                         imgSource: 'assets/images/real-rabbit.jpg',
-                        judul: 'Kelinci warna putih',
-                        jenis: 2,
+                        judul: data[index]['judul'],
+                        jenis: 1,
                         ras: '-',
-                        umur: '1 Tahun',
-                        alamat: 'Tidar, Malang',
-                        metodeAdopsi: 2,
-                      ),
-                      PostAdopsiCard(
-                        imgSource: 'assets/images/real-rabbit.jpg',
-                        judul: 'Kelinci',
-                        jenis: 2,
-                        ras: '-',
-                        umur: '5 Bulan',
-                        alamat: 'Arjosari, Malang',
-                        metodeAdopsi: 2,
-                      ),
-                      PostAdopsiCard(
-                        imgSource: 'assets/images/real-rabbit.jpg',
-                        judul: 'Kelinci loncat2',
-                        jenis: 2,
-                        ras: '-',
-                        umur: '2 Tahun',
-                        alamat: 'Blimbing, Malang',
-                        metodeAdopsi: 1,
-                      ),
-                    ],
+                        umur: data[index]['umur'],
+                        alamat: data[index]['alamat'],
+                        metodeAdopsi: int.parse(data[index]['metode_adopsi']),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
+                      );
+                    },
                   ),
-                ),
+                ) : Center(child: Text('Tidak ada data.'),),
                 SizedBox(height: 120.0,)
               ],
             ),
@@ -434,22 +479,16 @@ class _MainFeatureCardState extends State<MainFeatureCard> {
   }
 }
 
-class UrgentRescueCard extends StatefulWidget {
+class UrgentRescueCard extends StatelessWidget {
   UrgentRescueCard({
     this.jenisHewan,
     this.alamat,
-    this.deskripsi,
+    this.judul,
   });
 
   final String jenisHewan;
   final String alamat;
-  final String deskripsi;
-
-  @override
-  _UrgentRescueCardState createState() => _UrgentRescueCardState();
-}
-
-class _UrgentRescueCardState extends State<UrgentRescueCard> {
+  final String judul;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -479,9 +518,9 @@ class _UrgentRescueCardState extends State<UrgentRescueCard> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(widget.jenisHewan, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
-                        Text(widget.alamat, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
-                        Text(widget.deskripsi, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
+                        Text(jenisHewan, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color: Colors.white)),
+                        Text(alamat, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white)),
+                        Text(judul, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0, color: Colors.white))
                       ],
                     ),
                   )

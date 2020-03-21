@@ -46,8 +46,6 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                     //Actions Bar
                     Row(
                       children: <Widget>[
-                        Icon(LineIcons.envelope, color: Colors.white,),
-                        SizedBox(width: 10.0,),
                         Icon(LineIcons.heart, color: Colors.white,),
                         SizedBox(width: 10.0,),
                         Icon(LineIcons.bell, color: Colors.white,),

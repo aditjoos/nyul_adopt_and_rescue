@@ -77,6 +77,7 @@ class PostAdopsiCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
             onTap: onTap,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   width: 150.0,

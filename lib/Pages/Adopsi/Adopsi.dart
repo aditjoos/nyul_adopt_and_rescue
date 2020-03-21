@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
-import 'package:http/http.dart' as http;
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 
 class AdopsiPage extends StatefulWidget {
@@ -165,7 +165,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
                     crossAxisCount: 2,
                     childAspectRatio: 0.660
                   ),
-                  itemCount: data == null ? 0 : data.length-1,
+                  itemCount: data == null ? 0 : data.length,
                   itemBuilder: (BuildContext contex, int index){
                     return PostAdopsiCard(
                       imgSource: 'assets/images/real-cat.jpg',

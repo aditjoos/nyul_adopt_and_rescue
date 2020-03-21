@@ -49,6 +49,7 @@ class _RescuePageState extends State<RescuePage> {
     try {
       final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        // Lakukan getRescueData ketika ada internet
         getRescueData();
       }
     } on SocketException catch (_) {
@@ -134,7 +135,7 @@ class _RescuePageState extends State<RescuePage> {
                 ),
                 child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: data == null ? 0 : data.length-1,
+                  itemCount: data == null ? 0 : data.length,
                   itemBuilder: (BuildContext contex, int index){
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
