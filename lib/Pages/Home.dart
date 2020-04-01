@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         if(content['result'] = true){
           data2 = content['data'];
           isData2 = true;
-          print(data2);
+          // print(data2);
         }else if(content['result'] = false){
           showDialog(
             barrierDismissible: true,

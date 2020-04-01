@@ -3,8 +3,5 @@
 		{
 			"path": "."
 		}
-	],
-	"settings": {
-		"dart.flutterSdkPath": "/home/aditjoos/FlutterSDK/flutter"
-	}
+	]
 }

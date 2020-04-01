@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/Pages/PetShop/PetShopDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class PetShopPage extends StatefulWidget {
@@ -105,7 +106,7 @@ class _PetShopPageState extends State<PetShopPage> {
                         color: Colors.transparent,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10.0),
-                          onTap: (){},
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopDetailPage())),
                           child: Row(
                             children: <Widget>[
                               Container(
@@ -139,7 +140,7 @@ class _PetShopPageState extends State<PetShopPage> {
                         color: Colors.transparent,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10.0),
-                          onTap: (){},
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopDetailPage())),
                           child: Row(
                             children: <Widget>[
                               Container(
@@ -147,7 +148,7 @@ class _PetShopPageState extends State<PetShopPage> {
                                 height: 60.0,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.network('https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg', fit: BoxFit.fill,)
+                                  child: Hero(tag: 'petshop_image', child: Image.network('https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg', fit: BoxFit.fill,))
                                 ),
                               ),
                               SizedBox(width: 10.0,),
@@ -173,7 +174,7 @@ class _PetShopPageState extends State<PetShopPage> {
                         color: Colors.transparent,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10.0),
-                          onTap: (){},
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopDetailPage())),
                           child: Row(
                             children: <Widget>[
                               Container(
