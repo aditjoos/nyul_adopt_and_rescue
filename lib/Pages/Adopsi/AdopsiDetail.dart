@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/Pages/Pesan/PesanUser.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class AdopsiDetailPage extends StatefulWidget {
@@ -245,7 +246,13 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
             ),
             child: Row(
               children: <Widget>[
-                Expanded(child: FlatButton(color: Colors.orange[400], onPressed: (){}, child: Text('Chat Pemilik', style: TextStyle(color: Colors.white)))),
+                Expanded(
+                  child: FlatButton(
+                    color: Colors.orange[400],
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PesanUser())),
+                    child: Text('Chat Pemilik',style: TextStyle(color: Colors.white))
+                  )
+                ),
                 SizedBox(width: 10.0,),
                 Expanded(child: FlatButton(color: Colors.orange[400], onPressed: (){}, child: Text('Adopsi Sekarang', style: TextStyle(color: Colors.white)))),
               ],
