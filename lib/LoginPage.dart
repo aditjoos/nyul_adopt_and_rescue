@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:http/http.dart' as http;
 import 'package:petz_invention_udayana/MainPage.dart';
 import 'package:petz_invention_udayana/components/Buttons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 import 'package:petz_invention_udayana/sqlite/helper.dart';
 import 'package:petz_invention_udayana/sqlite/model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -23,13 +26,12 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController controllerUsername;
   TextEditingController controllerPassword;
 
-  void myShowDialog(){
+  void myShowDialog(String text){
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (_) => FunkyOverlay('Petz!', [
+      builder: (_) => FunkyOverlay(text, [
         FlatButton(
-          color: Colors.indigo[300],
           child: Text('OK'),
           onPressed: (){
             Navigator.pop(context);
@@ -67,11 +69,50 @@ class _LoginPageState extends State<LoginPage> {
     // print(usernameText);
   }
 
-  Future updateUserLoginCredential() async{
+  Future checkLogin() async{
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) => FunkyLoading(),
+    );
+
     String usernameInput = controllerUsername.text;
     String passwordInput = controllerPassword.text;
 
-    var dbModel = new DatabaseModel(1, usernameInput, passwordInput, isWelcomeText);
+    String url = 'http://nyul.kumpulan-soal.com/index.php/member_login?username='+usernameInput+'&password='+passwordInput;
+    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+    var content = json.decode(result.body);
+
+    if (result.statusCode == 200){
+      if (content['result'] == true){
+        var data = content['data'];
+
+        bool id = data[0]['id'] == null ? false : true;
+        bool username = data[0]['username'] == null ? false : true;
+        bool password = data[0]['password'] == null ? false : true;
+
+        if(id && username && password){
+          Navigator.pop(context);
+
+          updateUserLoginCredential(usernameInput, passwordInput);
+
+          Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage()));
+        }else{
+          Navigator.pop(context);
+          myShowDialog('Username atau Passwordmu salah, periksa kembali.');
+        }
+      }else if (content['result'] == false){
+        Navigator.pop(context);
+        myShowDialog('Username atau Passwordmu salah, periksa kembali.');
+      }
+    }else{
+      Navigator.pop(context);
+      myShowDialog('Username atau Passwordmu salah, periksa kembali.\n\n ' + content['result'].toString() +', '+ result.statusCode.toString());
+    }
+  }
+
+  Future updateUserLoginCredential(String username, String password) async {
+    var dbModel = new DatabaseModel(1, username, password, isWelcomeText);
     await db.updateUser(dbModel);
   }
 
@@ -133,8 +174,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 15.0,),
               MyIconButton(
                 onPressed: (){
-                  updateUserLoginCredential();
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage()));
+                  checkLogin();
                 },
                 backgroundColor: Color(0xFFff971d),
                 color: Colors.white,
