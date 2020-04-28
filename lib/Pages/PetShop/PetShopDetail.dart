@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:petz_invention_udayana/Pages/Pesan/PesanUser.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 
 class PetShopDetailPage extends StatefulWidget {
@@ -106,7 +107,7 @@ class _PetShopDetailPageState extends State<PetShopDetailPage> {
                         FlatButton(
                           color: Colors.white,
                           textColor: Colors.black87,
-                          onPressed: (){},
+                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PesanUser())),
                           child: Text('Chat')
                         ),
                         SizedBox(width: 25.0,),
@@ -147,7 +148,7 @@ class _PetShopDetailPageState extends State<PetShopDetailPage> {
                       ),
                       MyContainer(
                         padding: EdgeInsets.all(10.0),
-                        child: Center(child: Text('Kesehatam')),
+                        child: Center(child: Text('Kesehatan')),
                         width: MediaQuery.of(context).size.width / 3 - 20.0,
                         height: 50.0,
                       ),

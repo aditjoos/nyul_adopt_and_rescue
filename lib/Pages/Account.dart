@@ -184,6 +184,17 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                           ),
                           width: double.infinity,
                         ),
+                        SizedBox(height: 20.0,),
+                        Center(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () => Navigator.pop(context), // TODO : page ini digabung sama LoginPage.dart
+                              borderRadius: BorderRadius.circular(25.0),
+                              child: Padding(padding: EdgeInsets.all(10.0), child: Text('Keluar', style: TextStyle(fontSize: 18.0, color: Colors.red,))),
+                            ),
+                          ),
+                        ),
                         SizedBox(height: 120.0,),
                       ],
                     ),

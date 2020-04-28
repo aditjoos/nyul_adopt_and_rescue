@@ -6,6 +6,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:petz_invention_udayana/MainPage.dart';
 import 'package:petz_invention_udayana/components/Buttons.dart';
+import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 import 'package:petz_invention_udayana/sqlite/helper.dart';
 import 'package:petz_invention_udayana/sqlite/model.dart';
@@ -125,125 +126,351 @@ class _LoginPageState extends State<LoginPage> {
     getUsername();
   }
 
+  bool isRegister = false;
+  bool isPilihProvinsi = false;
+  bool isPilihKota = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Image.asset('assets/logo/app.png', width: MediaQuery.of(context).size.width/2,),
-              SizedBox(height: 15.0,),
-              TextField(
-                controller: controllerUsername,
-                // initialValue: snapshot.hasData ? dbModel[0].user : "",
-                obscureText: false,
-                style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    hintText: "Username",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
-              ),
-              SizedBox(height: 15.0,),
-              TextField(
-                controller: controllerPassword,
-                obscureText: true,
-                style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    hintText: "Password",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
-              ),
-              SizedBox(height: 15.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Lupa password? ', style: TextStyle(color: Colors.black54,)),
-                  GestureDetector(
-                    onTap: (){},
-                    child: Text('Dapatkan bantuan. ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[400],)),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15.0,),
-              MyIconButton(
-                onPressed: (){
-                  checkLogin();
-                },
-                backgroundColor: Color(0xFFff971d),
-                color: Colors.white,
-                shadowColorTopLeft: Color(0xFFffffff),
-                shadowColorBottomRight: Color(0xFFa3b1c6),
-                text: 'Masuk',
-                icon: Icon(LineIcons.paper_plane, color: Colors.white,),
-              ),
-              SizedBox(height: 15.0,),
-              Row(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: <Widget>[
+            SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+              child: !isRegister ? Column(
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black54,
-                      height: 1.0,
-                      thickness: 1.0,
-                    ),
+                  SizedBox(height: 30.0,),
+                  SafeArea(child: Image.asset('assets/logo/app.png', width: MediaQuery.of(context).size.width/2,)),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    controller: controllerUsername,
+                    // initialValue: snapshot.hasData ? dbModel[0].user : "",
+                    obscureText: false,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Username",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
                   ),
-                  Text(' atau ', style: TextStyle(color: Colors.black54,)),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black54,
-                      height: 1.0,
-                      thickness: 1.0,
-                    ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    controller: controllerPassword,
+                    obscureText: true,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Password",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: <Widget>[
+                  //     Text('Lupa password? ', style: TextStyle(color: Colors.black54,)),
+                  //     GestureDetector(
+                  //       onTap: (){},
+                  //       child: Text('Dapatkan bantuan. ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[400],)),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(height: 15.0,),
+                  MyIconButton(
+                    onPressed: (){
+                      checkLogin();
+                    },
+                    backgroundColor: Color(0xFFff971d),
+                    color: Colors.white,
+                    shadowColorTopLeft: Color(0xFFffffff),
+                    shadowColorBottomRight: Color(0xFFa3b1c6),
+                    text: 'Masuk',
+                    icon: Icon(LineIcons.paper_plane, color: Colors.white,),
+                  ),
+                  SizedBox(height: 15.0,),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Belum punya akun? ', style: TextStyle(color: Colors.black54,)),
+                      InkWell(
+                        onTap: () => setState(() => isRegister = true),
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
+                          child: Text('Buat akun baru.', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[400],))
+                        ),
+                      )
+                    ],
                   ),
                 ],
-              ),
-              SizedBox(height: 15.0,),
-              Row(
-                mainAxisSize: MainAxisSize.max,
+              ) : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  SafeArea(
+                    child: Container(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 15.0,),
+                          Text('Daftar akun baru', style: TextStyle(color: Colors.black87, fontSize: 20, fontWeight: FontWeight.bold)),
+                          Text('Isi data dirimu terlebih dahulu.', style: TextStyle(color: Colors.black54, fontSize: 16))
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    obscureText: false,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Nama",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    obscureText: false,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Email",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    obscureText: false,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "No. HP",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    obscureText: false,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Alamat",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
+                  MyContainer(
+                    width: double.infinity,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () => setState(() => isPilihProvinsi = true),
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Padding(padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0), child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('Pilih Provinsi', style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),),
+                            Icon(LineIcons.angle_right, color: Colors.orange,)
+                          ],
+                        ),),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15.0,),
+                  MyContainer(
+                    width: double.infinity,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () => setState(() => isPilihKota = true ),
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Padding(padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0), child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('Pilih Kota', style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),),
+                            Icon(LineIcons.angle_right, color: Colors.orange,)
+                          ],
+                        ),),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    obscureText: false,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Username",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    obscureText: true,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Password",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
+                  TextField(
+                    obscureText: true,
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        hintText: "Ketik ulang Password",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  ),
+                  SizedBox(height: 15.0,),
                   MyIconButton(
-                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Hi', [FlatButton(onPressed: (){}, child: Text('OK'))])),
-                    backgroundColor: Colors.blue[800],
+                    onPressed: (){},
+                    backgroundColor: Color(0xFFff971d),
                     color: Colors.white,
                     shadowColorTopLeft: Color(0xFFffffff),
                     shadowColorBottomRight: Color(0xFFa3b1c6),
-                    text: 'Facebook',
-                    icon: Icon(LineIcons.facebook, color: Colors.white,),
+                    text: 'Daftar',
+                    icon: Icon(LineIcons.check, color: Colors.white,),
                   ),
-                  SizedBox(width: 15.0,),
-                  MyIconButton(
-                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Hi', [FlatButton(onPressed: (){}, child: Text('OK'))])),
-                    backgroundColor: Colors.red[600],
-                    color: Colors.white,
-                    shadowColorTopLeft: Color(0xFFffffff),
-                    shadowColorBottomRight: Color(0xFFa3b1c6),
-                    text: 'Google',
-                    icon: Icon(LineIcons.google, color: Colors.white,),
+                  SizedBox(height: 15.0,),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Sudah punya akun? ', style: TextStyle(color: Colors.black54,)),
+                      InkWell(
+                        onTap: () => setState(() => isRegister = false),
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
+                          child: Text('Login.', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[400],))
+                        ),
+                      )
+                    ],
                   ),
+                  SizedBox(height: 15.0,),
                 ],
               ),
-              SizedBox(height: 15.0,),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+            ),
+            isPilihProvinsi ? Positioned.fill(
+              child: Column(
                 children: <Widget>[
-                  Text('Lupa kata sandi?', style: TextStyle(color: Colors.black54,)),
-                  Text('Buat akun baru', style: TextStyle(color: Colors.black54,)),
+                  Expanded(
+                    child: GestureDetector(
+                      onVerticalDragDown: (update) => setState(() => isPilihProvinsi = false),
+                      onTap: () => setState(() => isPilihProvinsi = false),
+                      child: Container(
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        Row(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+                          Text('Batal'),
+                          Material(color: Colors.transparent, child: InkWell(
+                            onTap: () => setState(() => isPilihProvinsi = false),
+                            borderRadius: BorderRadius.circular(25.0),
+                            child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.close),),
+                          ),),
+                        ],),
+                        Container(
+                          height: 250.0,
+                          child: ListView(
+                            physics: BouncingScrollPhysics(),
+                            children: <Widget>[
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jakarta Barat',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jakarta Pusat',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jakarta Tengah',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jakarta Selatan',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Tangerang',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jawa Barat',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jawa Tengan',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jawa Timur',),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
-            ],
-          ),
+            ) : isPilihKota ? Positioned.fill(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: GestureDetector(
+                      onVerticalDragDown: (update) => setState(() => isPilihKota = false),
+                      onTap: () => setState(() => isPilihKota = false),
+                      child: Container(
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        Row(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+                          Text('Batal'),
+                          Material(color: Colors.transparent, child: InkWell(
+                            onTap: () => setState(() => isPilihKota = false),
+                            borderRadius: BorderRadius.circular(25.0),
+                            child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.close),),
+                          ),),
+                        ],),
+                        Container(
+                          height: 250.0,
+                          child: ListView(
+                            physics: BouncingScrollPhysics(),
+                            children: <Widget>[
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Surabaya',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Lumajang',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Jember',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Kediri',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Kab. Probolinggo',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Kab. Pasuruan',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Kab. Malang',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Kota Pasuruan',),
+                              ListViewItemsProvinsi(onTap: (){}, text: 'Kota Malang',),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ) : Container(),
+          ],
         ),
       ),
     );
+  }
+}
+
+class ListViewItemsProvinsi extends StatelessWidget {
+  ListViewItemsProvinsi({this.onTap, this.text});
+
+  final VoidCallback onTap;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(color: Colors.transparent, child: InkWell(
+      onTap: onTap, child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(10.0),
+        child: Center(child: Text(text)),
+      ),
+    ),);
   }
 }

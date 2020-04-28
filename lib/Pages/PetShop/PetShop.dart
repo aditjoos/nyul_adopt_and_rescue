@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/PetShop/PetShopDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:petz_invention_udayana/components/Dialogs.dart';
 
 class PetShopPage extends StatefulWidget {
   @override
@@ -9,6 +14,55 @@ class PetShopPage extends StatefulWidget {
 }
 
 class _PetShopPageState extends State<PetShopPage> {
+  
+  List data;
+  bool isLoadingData = true;
+  bool isData = false;
+
+  Future getListDokter() async {
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/member/?tipe=4';
+    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+
+    setState(() {
+      if(result.statusCode == 200){
+        var content = json.decode(result.body);
+        if(content['result'] = true){
+          data = content['data'];
+          isData = true;
+        }else if(content['result'] = false){
+          showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (_) => FunkyOverlay(
+              content['data'],
+              [
+                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+              ]
+            )
+          );
+        }
+      }
+      isLoadingData = false;
+    });
+  }
+
+  void checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        getListDokter();
+      }
+    } on SocketException catch (_) {
+      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectionThenExecuteLoadDataFunction();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +112,7 @@ class _PetShopPageState extends State<PetShopPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('5 PetShop didekatmu', style: TextStyle(color: Colors.white),),
+                        Text(data != null ? data.length.toString() + ' PetShop' : (0).toString() + ' PetShop', style: TextStyle(color: Colors.white),),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -97,117 +151,69 @@ class _PetShopPageState extends State<PetShopPage> {
                   color: Color(0xFFFAFAFA),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
-                child: ListView(
+                child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ?  ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.all(10.0),
-                  children: <Widget>[
-                    MyContainer(
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(10.0),
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopDetailPage())),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 60.0,
-                                height: 60.0,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.network('https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg', fit: BoxFit.fill,)
-                                ),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text('Pet Abadi Jaya', style: TextStyle(fontWeight: FontWeight.bold),),
-                                  Text('Jl. Merdaka 45', style: TextStyle(color: Colors.grey),),
-                                  Text('Kota Malang', style: TextStyle(color: Colors.grey),),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      width: double.infinity,
-                    ),
-                    SizedBox(height: 10.0,),
-                    MyContainer(
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(10.0),
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopDetailPage())),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 60.0,
-                                height: 60.0,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Hero(tag: 'petshop_image', child: Image.network('https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg', fit: BoxFit.fill,))
-                                ),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text('Pet Abadi Jaya', style: TextStyle(fontWeight: FontWeight.bold),),
-                                  Text('Jl. Merdaka 45', style: TextStyle(color: Colors.grey),),
-                                  Text('Kota Malang', style: TextStyle(color: Colors.grey),),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      width: double.infinity,
-                    ),
-                    SizedBox(height: 10.0,),
-                    MyContainer(
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(10.0),
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopDetailPage())),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 60.0,
-                                height: 60.0,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.network('https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg', fit: BoxFit.fill,)
-                                ),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Text('Pet Abadi Jaya', style: TextStyle(fontWeight: FontWeight.bold),),
-                                  Text('Jl. Merdaka 45', style: TextStyle(color: Colors.grey),),
-                                  Text('Kota Malang', style: TextStyle(color: Colors.grey),),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      width: double.infinity,
-                    ),
-                  ],
-                ),
+                  itemCount: data == null ? 0 : data.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return PetShopContainer(
+                      foto: 'https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg',
+                      nama: data[index]['nama'],
+                      alamat: data[index]['alamat'],
+                    );
+                  },
+                ) : Center(child: Text('Tidak ada data.'),),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class PetShopContainer extends StatelessWidget {
+  PetShopContainer({this.foto, this.nama, this.alamat});
+
+  final String foto;
+  final String nama;
+  final String alamat;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
+      child: MyContainer(
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10.0),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopDetailPage())),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 60.0,
+                  height: 60.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.network(foto, fit: BoxFit.fill,)
+                  ),
+                ),
+                SizedBox(width: 10.0,),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(nama, style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text(alamat, style: TextStyle(color: Colors.grey),),
+                    // Text('Kota Malang', style: TextStyle(color: Colors.grey),),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        width: double.infinity,
       ),
     );
   }

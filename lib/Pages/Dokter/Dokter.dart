@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Dokter/DokterDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:petz_invention_udayana/components/Dialogs.dart';
 
 class DokterPage extends StatefulWidget {
   @override
@@ -9,6 +14,54 @@ class DokterPage extends StatefulWidget {
 }
 
 class _DokterPageState extends State<DokterPage> {
+
+  List data;
+  bool isLoadingData = true;
+  bool isData = false;
+
+  Future getListDokter() async {
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/member/?tipe=3';
+    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+
+    setState(() {
+      if(result.statusCode == 200){
+        var content = json.decode(result.body);
+        if(content['result'] = true){
+          data = content['data'];
+          isData = true;
+        }else if(content['result'] = false){
+          showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (_) => FunkyOverlay(
+              content['data'],
+              [
+                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+              ]
+            )
+          );
+        }
+      }
+      isLoadingData = false;
+    });
+  }
+
+  void checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        getListDokter();
+      }
+    } on SocketException catch (_) {
+      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectionThenExecuteLoadDataFunction();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +95,7 @@ class _DokterPageState extends State<DokterPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         // Text((isData ? data.length.toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
-                        Text('5 Dokter', style: TextStyle(color: Colors.white),),
+                        Text(data != null ? data.length.toString() + ' Dokter' : (0).toString() + ' Dokter', style: TextStyle(color: Colors.white),),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -81,50 +134,67 @@ class _DokterPageState extends State<DokterPage> {
                   color: Color(0xFFFAFAFA),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
-                child: ListView(
+                child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ?  ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
-                      child: MyContainer(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Material(
-                          color: Colors.transparent,
-                          child: ListTile(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DokterDetailPage())),
-                            leading: Hero(
-                              tag: 'dokter_foto',
-                              child: CircleAvatar(
-                                radius: 20.0,
-                                backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
-                              ),
-                            ),
-                            title: Text('Megumi Kobayashi', style: TextStyle(fontWeight: FontWeight.bold),),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text('[Deskripsi] Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', style: TextStyle(color: Colors.grey)),
-                                SizedBox(height: 10.0,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Icon(LineIcons.map_marker, size: 15.0,),
-                                    Text('Malang'),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  itemCount: data == null ? 0 : data.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return DokterContainer(
+                      foto: 'https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg',
+                      nama: data[index]['nama'],
+                      email: data[index]['email'],
+                      kab: data[index]['alamat'],
+                    );
+                  },
+                ) : Center(child: Text('Tidak ada data.'),),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DokterContainer extends StatelessWidget {
+  DokterContainer({this.foto, this.nama, this.email, this.kab});
+
+  final String foto;
+  final String nama;
+  final String email;
+  final String kab;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
+      child: MyContainer(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 10.0),
+        child: Material(
+          color: Colors.transparent,
+          child: ListTile(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DokterDetailPage())),
+            leading: CircleAvatar(
+              radius: 20.0,
+              backgroundImage: NetworkImage(foto),
+            ),
+            title: Text(nama, style: TextStyle(fontWeight: FontWeight.bold),),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(email, style: TextStyle(color: Colors.grey)),
+                SizedBox(height: 10.0,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(LineIcons.map_marker, size: 15.0,),
+                    Text(kab),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

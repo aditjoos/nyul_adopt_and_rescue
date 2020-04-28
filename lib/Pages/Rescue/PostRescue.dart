@@ -48,6 +48,7 @@ class _PostRescuePageState extends State<PostRescuePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.all(10.0),
           child: Column(
@@ -116,7 +117,7 @@ class _PostRescuePageState extends State<PostRescuePage> {
                                   child: Row(
                                     children: <Widget>[
                                       Text('ubah'),
-                                      Icon(LineIcons.pencil)
+                                      Icon(LineIcons.map)
                                     ],
                                   ),
                                 ),
@@ -186,7 +187,7 @@ class _PostRescuePageState extends State<PostRescuePage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
-                            child: Text('blabla'),
+                            child: Text('Jika kamu posting rescue secara anonymous/tanpa identitas, maka kamu tidak akan mendapatkan poin atau rating.'),
                           ),
                           MainAxisSize.min
                         ),

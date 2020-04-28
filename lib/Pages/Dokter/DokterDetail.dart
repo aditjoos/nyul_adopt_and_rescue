@@ -76,12 +76,9 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                         Container(
                           width: 100.0,
                           height: 100.0,
-                          child: Hero(
-                            tag: 'dokter_foto',
-                            child: CircleAvatar(
-                              radius: 20.0,
-                              backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
-                            ),
+                          child: CircleAvatar(
+                            radius: 20.0,
+                            backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
                           ),
                         ),
                         SizedBox(width: 10.0,),

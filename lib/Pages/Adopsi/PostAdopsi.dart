@@ -13,6 +13,7 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -51,6 +52,7 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
               Center(child: Text('Tambah Posting Adopsi', style: TextStyle(fontSize: 20.0),),),
               SizedBox(height: 20.0,),
               SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
