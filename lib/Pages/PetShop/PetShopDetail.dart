@@ -83,13 +83,6 @@ class _PetShopDetailPageState extends State<PetShopDetailPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Icon(LineIcons.user, size: 15.0, color: Colors.white,),
-                                Text(' 123 Pengikut', style: TextStyle(color: Colors.white),),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
                                 Icon(LineIcons.check, size: 15.0, color: Colors.white,),
                                 Text(' Terpercaya', style: TextStyle(color: Colors.white),),
                               ],
@@ -115,7 +108,7 @@ class _PetShopDetailPageState extends State<PetShopDetailPage> {
                           color: Colors.white,
                           textColor: Colors.black87,
                           onPressed: (){},
-                          child: Text('Ikuti')
+                          child: Text('Map')
                         ),
                       ],
                     ),

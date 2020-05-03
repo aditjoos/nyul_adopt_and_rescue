@@ -63,108 +63,227 @@ class _PetShopPageState extends State<PetShopPage> {
     checkConnectionThenExecuteLoadDataFunction();
   }
 
+  bool filterOpened = false;
+  bool expandedFilterProv = false;
+  bool expandedFilterKota = false;
+  double expandedFilterHeight = 250.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: <Widget>[
-          Container(
-            color: Colors.orange[300],
-            child: Material(
-              color: Colors.transparent,
-              child: Column(
-                children: <Widget>[
-                  SafeArea(
-                    child: Row(
+          Positioned.fill(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  color: Colors.orange[300],
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Column(
                       children: <Widget>[
-                        IconButton(
-                          icon: Icon(LineIcons.arrow_left, color: Colors.white,),
-                          onPressed: () => Navigator.pop(context),
-                          splashColor: Colors.black26,
-                          focusColor: Colors.black38,
-                          highlightColor: Colors.black12,
+                        SafeArea(
+                          child: Row(
+                            children: <Widget>[
+                              IconButton(
+                                icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                                onPressed: () => Navigator.pop(context),
+                                splashColor: Colors.black26,
+                                focusColor: Colors.black38,
+                                highlightColor: Colors.black12,
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: Container(
+                                    // width: MediaQuery.of(context).size.width - 100,
+                                    padding: EdgeInsets.all(5.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10.0)
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text('Cari ', style: TextStyle(fontWeight: FontWeight.bold),),
+                                        Icon(LineIcons.search)
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: Container(
-                              // width: MediaQuery.of(context).size.width - 100,
-                              padding: EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text('Cari ', style: TextStyle(fontWeight: FontWeight.bold),),
-                                  Icon(LineIcons.search)
-                                ],
-                              ),
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(data != null ? data.length.toString() + ' PetShop' : (0).toString() + ' PetShop', style: TextStyle(color: Colors.white),),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    onTap: () => setState(() => filterOpened = true),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(LineIcons.filter, size: 15.0,),
+                                          Text(' Filter', style: TextStyle(fontSize: 15.0),),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.orange[300],
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFAFAFA),
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
+                      ),
+                      child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ?  ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: data == null ? 0 : data.length,
+                        itemBuilder: (BuildContext context, int index){
+                          return PetShopContainer(
+                            foto: 'https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg',
+                            nama: data[index]['nama'],
+                            alamat: data[index]['alamat'],
+                          );
+                        },
+                      ) : Center(child: Text('Tidak ada data.'),),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          filterOpened ? Positioned.fill(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(15.0),
+                  color: Colors.white,
+                  child: SafeArea(
+                    child: Column(
                       children: <Widget>[
-                        Text(data != null ? data.length.toString() + ' PetShop' : (0).toString() + ' PetShop', style: TextStyle(color: Colors.white),),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5.0),
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => setState(() {
+                              expandedFilterProv = true;
+                              expandedFilterKota = false;
+                            }),
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(10.0),
+                              child: Text('Pilih provinsi'),
+                            ),
                           ),
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(5.0),
-                              onTap: (){},
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(LineIcons.filter, size: 15.0,),
-                                    Text(' Filter', style: TextStyle(fontSize: 15.0),),
-                                  ],
+                        ),
+                        Container(
+                          height: expandedFilterProv ? expandedFilterHeight : 0,
+                          child: ListView(
+                            physics: BouncingScrollPhysics(),
+                            children: <Widget>[
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jakarta Barat',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jakarta Pusat',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jakarta Tengah',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jakarta Selatan',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Tangerang',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jawa Barat',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jawa Tengan',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jawa Timur',),
+                            ],
+                          ),
+                        ),
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => setState(() {
+                              expandedFilterProv = false;
+                              expandedFilterKota = true;
+                            }),
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(10.0),
+                              child: Text('Pilih kota'),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: expandedFilterKota ? expandedFilterHeight : 0,
+                          child: ListView(
+                            physics: BouncingScrollPhysics(),
+                            children: <Widget>[
+                              ListViewItemsProvKota(onTap: (){}, text: 'Surabaya',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Lumajang',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Jember',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Kediri',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Kab. Probolinggo',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Kab. Pasuruan',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Kab. Malang',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Kota Pasuruan',),
+                              ListViewItemsProvKota(onTap: (){}, text: 'Kota Malang',),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text('Tutup'),
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () => setState(() {
+                                  filterOpened = false;
+                                  expandedFilterProv = false;
+                                  expandedFilterKota = false;
+                                }),
+                                borderRadius: BorderRadius.circular(25.0),
+                                child: Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Icon(LineIcons.close),
                                 ),
                               ),
                             ),
-                          ),
-                        )
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.orange[300],
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Color(0xFFFAFAFA),
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
-                child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ?  ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: data == null ? 0 : data.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return PetShopContainer(
-                      foto: 'https://images.template.net/wp-content/uploads/2017/03/23054017/Free-Business-Company-Logo3.jpg',
-                      nama: data[index]['nama'],
-                      alamat: data[index]['alamat'],
-                    );
-                  },
-                ) : Center(child: Text('Tidak ada data.'),),
-              ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => filterOpened = false),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
+          ) : Container()
         ],
       ),
     );
@@ -216,5 +335,23 @@ class PetShopContainer extends StatelessWidget {
         width: double.infinity,
       ),
     );
+  }
+}
+
+class ListViewItemsProvKota extends StatelessWidget {
+  ListViewItemsProvKota({this.onTap, this.text});
+
+  final VoidCallback onTap;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(color: Colors.transparent, child: InkWell(
+      onTap: onTap, child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(10.0),
+        child: Center(child: Text(text)),
+      ),
+    ),);
   }
 }

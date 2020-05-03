@@ -164,7 +164,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Identitas pemilik', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                          Text('Pemilik', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
                           SizedBox(height: 5.0,),
                           Row(children: <Widget>[
                             Icon(LineIcons.user, color: Colors.grey, size: 15,),
@@ -174,9 +174,6 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                             Icon(LineIcons.map_marker, color: Colors.grey, size: 15,),
                             Text('Malang kota', style: TextStyle(color: Colors.grey)),
                           ]),
-                          SizedBox(height: 5.0,),
-                          Text('Alamat lengkap'),
-                          Text('Jl. Teluk Kartini No. 666, Arjosari', style: TextStyle(color: Colors.grey)),
                         ],
                       ),
                     ),
