@@ -123,7 +123,7 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                           ),
                         ),
                         SizedBox(height: 15.0,),
-                        Text('Keamanan', style: TextStyle(fontWeight: FontWeight.bold),),
+                        Text('Lainnya', style: TextStyle(fontWeight: FontWeight.bold),),
                         SizedBox(height: 15.0,),
                         MyContainer(
                           padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -146,40 +146,40 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                                   ),
                                 ),
                               ),
-                              Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  onTap: (){},
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Icon(LineIcons.plus_square),
-                                        Text(' Tambah PIN')
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  onTap: (){},
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Icon(LineIcons.check),
-                                        Text(' Verifikasi data')
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Material(
+                              //   color: Colors.transparent,
+                              //   child: InkWell(
+                              //     onTap: (){},
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                              //       child: Row(
+                              //         mainAxisSize: MainAxisSize.max,
+                              //         mainAxisAlignment: MainAxisAlignment.start,
+                              //         children: <Widget>[
+                              //           Icon(LineIcons.plus_square),
+                              //           Text(' Tambah PIN')
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Material(
+                              //   color: Colors.transparent,
+                              //   child: InkWell(
+                              //     onTap: (){},
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                              //       child: Row(
+                              //         mainAxisSize: MainAxisSize.max,
+                              //         mainAxisAlignment: MainAxisAlignment.start,
+                              //         children: <Widget>[
+                              //           Icon(LineIcons.check),
+                              //           Text(' Verifikasi data')
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           width: double.infinity,

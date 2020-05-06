@@ -11,6 +11,7 @@ import 'package:petz_invention_udayana/Pages/Dokter/Dokter.dart';
 import 'package:petz_invention_udayana/Pages/Events/Events.dart';
 import 'package:petz_invention_udayana/Pages/PetShop/PetShop.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/Rescue.dart';
+import 'package:petz_invention_udayana/Pages/Rescue/RescueDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 
@@ -238,22 +239,6 @@ class _HomePageState extends State<HomePage> {
                         title: 'Shelter',
                       ),
                       SizedBox(width: 20.0,),
-                      CustomIconButtonWithTitle(
-                        backgroundColor: Colors.white,
-                        borderColor: Colors.orange[300],
-                        icon: Icon(FontAwesomeIcons.cat),
-                        onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
-                        title: 'Cattery',
-                      ),
-                      SizedBox(width: 20.0,),
-                      CustomIconButtonWithTitle(
-                        backgroundColor: Colors.white,
-                        borderColor: Colors.orange[300],
-                        icon: Icon(FontAwesomeIcons.fileContract),
-                        onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
-                        title: 'Riwayat',
-                      ),
-                      SizedBox(width: 20.0,),
                     ],
                   ),
                 ),
@@ -271,6 +256,7 @@ class _HomePageState extends State<HomePage> {
                     itemCount: data2 == null ? 0 : data2.length,
                     itemBuilder: (BuildContext context, int index){
                       return UrgentRescueCard(
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage())),
                         jenisHewan: data2[index]['Jenis_hewan'],
                         alamat: data2[index]['alamat_detail'],
                         judul: data2[index]['judul'],
@@ -481,20 +467,23 @@ class _MainFeatureCardState extends State<MainFeatureCard> {
 
 class UrgentRescueCard extends StatelessWidget {
   UrgentRescueCard({
+    this.onTap,
     this.jenisHewan,
     this.alamat,
     this.judul,
   });
 
+  final VoidCallback onTap;
   final String jenisHewan;
   final String alamat;
   final String judul;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: GestureDetector(
-        onTap: (){},
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
             color: Colors.red[400],

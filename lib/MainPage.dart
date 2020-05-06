@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Account.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/PostAdopsi.dart';
-import 'package:petz_invention_udayana/Pages/Feed.dart';
+import 'package:petz_invention_udayana/Pages/Aktivitas.dart';
+// import 'package:petz_invention_udayana/Pages/Feed.dart';
 import 'package:petz_invention_udayana/Pages/Home.dart';
 import 'package:petz_invention_udayana/Pages/Pesan.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/PostRescue.dart';
@@ -25,7 +26,7 @@ class _MainPageState extends State<MainPage> {
       body: Stack(
         children: <Widget>[
           Positioned.fill(
-            child: selectedPage == 0 ? HomePage() : selectedPage == 1 ? FeedPage() : selectedPage == 2 ? PesanPage() : selectedPage == 3 ? AccountPage() : Center(child: Text('no page selected'),),
+            child: selectedPage == 0 ? HomePage() : selectedPage == 1 ? AktivitasPage() : selectedPage == 2 ? PesanPage() : selectedPage == 3 ? AccountPage() : Center(child: Text('no page selected'),),
           ),
           tambahMenuOpened ? Positioned.fill(
             child: GestureDetector(
@@ -91,8 +92,8 @@ class _MainPageState extends State<MainPage> {
                   CustomBottomBarButton(
                     backgroundColor: selectedPage == 1 ? Colors.orange[300] : Colors.white,
                     borderColor: Colors.orange[300],
-                    icon: Icon(LineIcons.commenting, color: selectedPage == 1 ? Colors.white : Colors.black,),
-                    title: 'Feed',
+                    icon: Icon(LineIcons.file, color: selectedPage == 1 ? Colors.white : Colors.black,),
+                    title: 'Riwayat',
                     onTap: (){
                       setState(() {
                         tambahMenuOpened = false;
