@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
+import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiFavorites.dart';
 import 'package:petz_invention_udayana/Pages/Dokter/Dokter.dart';
 import 'package:petz_invention_udayana/Pages/Events/Events.dart';
 import 'package:petz_invention_udayana/Pages/PetShop/PetShop.dart';
@@ -148,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                           ),
 
                           //Actions Bar
-                          Icon(LineIcons.heart, color: Colors.white,),
+                          IconButton(icon: Icon(LineIcons.heart, color: Colors.white,), onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiFavoritesPage()))),
                           Icon(LineIcons.bell, color: Colors.white,),
                         ],
                       ),
