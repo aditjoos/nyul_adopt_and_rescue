@@ -164,7 +164,7 @@ class _PostEventPageState extends State<PostEventPage> {
                             Row(
                               children: <Widget>[
                                 // Auto Wrap
-                                Expanded(child: Text('Jl. blabla blabla 666', style: TextStyle(color: Colors.grey))),
+                                Expanded(child: Text('Jl. Majapahit no.15', style: TextStyle(color: Colors.grey))),
                                 Material(
                                   color: Colors.transparent,
                                   child: InkWell(

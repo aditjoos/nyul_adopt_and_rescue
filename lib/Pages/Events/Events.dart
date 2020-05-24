@@ -23,7 +23,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
   bool isData = false;
 
   Future getFeedMeData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/Post_feedme';
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/feedme/Post_feedme';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {

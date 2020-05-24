@@ -20,7 +20,7 @@ class _RescuePageState extends State<RescuePage> {
   bool isData = false;
 
   Future getRescueData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/Post_rescue';
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {
@@ -160,7 +160,7 @@ class _RescuePageState extends State<RescuePage> {
                                         height: 100.0,
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(10.0),
-                                          child: Image.asset('assets/images/real-cat.jpg', fit: BoxFit.fill,)
+                                          child: Image.asset('assets/images/rescue_mika_brandt.png', fit: BoxFit.fill,)
                                         ),
                                       ),
                                       Flexible(

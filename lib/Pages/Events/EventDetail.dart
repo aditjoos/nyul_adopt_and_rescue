@@ -41,7 +41,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('2 Kucing sebelah al**mart', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        Text('2 Kucing sebelah supermarket', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
                         SizedBox(height: 8.0,),
                         Text('Ada 2 kucing didekat perumahan, terlihat sangat kurus dan tidak terurus. bantu saya memberi makan.', style: TextStyle(color: Colors.grey)),
                         SizedBox(height: 8.0,),
@@ -52,12 +52,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           children: <Widget>[
                             Icon(LineIcons.map),
                             SizedBox(width: 8.0,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text('Jl. blabla No.000', style: TextStyle(color: Colors.grey)),
-                                Text('sebelah al**mart dan gudang warna merah', style: TextStyle(color: Colors.grey)),
-                              ],
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text('Jl. blabla No.000', style: TextStyle(color: Colors.grey)),
+                                  Text('sebelah supermarket dan gudang warna merah', style: TextStyle(color: Colors.grey)),
+                                ],
+                              ),
                             )
                           ],
                         ),

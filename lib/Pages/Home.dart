@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   bool isData2 = false;
 
   Future getRescueDaruratData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/Post_rescue_home?urgensi=1';
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue_home?urgensi=1';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   //TODO :
   //belum pakai where jenis hewan 
   Future getAdopsiData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/post_adopt?fungsi=1';
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/adopsi/post_adopt?fungsi=1';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {

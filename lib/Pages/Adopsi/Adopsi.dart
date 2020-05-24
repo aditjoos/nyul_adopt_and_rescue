@@ -20,7 +20,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
   bool isData = false;
 
   Future getAdopsiData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/post_adopt?fungsi=1';
+    final String url = 'http://nyul.kumpulan-soal.com/index.php/adopsi/post_adopt?fungsi=1';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {

@@ -114,7 +114,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                                       children: <Widget>[
                                         Icon(FontAwesomeIcons.cat, color: Colors.white, size: 10.0),
                                         SizedBox(width: 3.0),
-                                        Text('Persia', style: TextStyle(color: Colors.white),),
+                                        Text('Lokal', style: TextStyle(color: Colors.white),),
                                       ],
                                     ),
                                   ],
@@ -207,7 +207,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                           ),
                           SizedBox(height: 5.0,),
                           Text('Deskripsi'),
-                          Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', style: TextStyle(color: Colors.grey)),
+                          Text('Saya sudah punya banyak kucing dirumah, jadi untuk kucing ini saya ready adopt.', style: TextStyle(color: Colors.grey)),
                           SizedBox(height: 5.0,),
                           Text('Umur'),
                           Text('10 bulan', style: TextStyle(color: Colors.grey)),

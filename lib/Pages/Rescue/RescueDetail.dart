@@ -28,7 +28,7 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
-                          child: Container(width: MediaQuery.of(context).size.width, child: Image.asset('assets/images/real-cat.jpg', fit: BoxFit.fill,)),
+                          child: Container(width: MediaQuery.of(context).size.width, child: Image.asset('assets/images/rescue_mika_brandt.png', fit: BoxFit.fill,)),
                         ),
                         Material(
                           color: Colors.transparent,
@@ -59,10 +59,10 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Orang memelihara cheetah', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                          Text('Orang memelihara harimau', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
                           SizedBox(height: 5.0,),
                           Text('Deskripsi'),
-                          Text('Tetangga memelihara cheetah sangat meresahkan warga.', style: TextStyle(color: Colors.grey)),
+                          Text('Tolong selamatkan harimau yang dipelihara tetangga saya, dan keberadaan harimau tersebut sangat meresahkan warga.', style: TextStyle(color: Colors.grey)),
                           SizedBox(height: 5.0,),
                           Text('Alamat'),
                           Text('Kab. Malang', style: TextStyle(color: Colors.grey)),

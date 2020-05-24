@@ -106,7 +106,7 @@ class _PostRescuePageState extends State<PostRescuePage> {
                         Row(
                           children: <Widget>[
                             // Auto Wrap
-                            Expanded(child: Text('Jl. blabla blabla 666', style: TextStyle(color: Colors.grey))),
+                            Expanded(child: Text('Jl. Hambalang no.13', style: TextStyle(color: Colors.grey))),
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
