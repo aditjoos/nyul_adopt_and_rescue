@@ -180,9 +180,11 @@ class FunkyDialogState extends State<FunkyDialog> with SingleTickerProviderState
 }
 
 class MyDialogTitle extends StatefulWidget {
-  MyDialogTitle({this.title});
+  MyDialogTitle({this.title, this.backgroundColor, this.titleColor});
 
   final String title;
+  final Color backgroundColor;
+  final Color titleColor;
 
   @override
   _MyDialogTitleState createState() => _MyDialogTitleState();
@@ -193,13 +195,13 @@ class _MyDialogTitleState extends State<MyDialogTitle> {
   Widget build(BuildContext context) {
     return Container(
       decoration: ShapeDecoration(
-        color: Colors.indigo[300],
+        color: widget.backgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)))),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Center(
           child: Text(widget.title, style: TextStyle(
-            color: Colors.white,
+            color: widget.titleColor,
             fontWeight: FontWeight.bold
           ),),
         ),
