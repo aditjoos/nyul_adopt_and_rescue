@@ -4,5 +4,4 @@
 username = rizky
 password = rizky
 
-![Screenshot]
-(https://cdn.discordapp.com/attachments/700684988009545778/700685359696052224/nyul2.png)
+![Screenshot](https://cdn.discordapp.com/attachments/700684988009545778/700685359696052224/nyul2.png)
