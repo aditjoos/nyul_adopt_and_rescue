@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
     String usernameInput = controllerUsername.text;
     String passwordInput = controllerPassword.text;
 
-    String url = 'http://nyul.kumpulan-soal.com/index.php/member_login?username='+usernameInput+'&password='+passwordInput;
+    String url = 'http://192.168.43.58/nyul-codeigniter/index.php/member_login?username='+usernameInput+'&password='+passwordInput;
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
     var content = json.decode(result.body);
 

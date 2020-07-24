@@ -20,7 +20,7 @@ class _RescuePageState extends State<RescuePage> {
   bool isData = false;
 
   Future getRescueData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue';
+    final String url = 'http://192.168.43.58/nyul-codeigniter/index.php/rescue/post_rescue';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {
@@ -48,7 +48,7 @@ class _RescuePageState extends State<RescuePage> {
 
   void checkConnectionThenExecuteLoadDataFunction() async {
     try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      final result = await InternetAddress.lookup('http://192.168.43.58/nyul-codeigniter/');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         // Lakukan getRescueData ketika ada internet
         getRescueData();

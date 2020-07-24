@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   bool isData2 = false;
 
   Future getRescueDaruratData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue_home?urgensi=1';
+    final String url = 'http://http://192.168.43.58/nyul-codeigniter/index.php/rescue/post_rescue_home?urgensi=1';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   //TODO :
   //belum pakai where jenis hewan 
   Future getAdopsiData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/adopsi/post_adopt?fungsi=1';
+    final String url = 'http://http://192.168.43.58/nyul-codeigniter/index.php/adopsi/post_adopt?fungsi=1';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
 
   void checkConnectionThenExecuteLoadDataFunction() async {
     try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      final result = await InternetAddress.lookup('http://192.168.43.58/nyul-codeigniter/');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         //TODO :
         //manggil banyak function

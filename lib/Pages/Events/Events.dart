@@ -23,7 +23,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
   bool isData = false;
 
   Future getFeedMeData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/feedme/Post_feedme';
+    final String url = 'http://http://192.168.43.58/nyul-codeigniter/index.php/feedme/Post_feedme';
     var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
     setState(() {
@@ -40,7 +40,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
 
   void checkConnectionThenExecuteLoadDataFunction() async {
     try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      final result = await InternetAddress.lookup('http://192.168.43.58/nyul-codeigniter/');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         getFeedMeData();
       }
