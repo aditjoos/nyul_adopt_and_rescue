@@ -27,7 +27,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
               SafeArea(
                 child: Row(
                   children: <Widget>[
-                    IconButton(icon: Icon(LineIcons.arrow_left), onPressed: () => Navigator.pop(context)),
+                    IconButton(icon: Icon(LineIcons.arrowLeft), onPressed: () => Navigator.pop(context)),
                     Text('Kembali')
                   ],
                 ),
@@ -69,7 +69,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Icon(LineIcons.clock_o),
+                            Icon(LineIcons.clock),
                             SizedBox(width: 8.0,),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,52 +15,52 @@ class PetShopPage extends StatefulWidget {
 
 class _PetShopPageState extends State<PetShopPage> {
   
-  List data;
+  late List data;
   bool isLoadingData = true;
   bool isData = false;
 
-  Future getListDokter() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/member/?tipe=4';
-    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  // Future getListDokter() async {
+  //   final String url = 'http://nyul.kumpulan-soal.com/index.php/member/?tipe=4';
+  //   var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
-    setState(() {
-      if(result.statusCode == 200){
-        var content = json.decode(result.body);
-        if(content['result'] = true){
-          data = content['data'];
-          isData = true;
-        }else if(content['result'] = false){
-          showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (_) => FunkyOverlay(
-              content['data'],
-              [
-                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-              ]
-            )
-          );
-        }
-      }
-      isLoadingData = false;
-    });
-  }
+  //   setState(() {
+  //     if(result.statusCode == 200){
+  //       var content = json.decode(result.body);
+  //       if(content['result'] = true){
+  //         data = content['data'];
+  //         isData = true;
+  //       }else if(content['result'] = false){
+  //         showDialog(
+  //           barrierDismissible: true,
+  //           context: context,
+  //           builder: (_) => FunkyOverlay(
+  //             content['data'],
+  //             [
+  //               FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+  //             ]
+  //           )
+  //         );
+  //       }
+  //     }
+  //     isLoadingData = false;
+  //   });
+  // }
 
-  void checkConnectionThenExecuteLoadDataFunction() async {
-    try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        getListDokter();
-      }
-    } on SocketException catch (_) {
-      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
-    }
-  }
+  // void checkConnectionThenExecuteLoadDataFunction() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       getListDokter();
+  //     }
+  //   } on SocketException catch (_) {
+  //     showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    checkConnectionThenExecuteLoadDataFunction();
+    // checkConnectionThenExecuteLoadDataFunction();
   }
 
   bool filterOpened = false;
@@ -86,7 +86,7 @@ class _PetShopPageState extends State<PetShopPage> {
                           child: Row(
                             children: <Widget>[
                               IconButton(
-                                icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                                icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                                 onPressed: () => Navigator.pop(context),
                                 splashColor: Colors.black26,
                                 focusColor: Colors.black38,
@@ -263,7 +263,7 @@ class _PetShopPageState extends State<PetShopPage> {
                                 borderRadius: BorderRadius.circular(25.0),
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
-                                  child: Icon(LineIcons.close),
+                                  child: Icon(LineIcons.cross),
                                 ),
                               ),
                             ),
@@ -291,7 +291,11 @@ class _PetShopPageState extends State<PetShopPage> {
 }
 
 class PetShopContainer extends StatelessWidget {
-  PetShopContainer({this.foto, this.nama, this.alamat});
+  PetShopContainer({
+    required this.foto, 
+    required this.nama, 
+    required this.alamat
+  });
 
   final String foto;
   final String nama;
@@ -339,7 +343,10 @@ class PetShopContainer extends StatelessWidget {
 }
 
 class ListViewItemsProvKota extends StatelessWidget {
-  ListViewItemsProvKota({this.onTap, this.text});
+  ListViewItemsProvKota({
+    required this.onTap, 
+    required this.text
+  });
 
   final VoidCallback onTap;
   final String text;

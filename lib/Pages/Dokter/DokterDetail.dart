@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
@@ -11,7 +10,7 @@ class DokterDetailPage extends StatefulWidget {
 
 class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerProviderStateMixin {
 
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -46,7 +45,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                           child: Row(
                             children: <Widget>[
                               IconButton(
-                                icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                                icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                                 onPressed: () => Navigator.pop(context),
                                 splashColor: Colors.black26,
                                 focusColor: Colors.black38,
@@ -62,7 +61,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                           children: <Widget>[
                             Icon(LineIcons.share, color: Colors.white,),
                             SizedBox(width: 10.0,),
-                            Icon(LineIcons.ellipsis_v, color: Colors.white,),
+                            Icon(LineIcons.verticalEllipsis, color: Colors.white,),
                             SizedBox(width: 10.0,),
                           ],
                         )
@@ -89,7 +88,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Icon(LineIcons.map_marker, size: 15.0, color: Colors.white,),
+                                Icon(LineIcons.mapMarker, size: 15.0, color: Colors.white,),
                                 Text(' Malang', style: TextStyle(color: Colors.white),),
                               ],
                             ),
@@ -184,14 +183,14 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                                 Material(
                                   color: Colors.transparent,
                                   child: InkWell(
-                                    onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
+                                    onTap: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                                     child: Padding(
                                       padding: EdgeInsets.all(5.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text('Lihat sertifikat', style: TextStyle(color: Colors.grey)),
-                                          Icon(LineIcons.chevron_circle_right, color: Colors.grey)
+                                          Icon(LineIcons.chevronCircleLeft, color: Colors.grey)
                                         ],
                                       ),
                                     ),
@@ -208,7 +207,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                                     Icon(LineIcons.star, color: Colors.yellow[600],),
                                     Icon(LineIcons.star, color: Colors.yellow[600],),
                                     Icon(LineIcons.star, color: Colors.yellow[600],),
-                                    Icon(LineIcons.star_half, color: Colors.yellow[600],),
+                                    Icon(LineIcons.starHalf, color: Colors.yellow[600],),
                                   ],
                                 ),
                                 SizedBox(height: 10.0,),
@@ -374,7 +373,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
               border: Border(
                 top: BorderSide(
                   width: 1,
-                  color: Colors.grey[350],
+                  color: Colors.grey.shade300,
                   style: BorderStyle.solid
                 )
               )
@@ -384,7 +383,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                 Expanded(
                   child: FlatButton(
                     color: Colors.orange[400],
-                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
+                    onPressed: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                     child: Text('Chat Dokter', style: TextStyle(color: Colors.white))
                   )
                 ),
@@ -392,7 +391,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                 Expanded(
                   child: FlatButton(
                     color: Colors.orange[400],
-                    onPressed: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
+                    onPressed: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                     child: Text('Pemesanan', style: TextStyle(color: Colors.white))
                   )
                 ),

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class MyIconButton extends StatefulWidget {
   MyIconButton({
-    @required this.onPressed,
-    this.text,
-    this.icon,
-    this.backgroundColor,
-    this.color,
-    this.shadowColorTopLeft,
-    this.shadowColorBottomRight,
+    required this.onPressed,
+    required this.text,
+    required this.icon,
+    required this.backgroundColor,
+    required this.color,
+    required this.shadowColorTopLeft,
+    required this.shadowColorBottomRight,
   });
 
   final VoidCallback onPressed;

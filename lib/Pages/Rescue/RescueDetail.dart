@@ -37,12 +37,12 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Row(children: <Widget>[
-                                  IconButton(icon: Icon(LineIcons.arrow_left, color: Colors.white), onPressed: () => Navigator.pop(context)),
+                                  IconButton(icon: Icon(LineIcons.arrowLeft, color: Colors.white), onPressed: () => Navigator.pop(context)),
                                   Text('Kembali', style: TextStyle(color: Colors.white),)
                                 ],),
                                 Row(children: <Widget>[
                                   IconButton(icon: Icon(LineIcons.share, color: Colors.white), onPressed: (){}),
-                                  IconButton(icon: Icon(LineIcons.dot_circle_o, color: Colors.white), onPressed: (){}),
+                                  IconButton(icon: Icon(LineIcons.dotCircle, color: Colors.white), onPressed: (){}),
                                 ],),
                               ],
                             ),
@@ -105,7 +105,7 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
               border: Border(
                 top: BorderSide(
                   width: 1,
-                  color: Colors.grey[350],
+                  color: Colors.grey.shade300,
                   style: BorderStyle.solid
                 )
               )
@@ -113,16 +113,20 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: FlatButton(
-                    color: Colors.orange[400],
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.orange.shade400
+                    ),
                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PesanUser())),
                     child: Text('Chat',style: TextStyle(color: Colors.white))
                   )
                 ),
                 SizedBox(width: 10.0,),
                 Expanded(
-                  child: FlatButton(
-                    color: Colors.orange[400],
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.orange.shade400
+                    ),
                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => RescueProcessPage())),
                     child: Text('Rescue!', style: TextStyle(color: Colors.white))
                   )

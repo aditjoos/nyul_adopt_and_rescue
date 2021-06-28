@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'package:line_icons/line_icons.dart';
+import 'package:mysql1/mysql1.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiFavorites.dart';
@@ -15,6 +14,7 @@ import 'package:petz_invention_udayana/Pages/Rescue/Rescue.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/RescueDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
+import 'package:petz_invention_udayana/database/mysqlHelper.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,93 +23,73 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  //Variable for Get Adopt
-  List data;
-  bool isLoadingData = true;
-  bool isData = false;
+  late MySql _mysql;
 
-  //Variable for Get Rescue
-  List data2;
-  bool isLoadingData2 = true;
-  bool isData2 = false;
+  late List<ResultRow> _data2;
+  bool _isLoadingData2 = true;
+  bool _isData2 = false;
 
-  Future getRescueDaruratData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue_home?urgensi=1';
-    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  _getRescueDaruratData() {
+    _mysql.getData('SELECT kode_request_rescue, judul, jenis_hewan, alamat_detail FROM post_rescue WHERE urgensi = 1').then((value) {
+      if(value.isNotEmpty) {
+        setState(() {
+          _data2 = value;
+          _isLoadingData2 = false;
+          _isData2 = true;
 
-    setState(() {
-      if(result.statusCode == 200){
-        var content = json.decode(result.body);
-        if(content['result'] = true){
-          data2 = content['data'];
-          isData2 = true;
-          // print(data2);
-        }else if(content['result'] = false){
-          showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (_) => FunkyOverlay(
-              content['data'],
-              [
-                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-              ]
-            )
-          );
-        }
+          print(_data2[0][0]);
+        });
+      } else {
+        setState(() {
+          _isLoadingData2 = false;
+          _isData2 = false;
+        });
       }
-      isLoadingData2 = false;
     });
   }
 
-  //TODO :
-  //belum pakai where jenis hewan 
-  Future getAdopsiData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/adopsi/post_adopt?fungsi=1';
-    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  late List _data;
+  bool _isLoadingData = true;
+  bool _isData = false;
 
-    setState(() {
-      if(result.statusCode == 200){
-        var content = json.decode(result.body);
-        if(content['result'] = true){
-          data = content['data'];
-          isData = true;
-        }else if(content['result'] = false){
-          showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (_) => FunkyOverlay(
-              content['data'],
-              [
-                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-              ]
-            )
-          );
-        }
+  _getAdopsiData() {
+    _mysql.getData('SELECT judul, umur, alamat, metode_adopsi FROM post_adopt LIMIT 5').then((value) {
+      if(value.isNotEmpty) {
+        setState(() {
+          _data = value;
+          _isLoadingData = false;
+          _isData = true;
+
+          print(_data[0][0]);
+        });
+      } else {
+        setState(() {
+          _isLoadingData = false;
+          _isData = false;
+        });
       }
-      isLoadingData = false;
     });
   }
 
   void checkConnectionThenExecuteLoadDataFunction() async {
     try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+      final result = await InternetAddress.lookup('google.com');
+
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        //TODO :
-        //manggil banyak function
-        // 1. get adopsi jenis kucing
-        // 2. get adopsi jenis anjing
-        // 3. get adopsi jenis kelinci
-        getRescueDaruratData();
-        getAdopsiData();
-      }
+        _getRescueDaruratData();
+        _getAdopsiData();
+      } else MyDialogs().simpleDialog(context, 'Kesalahan', 'Ada kesalahan koneksi internet.');
     } on SocketException catch (_) {
-      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+      MyDialogs().simpleDialog(context, 'Kesalahan', 'Kamu tidak ada koneksi internet.');
     }
   }
 
   @override
   void initState() {
     super.initState();
+
+    _mysql = new MySql(context);
+
     checkConnectionThenExecuteLoadDataFunction();
   }
 
@@ -218,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(width: 20.0,),
                       CustomIconButtonWithTitle(
                         backgroundColor: Colors.white,
-                        borderColor: Colors.orange[300],
+                        borderColor: Colors.orange.shade300,
                         icon: Icon(FontAwesomeIcons.briefcaseMedical),
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DokterPage())),
                         title: 'Dokter',
@@ -226,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(width: 20.0,),
                       CustomIconButtonWithTitle(
                         backgroundColor: Colors.white,
-                        borderColor: Colors.orange[300],
+                        borderColor: Colors.orange.shade300,
                         icon: Icon(FontAwesomeIcons.shoppingBag),
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopPage())),
                         title: 'Pet Shop',
@@ -234,9 +214,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(width: 20.0,),
                       CustomIconButtonWithTitle(
                         backgroundColor: Colors.white,
-                        borderColor: Colors.orange[300],
+                        borderColor: Colors.orange.shade300,
                         icon: Icon(FontAwesomeIcons.archive),
-                        onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
+                        onTap: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                         title: 'Shelter',
                       ),
                       SizedBox(width: 20.0,),
@@ -249,23 +229,21 @@ class _HomePageState extends State<HomePage> {
                   child: Text('Hewan kondisi darurat disekitarmu', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                isLoadingData2 ? Center(child: CircularProgressIndicator(),) : isData2 ? SizedBox(
+                _isLoadingData2 ? Center(child: CircularProgressIndicator(),) : _isData2 ? SizedBox(
                   height: 120.0,
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: data2 == null ? 0 : data2.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return UrgentRescueCard(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage())),
-                        jenisHewan: data2[index]['Jenis_hewan'],
-                        alamat: data2[index]['alamat_detail'],
-                        judul: data2[index]['judul'],
-                        // jenisHewan: 'test',
-                        // alamat: 'test',
-                        // judul: 'test',
-                      );
-                    },
+                    itemCount: _data2.isEmpty ? 0 : _data2.length,
+                    itemBuilder: (context, i) => UrgentRescueCard(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage())),
+                      judul: _data2[i][1],
+                      jenisHewan: _data2[i][2],
+                      alamat: _data2[i][3],
+                      // jenisHewan: 'test',
+                      // alamat: 'test',
+                      // judul: 'test',
+                    ),
                   ),
                 ) : Center(child: Text('Tidak ada data.'),),
                 Container(
@@ -284,24 +262,22 @@ class _HomePageState extends State<HomePage> {
                   child: Text('Kucing', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? SizedBox(
+                _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? SizedBox(
                   height: 250.0,
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: data == null ? 0 : data.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return PostAdopsiCard(
-                        imgSource: 'assets/images/real-cat.jpg',
-                        judul: data[index]['judul'],
-                        jenis: 1,
-                        ras: '-',
-                        umur: data[index]['umur'],
-                        alamat: data[index]['alamat'],
-                        metodeAdopsi: int.parse(data[index]['metode_adopsi']),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
-                      );
-                    },
+                    itemCount: _data.isEmpty ? 0 : _data.length,
+                    itemBuilder: (context, index) => PostAdopsiCard(
+                      imgSource: 'assets/images/real-cat.jpg',
+                      judul: _data[index][0],
+                      jenis: 1,
+                      ras: '-',
+                      umur: _data[index][1].toString(),
+                      alamat: _data[index][2],
+                      metodeAdopsi: _data[index][3],
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
+                    ),
                   ),
                 ) : Center(child: Text('Tidak ada data.'),),
                 Container(
@@ -309,24 +285,22 @@ class _HomePageState extends State<HomePage> {
                   child: Text('Anjing', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? SizedBox(
+                _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? SizedBox(
                   height: 250.0,
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: data == null ? 0 : data.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return PostAdopsiCard(
-                        imgSource: 'assets/images/real-dog.jpg',
-                        judul: data[index]['judul'],
-                        jenis: 1,
-                        ras: '-',
-                        umur: data[index]['umur'],
-                        alamat: data[index]['alamat'],
-                        metodeAdopsi: int.parse(data[index]['metode_adopsi']),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
-                      );
-                    },
+                    itemCount: _data.isEmpty ? 0 : _data.length,
+                    itemBuilder: (context, index) => PostAdopsiCard(
+                      imgSource: 'assets/images/real-dog.jpg',
+                      judul: _data[index][0],
+                      jenis: 1,
+                      ras: '-',
+                      umur: _data[index][1].toString(),
+                      alamat: _data[index][2],
+                      metodeAdopsi: _data[index][3],
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
+                    ),
                   ),
                 ) : Center(child: Text('Tidak ada data.'),),
                 Container(
@@ -334,24 +308,22 @@ class _HomePageState extends State<HomePage> {
                   child: Text('Kelinci', style: TextStyle(fontWeight: FontWeight.bold),),
                   alignment: Alignment.centerLeft,
                 ),
-                isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? SizedBox(
+                _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? SizedBox(
                   height: 250.0,
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: data == null ? 0 : data.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return PostAdopsiCard(
-                        imgSource: 'assets/images/real-rabbit.jpg',
-                        judul: data[index]['judul'],
-                        jenis: 1,
-                        ras: '-',
-                        umur: data[index]['umur'],
-                        alamat: data[index]['alamat'],
-                        metodeAdopsi: int.parse(data[index]['metode_adopsi']),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
-                      );
-                    },
+                    itemCount: _data.isEmpty ? 0 : _data.length,
+                    itemBuilder: (context, index) => PostAdopsiCard(
+                      imgSource: 'assets/images/real-rabbit.jpg',
+                      judul: _data[index][0],
+                      jenis: 1,
+                      ras: '-',
+                      umur: _data[index][1].toString(),
+                      alamat: _data[index][2],
+                      metodeAdopsi: _data[index][3],
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
+                    ),
                   ),
                 ) : Center(child: Text('Tidak ada data.'),),
                 SizedBox(height: 120.0,)
@@ -366,11 +338,11 @@ class _HomePageState extends State<HomePage> {
 
 class CustomIconButtonWithTitle extends StatefulWidget {
   CustomIconButtonWithTitle({
-    this.icon,
-    this.title,
-    this.backgroundColor,
-    this.borderColor,
-    this.onTap
+    required this.icon,
+    required this.title,
+    required this.backgroundColor,
+    required this.borderColor,
+    required this.onTap
   });
 
   final Icon icon;
@@ -413,9 +385,9 @@ class _CustomIconButtonWithTitleState extends State<CustomIconButtonWithTitle> {
 
 class MainFeatureCard extends StatefulWidget {
   MainFeatureCard({
-    this.assetImage,
-    this.title,
-    this.onTap,
+    required this.assetImage,
+    required this.title,
+    required this.onTap,
   });
 
   final String assetImage;
@@ -440,7 +412,7 @@ class _MainFeatureCardState extends State<MainFeatureCard> {
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey[200],
+                color: Colors.grey.shade200,
                 offset: Offset(0.0, 2.0),
                 blurRadius: 10.0,
                 spreadRadius: 1.0
@@ -468,10 +440,10 @@ class _MainFeatureCardState extends State<MainFeatureCard> {
 
 class UrgentRescueCard extends StatelessWidget {
   UrgentRescueCard({
-    this.onTap,
-    this.jenisHewan,
-    this.alamat,
-    this.judul,
+    required this.onTap,
+    required this.jenisHewan,
+    required this.alamat,
+    required this.judul,
   });
 
   final VoidCallback onTap;
@@ -500,7 +472,7 @@ class UrgentRescueCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: Icon(LineIcons.warning, size: 50.0, color: Colors.white,),
+                    child: Icon(LineIcons.exclamationTriangle, size: 50.0, color: Colors.white,),
                   ),
                   Container(
                     padding: EdgeInsets.all(5.0),

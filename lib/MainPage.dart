@@ -77,8 +77,8 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   // Buttons
                   CustomBottomBarButton(
-                    backgroundColor: selectedPage == 0 ? Colors.orange[300] : Colors.white,
-                    borderColor: Colors.orange[300],
+                    backgroundColor: selectedPage == 0 ? Colors.orange.shade300 : Colors.white,
+                    borderColor: Colors.orange.shade300,
                     icon: Icon(LineIcons.home, color: selectedPage == 0 ? Colors.white : Colors.black,),
                     title: 'Home',
                     onTap: (){
@@ -90,8 +90,8 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                   CustomBottomBarButton(
-                    backgroundColor: selectedPage == 1 ? Colors.orange[300] : Colors.white,
-                    borderColor: Colors.orange[300],
+                    backgroundColor: selectedPage == 1 ? Colors.orange.shade300 : Colors.white,
+                    borderColor: Colors.orange.shade300,
                     icon: Icon(LineIcons.file, color: selectedPage == 1 ? Colors.white : Colors.black,),
                     title: 'Riwayat',
                     onTap: (){
@@ -104,7 +104,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                   CustomBottomBarButton(
                     backgroundColor: Colors.white,
-                    borderColor: Colors.orange[300],
+                    borderColor: Colors.orange.shade300,
                     icon: Icon(LineIcons.plus, color: Colors.black),
                     title: 'Tambah',
                     onTap: (){
@@ -115,8 +115,8 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                   CustomBottomBarButton(
-                    backgroundColor: selectedPage == 2 ? Colors.orange[300] : Colors.white,
-                    borderColor: Colors.orange[300],
+                    backgroundColor: selectedPage == 2 ? Colors.orange.shade300 : Colors.white,
+                    borderColor: Colors.orange.shade300,
                     icon: Icon(LineIcons.envelope, color: selectedPage == 2 ? Colors.white : Colors.black,),
                     title: 'Pesan',
                     onTap: (){
@@ -128,8 +128,8 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                   CustomBottomBarButton(
-                    backgroundColor: selectedPage == 3 ? Colors.orange[300] : Colors.white,
-                    borderColor: Colors.orange[300],
+                    backgroundColor: selectedPage == 3 ? Colors.orange.shade300 : Colors.white,
+                    borderColor: Colors.orange.shade300,
                     icon: Icon(LineIcons.user, color: selectedPage == 3 ? Colors.white : Colors.black,),
                     title: 'Akun',
                     onTap: (){
@@ -159,7 +159,7 @@ class _MainPageState extends State<MainPage> {
                   width: (MediaQuery.of(context).size.width/5)-10,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    color: Colors.orange[300],
+                    color: Colors.orange.shade300,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black12,
@@ -180,8 +180,8 @@ class _MainPageState extends State<MainPage> {
                         children: <Widget>[
                           CustomBottomBarButton2(
                             backgroundColor: Colors.white,
-                            borderColor: Colors.orange[300],
-                            icon: Icon(LineIcons.shield, color: Colors.black),
+                            borderColor: Colors.orange.shade300,
+                            icon: Icon(LineIcons.userShield, color: Colors.black),
                             title: 'Rescue',
                             textAndButtonPadding: 5.0,
                             onTap: () {
@@ -196,7 +196,7 @@ class _MainPageState extends State<MainPage> {
                           // SizedBox(height: 5.0,),
                           CustomBottomBarButton2(
                             backgroundColor: Colors.white,
-                            borderColor: Colors.orange[300],
+                            borderColor: Colors.orange.shade300,
                             icon: Icon(LineIcons.paw, color: Colors.black),
                             title: 'Adopsi',
                             textAndButtonPadding: 5.0,
@@ -212,8 +212,8 @@ class _MainPageState extends State<MainPage> {
                           // SizedBox(height: 5.0,),
                           // Expanded(child: Container()),
                           CustomBottomBarButton2(
-                            backgroundColor: Colors.orange[300],
-                            borderColor: Colors.orange[300],
+                            backgroundColor: Colors.orange.shade300,
+                            borderColor: Colors.orange.shade300,
                             icon: Icon(LineIcons.plus, color: Colors.white),
                             title: 'Tambah',
                             textAndButtonPadding: 10.0,
@@ -250,11 +250,11 @@ class _MainPageState extends State<MainPage> {
 
 class CustomBottomBarButton extends StatefulWidget {
   CustomBottomBarButton({
-    this.icon,
-    this.title,
-    this.backgroundColor,
-    this.borderColor,
-    this.onTap
+    required this.icon,
+    required this.title,
+    required this.backgroundColor,
+    required this.borderColor,
+    required this.onTap
   });
 
   final Icon icon;
@@ -297,12 +297,12 @@ class CustomBottomBarButtonState extends State<CustomBottomBarButton> {
 
 class CustomBottomBarButton2 extends StatefulWidget {
   CustomBottomBarButton2({
-    this.icon,
-    this.title,
-    this.backgroundColor,
-    this.borderColor,
-    this.onTap,
-    this.textAndButtonPadding
+    required this.icon,
+    required this.title,
+    required this.backgroundColor,
+    required this.borderColor,
+    required this.onTap,
+    required this.textAndButtonPadding
   });
 
   final Icon icon;

@@ -10,7 +10,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> with SingleTickerProviderStateMixin {
 
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -108,7 +108,7 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                                       Row(
                                         children: <Widget>[
                                           Text('Verified Account', style: TextStyle(color: Colors.grey),),
-                                          Icon(LineIcons.check_circle_o, color: Colors.blue,),
+                                          Icon(LineIcons.checkCircle, color: Colors.blue,),
                                         ],
                                       )
                                     ],
@@ -207,7 +207,7 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(LineIcons.user_plus, size: 55.0, color: Colors.blue),
+                      Icon(LineIcons.userPlus, size: 55.0, color: Colors.blue),
                       SizedBox(height: 10.0,),
                       Text('Mulai atur aktivitasmu!', textAlign: TextAlign.center, style: TextStyle(fontSize: 20.0),),
                       SizedBox(height: 10.0,),

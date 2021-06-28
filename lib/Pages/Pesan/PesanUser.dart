@@ -9,7 +9,7 @@ class PesanUser extends StatefulWidget {
 
 class _PesanUserState extends State<PesanUser> {
 
-  TextEditingController chatController;
+  late TextEditingController chatController;
 
   void sendChat() {
     setState(() {
@@ -28,7 +28,7 @@ class _PesanUserState extends State<PesanUser> {
               child: Row(
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(LineIcons.arrow_left),
+                    icon: Icon(LineIcons.arrowLeft),
                     onPressed: () => Navigator.pop(context),
                   ),
                   CircleAvatar(
@@ -78,7 +78,7 @@ class _PesanUserState extends State<PesanUser> {
               border: Border(
                 top: BorderSide(
                   width: 1,
-                  color: Colors.grey[350],
+                  color: Colors.grey.shade300,
                   style: BorderStyle.solid
                 )
               )
@@ -119,7 +119,7 @@ class _PesanUserState extends State<PesanUser> {
                           borderRadius: BorderRadius.circular(25.0),
                           child: Padding(
                             padding: const EdgeInsets.all(7.0),
-                            child: Icon(LineIcons.paper_plane, color: Colors.white)
+                            child: Icon(LineIcons.paperPlane, color: Colors.white)
                           ),
                         ),
                       ),
@@ -136,7 +136,10 @@ class _PesanUserState extends State<PesanUser> {
 }
 
 class ChatBox extends StatelessWidget {
-  ChatBox({this.me, this.chatText});
+  ChatBox({
+    required this.me, 
+    required this.chatText
+  });
 
   final bool me;
   final String chatText;
@@ -152,7 +155,7 @@ class ChatBox extends StatelessWidget {
         Flexible(
           child: MyContainer(
             width: double.infinity,
-            color: me ? Colors.orange[400] : Colors.white,
+            color: me ? Colors.orange.shade400 : Colors.white,
             child: Text(chatText, style: TextStyle(color: me ? Colors.white : Colors.black),),
             padding: EdgeInsets.all(10.0),
           ),

@@ -1,8 +1,8 @@
 class DatabaseModel{
-  int _id;
-  String _username;
-  String _password;
-  int _isWelcome;
+  late int _id;
+  late String _username;
+  late String _password;
+  late int _isWelcome;
 
   DatabaseModel(
     this._id,

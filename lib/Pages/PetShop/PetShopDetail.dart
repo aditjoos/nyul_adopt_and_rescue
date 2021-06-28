@@ -30,7 +30,7 @@ class _PetShopDetailPageState extends State<PetShopDetailPage> {
                           child: Row(
                             children: <Widget>[
                               IconButton(
-                                icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                                icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                                 onPressed: () => Navigator.pop(context),
                                 splashColor: Colors.black26,
                                 focusColor: Colors.black38,
@@ -46,7 +46,7 @@ class _PetShopDetailPageState extends State<PetShopDetailPage> {
                           children: <Widget>[
                             Icon(LineIcons.share, color: Colors.white,),
                             SizedBox(width: 10.0,),
-                            Icon(LineIcons.ellipsis_v, color: Colors.white,),
+                            Icon(LineIcons.verticalEllipsis, color: Colors.white,),
                             SizedBox(width: 10.0,),
                           ],
                         )
@@ -76,7 +76,7 @@ class _PetShopDetailPageState extends State<PetShopDetailPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Icon(LineIcons.map_marker, size: 15.0, color: Colors.white,),
+                                Icon(LineIcons.mapMarker, size: 15.0, color: Colors.white,),
                                 Text(' Malang', style: TextStyle(color: Colors.white),),
                               ],
                             ),

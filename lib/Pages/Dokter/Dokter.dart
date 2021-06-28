@@ -15,52 +15,52 @@ class DokterPage extends StatefulWidget {
 
 class _DokterPageState extends State<DokterPage> {
 
-  List data;
+  late List data;
   bool isLoadingData = true;
   bool isData = false;
 
-  Future getListDokter() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/member/?tipe=3';
-    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  // Future getListDokter() async {
+  //   final String url = 'http://nyul.kumpulan-soal.com/index.php/member/?tipe=3';
+  //   var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
-    setState(() {
-      if(result.statusCode == 200){
-        var content = json.decode(result.body);
-        if(content['result'] = true){
-          data = content['data'];
-          isData = true;
-        }else if(content['result'] = false){
-          showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (_) => FunkyOverlay(
-              content['data'],
-              [
-                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-              ]
-            )
-          );
-        }
-      }
-      isLoadingData = false;
-    });
-  }
+  //   setState(() {
+  //     if(result.statusCode == 200){
+  //       var content = json.decode(result.body);
+  //       if(content['result'] = true){
+  //         data = content['data'];
+  //         isData = true;
+  //       }else if(content['result'] = false){
+  //         showDialog(
+  //           barrierDismissible: true,
+  //           context: context,
+  //           builder: (_) => FunkyOverlay(
+  //             content['data'],
+  //             [
+  //               FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+  //             ]
+  //           )
+  //         );
+  //       }
+  //     }
+  //     isLoadingData = false;
+  //   });
+  // }
 
-  void checkConnectionThenExecuteLoadDataFunction() async {
-    try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        getListDokter();
-      }
-    } on SocketException catch (_) {
-      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
-    }
-  }
+  // void checkConnectionThenExecuteLoadDataFunction() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       getListDokter();
+  //     }
+  //   } on SocketException catch (_) {
+  //     showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    checkConnectionThenExecuteLoadDataFunction();
+    // checkConnectionThenExecuteLoadDataFunction();
   }
 
   @override
@@ -78,7 +78,7 @@ class _DokterPageState extends State<DokterPage> {
                     child: Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                          icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                           onPressed: () => Navigator.pop(context),
                           splashColor: Colors.black26,
                           focusColor: Colors.black38,
@@ -156,7 +156,12 @@ class _DokterPageState extends State<DokterPage> {
 }
 
 class DokterContainer extends StatelessWidget {
-  DokterContainer({this.foto, this.nama, this.email, this.kab});
+  DokterContainer({
+    required this.foto, 
+    required this.nama, 
+    required this.email, 
+    required this.kab
+  });
 
   final String foto;
   final String nama;
@@ -187,7 +192,7 @@ class DokterContainer extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Icon(LineIcons.map_marker, size: 15.0,),
+                    Icon(LineIcons.mapMarker, size: 15.0,),
                     Text(kab),
                   ],
                 ),

@@ -15,22 +15,17 @@ class _RescueProcessPageState extends State<RescueProcessPage> {
 
   DateTime selectedDate = DateTime.now();
 
-  File _image;
+  late File _image;
 
-  Future getImage(bool chosenIsCamera) async {
-    File image;
-    if(chosenIsCamera) image = await ImagePicker.pickImage(source: ImageSource.camera);
-    else image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  // Future getImage(bool chosenIsCamera) async {
+  //   File image;
+  //   if(chosenIsCamera) image = await ImagePicker.pickImage(source: ImageSource.camera);
+  //   else image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      _image = image;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  //   setState(() {
+  //     _image = image;
+  //   });
+  // }
 
   int diselamatkanOleh = 0; // 0=init, 1=saya 2=orang lain
 
@@ -52,7 +47,7 @@ class _RescueProcessPageState extends State<RescueProcessPage> {
                     SafeArea(
                       child: Row(
                         children: <Widget>[
-                          IconButton(icon: Icon(LineIcons.arrow_left), onPressed: () => Navigator.pop(context)),
+                          IconButton(icon: Icon(LineIcons.arrowLeft), onPressed: () => Navigator.pop(context)),
                           Text('Kembali')
                         ],
                       ),
@@ -209,7 +204,8 @@ class _RescueProcessPageState extends State<RescueProcessPage> {
                               child: Material(
                                 color: Colors.transparent,
                                 child: InkWell(
-                                  onTap: () => getImage(true),
+                                  // onTap: () => getImage(true),
+                                  onTap: () {},
                                   borderRadius: BorderRadius.circular(25.0),
                                   splashColor: Colors.black26,
                                   child: Padding(
@@ -229,7 +225,8 @@ class _RescueProcessPageState extends State<RescueProcessPage> {
                       ),
                     ) : IconButton(
                       icon: Icon(LineIcons.camera),
-                      onPressed: () => getImage(true),
+                      // onPressed: () => getImage(true),
+                      onPressed: () {},
                     ),
                     SizedBox(height: 10.0,),
                     Container(
@@ -279,7 +276,7 @@ class _RescueProcessPageState extends State<RescueProcessPage> {
                         Material(color: Colors.transparent, child: InkWell(
                           onTap: () => setState(() => isPilihProvinsi = false),
                           borderRadius: BorderRadius.circular(25.0),
-                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.close),),
+                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.cross),),
                         ),),
                       ],),
                       Container(
@@ -326,7 +323,7 @@ class _RescueProcessPageState extends State<RescueProcessPage> {
                         Material(color: Colors.transparent, child: InkWell(
                           onTap: () => setState(() => isPilihKota = false),
                           borderRadius: BorderRadius.circular(25.0),
-                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.close),),
+                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.cross),),
                         ),),
                       ],),
                       Container(
@@ -359,7 +356,10 @@ class _RescueProcessPageState extends State<RescueProcessPage> {
 }
 
 class ListViewItemsProvinsi extends StatelessWidget {
-  ListViewItemsProvinsi({this.onTap, this.text});
+  ListViewItemsProvinsi({
+    required this.onTap, 
+    required this.text
+  });
 
   final VoidCallback onTap;
   final String text;

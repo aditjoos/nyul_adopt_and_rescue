@@ -25,24 +25,24 @@ class _PostRescuePageState extends State<PostRescuePage> {
     }
   });
 
-  File _image;
+  late File _image;
 
-  Future getImage(bool chosenIsCamera) async {
-    File image;
-    if(chosenIsCamera) image = await ImagePicker.pickImage(source: ImageSource.camera);
-    else image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  // Future getImage(bool chosenIsCamera) async {
+  //   File image;
+  //   if(chosenIsCamera) image = await ImagePicker.pickImage(source: ImageSource.camera);
+  //   else image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      _image = image;
-    });
-  }
+  //   setState(() {
+  //     _image = image;
+  //   });
+  // }
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    if(_image == null) getImage(true);
-  }
+  //   if(_image == null) getImage(true);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,30 +56,32 @@ class _PostRescuePageState extends State<PostRescuePage> {
               SafeArea(
                 child: Row(
                   children: <Widget>[
-                    IconButton(icon: Icon(LineIcons.close), onPressed: () => showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => FunkyDialog(
-                        Center(
-                          child: Padding(padding: EdgeInsets.only(top: 15.0), child: Text('Yakin batal?'),),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              FlatButton(onPressed: () => Navigator.pop(context), child: Text('Tidak')),
-                              FlatButton(onPressed: (){
-                                for (var i = 0; i < 2; i++) {
-                                  Navigator.pop(context);
-                                }
-                              }, child: Text('Ya')),
-                            ],
-                          ),
-                        ),
-                        MainAxisSize.min
-                      )
-                    )),
+                    IconButton(icon: Icon(LineIcons.cross), onPressed: () {
+                      // showDialog(
+                      //   barrierDismissible: false,
+                      //   context: context,
+                      //   builder: (BuildContext context) => FunkyDialog(
+                      //     Center(
+                      //       child: Padding(padding: EdgeInsets.only(top: 15.0), child: Text('Yakin batal?'),),
+                      //     ),
+                      //     Container(
+                      //       padding: EdgeInsets.all(10.0),
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: <Widget>[
+                      //           FlatButton(onPressed: () => Navigator.pop(context), child: Text('Tidak')),
+                      //           FlatButton(onPressed: (){
+                      //             for (var i = 0; i < 2; i++) {
+                      //               Navigator.pop(context);
+                      //             }
+                      //           }, child: Text('Ya')),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     MainAxisSize.min
+                      //   )
+                      // );
+                    }),
                     Text('Batal')
                   ],
                 ),
@@ -170,7 +172,7 @@ class _PostRescuePageState extends State<PostRescuePage> {
                     children: <Widget>[
                       Checkbox(
                         value: postAsAnonymous,
-                        onChanged: _onChangePostAsAnonymousValue,
+                        onChanged: (value) => _onChangePostAsAnonymousValue(value!),
                       ),
                       Text('Posting sebagai anonymous')
                     ],
@@ -178,24 +180,26 @@ class _PostRescuePageState extends State<PostRescuePage> {
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (BuildContext context) => FunkyDialog(
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text('Posting sebagai anonymous ?', style: TextStyle(fontWeight: FontWeight.bold),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
-                            child: Text('Jika kamu posting rescue secara anonymous/tanpa identitas, maka kamu tidak akan mendapatkan poin atau rating.'),
-                          ),
-                          MainAxisSize.min
-                        ),
-                      ),
+                      onTap: () {
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (BuildContext context) => FunkyDialog(
+                        //     Padding(
+                        //       padding: const EdgeInsets.all(10.0),
+                        //       child: Text('Posting sebagai anonymous ?', style: TextStyle(fontWeight: FontWeight.bold),),
+                        //     ),
+                        //     Padding(
+                        //       padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
+                        //       child: Text('Jika kamu posting rescue secara anonymous/tanpa identitas, maka kamu tidak akan mendapatkan poin atau rating.'),
+                        //     ),
+                        //     MainAxisSize.min
+                        //   ),
+                        // )
+                      },
                       borderRadius: BorderRadius.circular(30.0),
                       child: Padding(
                         padding: EdgeInsets.all(10.0),
-                        child: Icon(LineIcons.question_circle),
+                        child: Icon(LineIcons.questionCircle),
                       ),
                     ),
                   )

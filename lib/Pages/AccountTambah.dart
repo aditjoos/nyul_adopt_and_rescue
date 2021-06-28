@@ -22,7 +22,7 @@ class _AccountTambahPageState extends State<AccountTambahPage> {
               SafeArea(
                 child: Row(
                   children: <Widget>[
-                    IconButton(icon: Icon(LineIcons.arrow_left), onPressed: () => Navigator.pop(context)),
+                    IconButton(icon: Icon(LineIcons.arrowLeft), onPressed: () => Navigator.pop(context)),
                     Text('Kembali')
                   ],
                 ),
@@ -30,11 +30,7 @@ class _AccountTambahPageState extends State<AccountTambahPage> {
               Center(child: Text('Tambah Akun', style: TextStyle(fontSize: 20.0),),),
               SizedBox(height: 10.0,),
               ExpansionTile(
-                leading: Radio(value: 1, groupValue: _radioGroup, onChanged: (T){
-                  setState(() {
-                    _radioGroup = T;
-                  });
-                }),
+                leading: Radio(value: 1, groupValue: _radioGroup, onChanged: (int? aa) => setState(() => _radioGroup = aa!)),
                 title: Text('Dokter hewan'),
                 trailing: Icon(Icons.chevron_right),
                 children: <Widget>[
@@ -45,11 +41,7 @@ class _AccountTambahPageState extends State<AccountTambahPage> {
               ),
               SizedBox(height: 10.0,),
               ExpansionTile(
-                leading: Radio(value: 2, groupValue: _radioGroup, onChanged: (T){
-                  setState(() {
-                    _radioGroup = T;
-                  });
-                }),
+                leading: Radio(value: 1, groupValue: _radioGroup, onChanged: (int? aa) => setState(() => _radioGroup = aa!)),
                 title: Text('Shelter'),
                 trailing: Icon(Icons.chevron_right),
                 children: <Widget>[
@@ -60,11 +52,7 @@ class _AccountTambahPageState extends State<AccountTambahPage> {
               ),
               SizedBox(height: 10.0,),
               ExpansionTile(
-                leading: Radio(value: 3, groupValue: _radioGroup, onChanged: (T){
-                  setState(() {
-                    _radioGroup = T;
-                  });
-                }),
+                leading: Radio(value: 1, groupValue: _radioGroup, onChanged: (int? aa) => setState(() => _radioGroup = aa!)),
                 title: Text('Petshop'),
                 trailing: Icon(Icons.chevron_right),
                 children: <Widget>[
@@ -75,11 +63,7 @@ class _AccountTambahPageState extends State<AccountTambahPage> {
               ),
               SizedBox(height: 10.0,),
               ExpansionTile(
-                leading: Radio(value: 4, groupValue: _radioGroup, onChanged: (T){
-                  setState(() {
-                    _radioGroup = T;
-                  });
-                }),
+                leading: Radio(value: 1, groupValue: _radioGroup, onChanged: (int? aa) => setState(() => _radioGroup = aa!)),
                 title: Text('Cattery'),
                 trailing: Icon(Icons.chevron_right),
                 children: <Widget>[
@@ -98,7 +82,7 @@ class _AccountTambahPageState extends State<AccountTambahPage> {
                   color: Colors.transparent,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10.0),
-                    onTap: () => showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))])),
+                    onTap: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Center(

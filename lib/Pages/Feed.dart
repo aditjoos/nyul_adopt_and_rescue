@@ -54,7 +54,7 @@ class _FeedPageState extends State<FeedPage> {
                           color: Colors.transparent,
                           child: InkWell(onTap: (){}, child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Row(children: <Widget>[Icon(LineIcons.thumbs_up, size: 12,), Text('Suka', style: TextStyle(fontSize: 12),)],),
+                            child: Row(children: <Widget>[Icon(LineIcons.thumbsUp, size: 12,), Text('Suka', style: TextStyle(fontSize: 12),)],),
                           )),
                         ),
                         Material(
@@ -113,7 +113,7 @@ class _FeedPageState extends State<FeedPage> {
                           color: Colors.transparent,
                           child: InkWell(onTap: (){}, child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Row(children: <Widget>[Icon(LineIcons.thumbs_up, size: 12,), Text('Suka', style: TextStyle(fontSize: 12),)],),
+                            child: Row(children: <Widget>[Icon(LineIcons.thumbsUp, size: 12,), Text('Suka', style: TextStyle(fontSize: 12),)],),
                           )),
                         ),
                         Material(

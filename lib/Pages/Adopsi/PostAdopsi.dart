@@ -21,30 +21,32 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
               SafeArea(
                 child: Row(
                   children: <Widget>[
-                    IconButton(icon: Icon(LineIcons.close), onPressed: () => showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => FunkyDialog(
-                        Center(
-                          child: Padding(padding: EdgeInsets.only(top: 15.0), child: Text('Yakin batal?'),),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              FlatButton(onPressed: () => Navigator.pop(context), child: Text('Tidak')),
-                              FlatButton(onPressed: (){
-                                for (var i = 0; i < 2; i++) {
-                                  Navigator.pop(context);
-                                }
-                              }, child: Text('Ya')),
-                            ],
-                          ),
-                        ),
-                        MainAxisSize.min
-                      )
-                    )),
+                    IconButton(icon: Icon(LineIcons.cross), onPressed: () {
+                      // showDialog(
+                      //   barrierDismissible: false,
+                      //   context: context,
+                      //   builder: (BuildContext context) => FunkyDialog(
+                      //     Center(
+                      //       child: Padding(padding: EdgeInsets.only(top: 15.0), child: Text('Yakin batal?'),),
+                      //     ),
+                      //     Container(
+                      //       padding: EdgeInsets.all(10.0),
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: <Widget>[
+                      //           FlatButton(onPressed: () => Navigator.pop(context), child: Text('Tidak')),
+                      //           FlatButton(onPressed: (){
+                      //             for (var i = 0; i < 2; i++) {
+                      //               Navigator.pop(context);
+                      //             }
+                      //           }, child: Text('Ya')),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     MainAxisSize.min
+                      //   )
+                      // )
+                    }),
                     Text('Batal')
                   ],
                 ),
@@ -117,54 +119,54 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
                   title: Text('Jenis Hewan'),
                   trailing: Icon(Icons.keyboard_arrow_down, color: Colors.orange,),
                   onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => FunkyDialog(
-                        MyDialogTitle(title: 'Pilih Jenis Hewan', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
-                        Container(
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Kucing'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Anjing'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Kelinci'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Lainnya'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        MainAxisSize.min
-                      )
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) => FunkyDialog(
+                    //     MyDialogTitle(title: 'Pilih Jenis Hewan', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
+                    //     Container(
+                    //       child: Center(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: <Widget>[
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Kucing'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Anjing'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Kelinci'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Lainnya'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     MainAxisSize.min
+                    //   )
+                    // );
                   },
                 ),
               ),
@@ -174,54 +176,54 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
                   title: Text('Ras Hewan'),
                   trailing: Icon(Icons.keyboard_arrow_down, color: Colors.orange,),
                   onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => FunkyDialog(
-                        MyDialogTitle(title: 'Pilih Jenis Hewan', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
-                        Container(
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Ras 1'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Ras 2'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Ras 3'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Lainnya'))),
-                                  onPressed: (){
-                                    setState(() {
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        MainAxisSize.min
-                      )
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) => FunkyDialog(
+                    //     MyDialogTitle(title: 'Pilih Jenis Hewan', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
+                    //     Container(
+                    //       child: Center(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: <Widget>[
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Ras 1'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Ras 2'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Ras 3'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //             FlatButton(
+                    //               child: Container(width: MediaQuery.of(context).size.width / 2, child: Center(child: Text('Lainnya'))),
+                    //               onPressed: (){
+                    //                 setState(() {
+                    //                   Navigator.pop(context);
+                    //                 });
+                    //               },
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     MainAxisSize.min
+                    //   )
+                    // );
                   },
                 ),
               ),
@@ -239,36 +241,36 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
                   title: Text('Jenis Kelamin'),
                   trailing: Icon(Icons.keyboard_arrow_down, color: Colors.orange,),
                   onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => FunkyDialog(
-                        MyDialogTitle(title: 'Pilih Jenis Kelamin Hewan', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              FlatButton(
-                                child: Text('Jantan'),
-                                onPressed: (){
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                              FlatButton(
-                                child: Text('Betina'),
-                                onPressed: (){
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        MainAxisSize.min
-                      )
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) => FunkyDialog(
+                    //     MyDialogTitle(title: 'Pilih Jenis Kelamin Hewan', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
+                    //     Container(
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //         children: <Widget>[
+                    //           FlatButton(
+                    //             child: Text('Jantan'),
+                    //             onPressed: (){
+                    //               setState(() {
+                    //                 Navigator.pop(context);
+                    //               });
+                    //             },
+                    //           ),
+                    //           FlatButton(
+                    //             child: Text('Betina'),
+                    //             onPressed: (){
+                    //               setState(() {
+                    //                 Navigator.pop(context);
+                    //               });
+                    //             },
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     MainAxisSize.min
+                    //   )
+                    // );
                   },
                 ),
               ),
@@ -286,36 +288,36 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
                   title: Text('Vaksin | Pilih'),
                   trailing: Icon(Icons.keyboard_arrow_down, color: Colors.orange,),
                   onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => FunkyDialog(
-                        MyDialogTitle(title: 'Vaksin ?', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              FlatButton(
-                                child: Text('Ya'),
-                                onPressed: (){
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                              FlatButton(
-                                child: Text('Tidak'),
-                                onPressed: (){
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        MainAxisSize.min
-                      )
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) => FunkyDialog(
+                    //     MyDialogTitle(title: 'Vaksin ?', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
+                    //     Container(
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //         children: <Widget>[
+                    //           FlatButton(
+                    //             child: Text('Ya'),
+                    //             onPressed: (){
+                    //               setState(() {
+                    //                 Navigator.pop(context);
+                    //               });
+                    //             },
+                    //           ),
+                    //           FlatButton(
+                    //             child: Text('Tidak'),
+                    //             onPressed: (){
+                    //               setState(() {
+                    //                 Navigator.pop(context);
+                    //               });
+                    //             },
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     MainAxisSize.min
+                    //   )
+                    // );
                   },
                 ),
               ),
@@ -325,36 +327,36 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
                   title: Text('Steril | Pilih'),
                   trailing: Icon(Icons.keyboard_arrow_down, color: Colors.orange,),
                   onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => FunkyDialog(
-                        MyDialogTitle(title: 'Steril ?', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              FlatButton(
-                                child: Text('Ya'),
-                                onPressed: (){
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                              FlatButton(
-                                child: Text('Tidak'),
-                                onPressed: (){
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        MainAxisSize.min
-                      )
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) => FunkyDialog(
+                    //     MyDialogTitle(title: 'Steril ?', backgroundColor: Colors.orange[300], titleColor: Colors.white,),
+                    //     Container(
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //         children: <Widget>[
+                    //           FlatButton(
+                    //             child: Text('Ya'),
+                    //             onPressed: (){
+                    //               setState(() {
+                    //                 Navigator.pop(context);
+                    //               });
+                    //             },
+                    //           ),
+                    //           FlatButton(
+                    //             child: Text('Tidak'),
+                    //             onPressed: (){
+                    //               setState(() {
+                    //                 Navigator.pop(context);
+                    //               });
+                    //             },
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     MainAxisSize.min
+                    //   )
+                    // );
                   },
                 ),
               ),
@@ -392,7 +394,7 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text('Kirim', style: TextStyle(color: Colors.white),),
-                            Icon(LineIcons.paper_plane, color: Colors.white,)
+                            Icon(LineIcons.paperPlane, color: Colors.white,)
                           ],
                         ),
                       ),

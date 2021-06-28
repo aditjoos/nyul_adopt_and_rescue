@@ -15,53 +15,53 @@ class RescuePage extends StatefulWidget {
 
 class _RescuePageState extends State<RescuePage> {
 
-  List data;
+  late List data;
   bool isLoadingData = true;
   bool isData = false;
 
-  Future getRescueData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue';
-    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  // Future getRescueData() async {
+  //   final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue';
+  //   var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
-    setState(() {
-      if(result.statusCode == 200){
-        var content = json.decode(result.body);
-        if(content['result'] = true){
-          data = content['data'];
-          isData = true;
-        }else if(content['result'] = false){
-          showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (_) => FunkyOverlay(
-              content['data'],
-              [
-                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-              ]
-            )
-          );
-        }
-      }
-      isLoadingData = false;
-    });
-  }
+  //   setState(() {
+  //     if(result.statusCode == 200){
+  //       var content = json.decode(result.body);
+  //       if(content['result'] = true){
+  //         data = content['data'];
+  //         isData = true;
+  //       }else if(content['result'] = false){
+  //         showDialog(
+  //           barrierDismissible: true,
+  //           context: context,
+  //           builder: (_) => FunkyOverlay(
+  //             content['data'],
+  //             [
+  //               FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+  //             ]
+  //           )
+  //         );
+  //       }
+  //     }
+  //     isLoadingData = false;
+  //   });
+  // }
 
-  void checkConnectionThenExecuteLoadDataFunction() async {
-    try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        // Lakukan getRescueData ketika ada internet
-        getRescueData();
-      }
-    } on SocketException catch (_) {
-      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
-    }
-  }
+  // void checkConnectionThenExecuteLoadDataFunction() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       // Lakukan getRescueData ketika ada internet
+  //       getRescueData();
+  //     }
+  //   } on SocketException catch (_) {
+  //     MyDialogs().simpleDialog(context, 'Kesalahan', 'Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)');
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    checkConnectionThenExecuteLoadDataFunction();
+    // checkConnectionThenExecuteLoadDataFunction();
   }
 
   bool filterOpened = false;
@@ -84,7 +84,7 @@ class _RescuePageState extends State<RescuePage> {
                           child: Row(
                             children: <Widget>[
                               IconButton(
-                                icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                                icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                                 onPressed: () => Navigator.pop(context),
                                 splashColor: Colors.black26,
                                 focusColor: Colors.black38,
@@ -219,21 +219,21 @@ class _RescuePageState extends State<RescuePage> {
                     child: Column(
                       children: <Widget>[
                         RescueFilterLevelButton(
-                          color: Colors.green[300],
+                          color: Colors.green.shade300,
                           onTap: () => setState((){
                             filterOpened = false;
                           }),
                           text: 'Rendah',
                         ),
                         RescueFilterLevelButton(
-                          color: Colors.orange[300],
+                          color: Colors.orange.shade300,
                           onTap: () => setState((){
                             filterOpened = false;
                           }),
                           text: 'Sedang',
                         ),
                         RescueFilterLevelButton(
-                          color: Colors.red[300],
+                          color: Colors.red.shade300,
                           onTap: () => setState((){
                             filterOpened = false;
                           }),
@@ -253,7 +253,7 @@ class _RescuePageState extends State<RescuePage> {
                                 borderRadius: BorderRadius.circular(25.0),
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
-                                  child: Icon(LineIcons.close),
+                                  child: Icon(LineIcons.cross),
                                 ),
                               ),
                             ),
@@ -281,7 +281,11 @@ class _RescuePageState extends State<RescuePage> {
 }
 
 class RescueFilterLevelButton extends StatelessWidget {
-  RescueFilterLevelButton({this.onTap, this.color, this.text});
+  RescueFilterLevelButton({
+    required this.onTap, 
+    required this.color, 
+    required this.text
+  });
 
   final VoidCallback onTap;
   final Color color;

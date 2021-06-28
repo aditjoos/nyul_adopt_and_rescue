@@ -47,24 +47,24 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                     height: MediaQuery.of(context).size.width,
                     child: Stack(
                       children: <Widget>[
-                        Positioned.fill(
-                          child: CarouselSlider(
-                            height: MediaQuery.of(context).size.width,
-                            viewportFraction: 1.0,
-                            aspectRatio: MediaQuery.of(context).size.aspectRatio,
-                            initialPage: _currentSlide,
-                            reverse: false,
-                            enableInfiniteScroll: false,
-                            onPageChanged: (index){
-                              setState(() {
-                                _currentSlide = index;
-                              });
-                            },
-                            items: imgList.map((imgUrl){
-                              return Container(width: MediaQuery.of(context).size.width, child: Image.asset(imgUrl, fit: BoxFit.fill,));
-                            }).toList(),
-                          ),
-                        ),
+                        // Positioned.fill(
+                        //   child: CarouselSlider(
+                        //     height: MediaQuery.of(context).size.width,
+                        //     viewportFraction: 1.0,
+                        //     aspectRatio: MediaQuery.of(context).size.aspectRatio,
+                        //     initialPage: _currentSlide,
+                        //     reverse: false,
+                        //     enableInfiniteScroll: false,
+                        //     onPageChanged: (index){
+                        //       setState(() {
+                        //         _currentSlide = index;
+                        //       });
+                        //     },
+                        //     items: imgList.map((imgUrl){
+                        //       return Container(width: MediaQuery.of(context).size.width, child: Image.asset(imgUrl, fit: BoxFit.fill,));
+                        //     }).toList(),
+                        //   ),
+                        // ),
                         Material(
                           color: Colors.transparent,
                           child: SafeArea(
@@ -72,7 +72,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Row(children: <Widget>[
-                                  IconButton(icon: Icon(LineIcons.arrow_left, color: Colors.white), onPressed: () => Navigator.pop(context)),
+                                  IconButton(icon: Icon(LineIcons.arrowLeft, color: Colors.white), onPressed: () => Navigator.pop(context)),
                                   Text('Kembali', style: TextStyle(color: Colors.white),)
                                 ],),
                                 Row(
@@ -90,7 +90,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                                 ),
                                 Row(children: <Widget>[
                                   IconButton(icon: Icon(LineIcons.share, color: Colors.white), onPressed: (){}),
-                                  IconButton(icon: Icon(LineIcons.dot_circle_o, color: Colors.white), onPressed: (){}),
+                                  IconButton(icon: Icon(LineIcons.dotCircle, color: Colors.white), onPressed: (){}),
                                 ],),
                               ],
                             ),
@@ -143,7 +143,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                                       child: Row(
                                         children: <Widget>[
                                           Text(' Favorit ', style: TextStyle(color: Colors.white),),
-                                          Icon(isFavorite ? LineIcons.heart : LineIcons.heart_o, color: isFavorite ? Colors.orange : Colors.white),
+                                          Icon(isFavorite ? LineIcons.heart : LineIcons.heart, color: isFavorite ? Colors.orange : Colors.white),
                                         ],
                                       ),
                                     ),
@@ -171,7 +171,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                             Text('Mohamad Rizky Reynaldy', style: TextStyle(color: Colors.grey)),
                           ]),
                           Row(children: <Widget>[
-                            Icon(LineIcons.map_marker, color: Colors.grey, size: 15,),
+                            Icon(LineIcons.mapMarker, color: Colors.grey, size: 15,),
                             Text('Malang kota', style: TextStyle(color: Colors.grey)),
                           ]),
                         ],
@@ -195,7 +195,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                                 padding: EdgeInsets.all(3.0),
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: Colors.orange[400],
+                                    color: Colors.orange.shade400,
                                     style: BorderStyle.solid,
                                     width: 1,
                                   ),
@@ -236,7 +236,7 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
               border: Border(
                 top: BorderSide(
                   width: 1,
-                  color: Colors.grey[350],
+                  color: Colors.grey.shade300,
                   style: BorderStyle.solid
                 )
               )

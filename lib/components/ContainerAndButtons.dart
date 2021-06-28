@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meta/meta.dart';
 
 class MyContainer extends StatelessWidget {
-  MyContainer({this.child, this.color, this.padding, this.width, this.height});
+  MyContainer({
+    this.width = 0,
+    this.height = 0,
+    required this.child,
+    this.padding = const EdgeInsets.all(0),
+    this.color = Colors.white,
+  });
 
   final Widget child;
   final Color color;
@@ -13,20 +20,20 @@ class MyContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width == null ? null : width,
-      height: height == null ? null : height,
+      width: width,
+      height: height,
       padding: padding,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.grey[200],
+            color: Colors.grey.shade200,
             offset: Offset(0.0, 2.0),
             blurRadius: 10.0,
             spreadRadius: 1.0
           )
         ],
         borderRadius: BorderRadius.circular(10.0),
-        color: color == null ? Colors.white : color,
+        color: color,
       ),
       child: child,
     );
@@ -35,14 +42,14 @@ class MyContainer extends StatelessWidget {
 
 class PostAdopsiCard extends StatelessWidget {
   PostAdopsiCard({
-    this.imgSource,
-    this.judul,
-    this.jenis,
-    this.ras,
-    this.umur,
-    this.alamat,
-    this.metodeAdopsi,
-    this.onTap,
+    required this.imgSource,
+    this.judul = 'Judul',
+    this.jenis = 1,
+    required this.ras,
+    required this.umur,
+    required this.alamat,
+    required this.metodeAdopsi,
+    required this.onTap,
   });
 
   final String imgSource;
@@ -63,7 +70,7 @@ class PostAdopsiCard extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey[200],
+              color: Colors.grey.shade200,
               offset: Offset(0.0, 2.0),
               blurRadius: 10.0,
               spreadRadius: 1.0
@@ -103,7 +110,7 @@ class PostAdopsiCard extends StatelessWidget {
                             padding: EdgeInsets.all(3.0),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.orange[400],
+                                color: Colors.orange.shade400,
                                 style: BorderStyle.solid,
                                 width: 1,
                               ),

@@ -24,7 +24,7 @@ class _AdopsiFavoritesPageState extends State<AdopsiFavoritesPage> {
                     child: Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                          icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                           onPressed: () => Navigator.pop(context),
                           splashColor: Colors.black26,
                           focusColor: Colors.black38,

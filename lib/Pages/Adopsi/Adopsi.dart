@@ -15,52 +15,52 @@ class AdopsiPage extends StatefulWidget {
 
 class _AdopsiPageState extends State<AdopsiPage> {
   
-  List data;
+  late List data;
   bool isLoadingData = true;
   bool isData = false;
 
-  Future getAdopsiData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/adopsi/post_adopt?fungsi=1';
-    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  // Future getAdopsiData() async {
+  //   final String url = 'http://nyul.kumpulan-soal.com/index.php/adopsi/post_adopt?fungsi=1';
+  //   var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
-    setState(() {
-      if(result.statusCode == 200){
-        var content = json.decode(result.body);
-        if(content['result'] = true){
-          data = content['data'];
-          isData = true;
-        }else if(content['result'] = false){
-          showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (_) => FunkyOverlay(
-              content['data'],
-              [
-                FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-              ]
-            )
-          );
-        }
-      }
-      isLoadingData = false;
-    });
-  }
+  //   setState(() {
+  //     if(result.statusCode == 200){
+  //       var content = json.decode(result.body);
+  //       if(content['result'] = true){
+  //         data = content['data'];
+  //         isData = true;
+  //       }else if(content['result'] = false){
+  //         showDialog(
+  //           barrierDismissible: true,
+  //           context: context,
+  //           builder: (_) => FunkyOverlay(
+  //             content['data'],
+  //             [
+  //               FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+  //             ]
+  //           )
+  //         );
+  //       }
+  //     }
+  //     isLoadingData = false;
+  //   });
+  // }
 
-  void checkConnectionThenExecuteLoadDataFunction() async {
-    try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        getAdopsiData();
-      }
-    } on SocketException catch (_) {
-      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
-    }
-  }
+  // void checkConnectionThenExecuteLoadDataFunction() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       getAdopsiData();
+  //     }
+  //   } on SocketException catch (_) {
+  //     showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    checkConnectionThenExecuteLoadDataFunction();
+    // checkConnectionThenExecuteLoadDataFunction();
   }
 
   @override
@@ -78,7 +78,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
                     child: Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                          icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                           onPressed: () => Navigator.pop(context),
                           splashColor: Colors.black26,
                           focusColor: Colors.black38,

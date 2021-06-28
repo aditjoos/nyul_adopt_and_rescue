@@ -11,7 +11,7 @@ class DatabaseHelper{
 
   factory DatabaseHelper() => _instance;
 
-  static Database _db;
+  static late Database _db;
 
   // cek jika database ada, maka digunakan
   // jika tidak ada, maka buat database baru
@@ -49,11 +49,11 @@ class DatabaseHelper{
   // ambil data
   Future<List> getUser() async{
     // if(_db != null) {
-      var resultArray = List(4);
+      var resultArray;
 
       var dbClient = await db;
       List<Map> list = await dbClient.rawQuery("SELECT id, username, password, is_welcome FROM login");
-      List<DatabaseModel> userData = new List();
+      List<DatabaseModel> userData = [];
 
       for(int i = 0; i < list.length; i++){
         var data = new DatabaseModel(list[i]["id"], list[i]["username"], list[i]["password"], list[i]["is_welcome"]);

@@ -9,7 +9,7 @@ class AktivitasPage extends StatefulWidget {
 
 class _AktivitasPageState extends State<AktivitasPage> with SingleTickerProviderStateMixin{
 
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -132,7 +132,13 @@ class _AktivitasPageState extends State<AktivitasPage> with SingleTickerProvider
 }
 
 class AdopsiContainer extends StatelessWidget {
-  AdopsiContainer({this.img, this.title, this.pemilikLama, this.tanggal, this.status});
+  AdopsiContainer({
+    required this.img, 
+    required this.title, 
+    required this.pemilikLama, 
+    required this.tanggal, 
+    required this.status
+  });
 
   final String img;
   final String title;
@@ -204,7 +210,12 @@ class AdopsiContainer extends StatelessWidget {
 }
 
 class RescueContainer extends StatelessWidget {
-  RescueContainer({this.img, this.title, this.diselamatkanOleh, this.tanggal});
+  RescueContainer({
+    required this.img, 
+    required this.title, 
+    required this.diselamatkanOleh, 
+    required this.tanggal
+  });
 
   final String img;
   final String title;
@@ -268,7 +279,12 @@ class RescueContainer extends StatelessWidget {
 }
 
 class FeedingContainer extends StatelessWidget {
-  FeedingContainer({this.title, this.alamat, this.tanggal, this.jam});
+  FeedingContainer({
+    required this.title, 
+    required this.alamat, 
+    required this.tanggal, 
+    required this.jam
+  });
 
   final String title;
   final String alamat;

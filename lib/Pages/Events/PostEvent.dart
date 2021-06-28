@@ -13,15 +13,14 @@ class _PostEventPageState extends State<PostEventPage> {
   DateTime selectedDate = DateTime.now();
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101)
+    );
+
+    if (picked != null && picked != selectedDate) setState(() => selectedDate = picked);
   }
 
   @override
@@ -86,30 +85,32 @@ class _PostEventPageState extends State<PostEventPage> {
                   SafeArea(
                     child: Row(
                       children: <Widget>[
-                        IconButton(icon: Icon(LineIcons.close), onPressed: () => showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (BuildContext context) => FunkyDialog(
-                            Center(
-                              child: Padding(padding: EdgeInsets.only(top: 15.0), child: Text('Yakin batal?'),),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  FlatButton(onPressed: () => Navigator.pop(context), child: Text('Tidak')),
-                                  FlatButton(onPressed: (){
-                                    for (var i = 0; i < 2; i++) {
-                                      Navigator.pop(context);
-                                    }
-                                  }, child: Text('Ya')),
-                                ],
-                              ),
-                            ),
-                            MainAxisSize.min
-                          )
-                        )),
+                        IconButton(icon: Icon(LineIcons.cross), onPressed: () {
+                          // showDialog(
+                          //   barrierDismissible: false,
+                          //   context: context,
+                          //   builder: (BuildContext context) => FunkyDialog(
+                          //     Center(
+                          //       child: Padding(padding: EdgeInsets.only(top: 15.0), child: Text('Yakin batal?'),),
+                          //     ),
+                          //     Container(
+                          //       padding: EdgeInsets.all(10.0),
+                          //       child: Row(
+                          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //         children: <Widget>[
+                          //           FlatButton(onPressed: () => Navigator.pop(context), child: Text('Tidak')),
+                          //           FlatButton(onPressed: (){
+                          //             for (var i = 0; i < 2; i++) {
+                          //               Navigator.pop(context);
+                          //             }
+                          //           }, child: Text('Ya')),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     MainAxisSize.min
+                          //   )
+                          // )
+                        }),
                         Text('Batal')
                       ],
                     ),
@@ -321,12 +322,12 @@ class _PostEventPageState extends State<PostEventPage> {
                         Material(color: Colors.transparent, child: InkWell(
                           onTap: () => setState(() => isJumlahAnggotaMenuOpened = false),
                           borderRadius: BorderRadius.circular(25.0),
-                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.close),),
+                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.cross),),
                         ),),
                       ],),
-                      IconButton(icon: Icon(LineIcons.caret_up), onPressed: () => ubahJumlahAnggota(true)),
+                      IconButton(icon: Icon(LineIcons.caretUp), onPressed: () => ubahJumlahAnggota(true)),
                       Text(jumlahAnggota.toString()),
-                      IconButton(icon: Icon(LineIcons.caret_down), onPressed: () => ubahJumlahAnggota(false)),
+                      IconButton(icon: Icon(LineIcons.caretDown), onPressed: () => ubahJumlahAnggota(false)),
                       SizedBox(height: 10.0,),
                       FlatButton(onPressed: () => setState(() {
                         jumlahAnggotaFix = jumlahAnggota;
@@ -360,7 +361,7 @@ class _PostEventPageState extends State<PostEventPage> {
                         Material(color: Colors.transparent, child: InkWell(
                           onTap: () => setState(() => isJamMenuOpened = false),
                           borderRadius: BorderRadius.circular(25.0),
-                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.close),),
+                          child: Padding(padding: EdgeInsets.all(5.0), child: Icon(LineIcons.cross),),
                         ),),
                       ],),
                       Row(
@@ -369,23 +370,23 @@ class _PostEventPageState extends State<PostEventPage> {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
-                              IconButton(icon: Icon(LineIcons.caret_up), onPressed: () => ubahJam(true)),
+                              IconButton(icon: Icon(LineIcons.caretUp), onPressed: () => ubahJam(true)),
                               Text(jam.toString()),
-                              IconButton(icon: Icon(LineIcons.caret_down), onPressed: () => ubahJam(false)),
+                              IconButton(icon: Icon(LineIcons.caretDown), onPressed: () => ubahJam(false)),
                             ],
                           ),
                           Text(':'),
                           Column(
                             children: <Widget>[
-                              IconButton(icon: Icon(LineIcons.caret_up), onPressed: () => ubahMenit()),
+                              IconButton(icon: Icon(LineIcons.caretUp), onPressed: () => ubahMenit()),
                               Text(menit),
-                              IconButton(icon: Icon(LineIcons.caret_down), onPressed: () => ubahMenit()),
+                              IconButton(icon: Icon(LineIcons.caretDown), onPressed: () => ubahMenit()),
                             ],
                           ),
                         ],
                       ),
                       SizedBox(height: 10.0,),
-                      FlatButton(onPressed: () => setState(() {
+                      TextButton(onPressed: () => setState(() {
                         jamFix = jam.toString()+':'+menit;
                         isJamMenuOpened = false;
                       }), child: Text('Selesai'))

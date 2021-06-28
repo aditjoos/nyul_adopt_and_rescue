@@ -18,41 +18,41 @@ class EventsPage extends StatefulWidget {
 
 class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateMixin {
 
-  List data;
+  late List data;
   bool isLoadingData = true;
   bool isData = false;
 
-  Future getFeedMeData() async {
-    final String url = 'http://nyul.kumpulan-soal.com/index.php/feedme/Post_feedme';
-    var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  // Future getFeedMeData() async {
+  //   final String url = 'http://nyul.kumpulan-soal.com/index.php/feedme/Post_feedme';
+  //   var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
 
-    setState(() {
-      if(result.statusCode == 200){
-        var content = json.decode(result.body);
-        if(content['result'] = true){
-          data = content['data'];
-          isData = true;
-        }
-      }
-      isLoadingData = false;
-    });
-  }
+  //   setState(() {
+  //     if(result.statusCode == 200){
+  //       var content = json.decode(result.body);
+  //       if(content['result'] = true){
+  //         data = content['data'];
+  //         isData = true;
+  //       }
+  //     }
+  //     isLoadingData = false;
+  //   });
+  // }
 
-  void checkConnectionThenExecuteLoadDataFunction() async {
-    try {
-      final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        getFeedMeData();
-      }
-    } on SocketException catch (_) {
-      showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
-    }
-  }
+  // void checkConnectionThenExecuteLoadDataFunction() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       getFeedMeData();
+  //     }
+  //   } on SocketException catch (_) {
+  //     showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    checkConnectionThenExecuteLoadDataFunction();
+    // checkConnectionThenExecuteLoadDataFunction();
   }
 
   @override
@@ -75,7 +75,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                     child: Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(LineIcons.arrow_left, color: Colors.white,),
+                          icon: Icon(LineIcons.arrowLeft, color: Colors.white,),
                           onPressed: () => Navigator.pop(context),
                           splashColor: Colors.black26,
                           focusColor: Colors.black38,
@@ -107,6 +107,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                 child: isLoadingData ? Center(
                   child: CircularProgressIndicator(),
                 ) : isData ? ColumnBuilder(
+                  textDirection: TextDirection.ltr,
                   itemCount: data == null ? 0 : data.length + 1,
                   itemBuilder: (BuildContext context, int index){
                     return index != data.length ? Padding(
@@ -125,7 +126,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                                   Text(data[index]['deskripsi'], style: TextStyle(color: Colors.grey),),
                                   Row(
                                     children: <Widget>[
-                                      Icon(LineIcons.map_signs),
+                                      Icon(LineIcons.mapSigns),
                                       Text(data[index]['alamat'], style: TextStyle(color: Colors.grey),),
                                     ],
                                   ),
@@ -137,7 +138,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Icon(LineIcons.clock_o),
+                                      Icon(LineIcons.clock),
                                       Text(data[index]['jam'], style: TextStyle(color: Colors.grey),),
                                     ],
                                   ),
