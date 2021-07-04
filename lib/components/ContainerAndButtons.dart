@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 
 class MyContainer extends StatelessWidget {
   MyContainer({
-    this.width = 0,
-    this.height = 0,
+    this.width,
+    this.height,
     required this.child,
     this.padding = const EdgeInsets.all(0),
     this.color = Colors.white,
@@ -14,8 +14,8 @@ class MyContainer extends StatelessWidget {
   final Widget child;
   final Color color;
   final EdgeInsets padding;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {

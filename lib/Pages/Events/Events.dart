@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ import 'package:petz_invention_udayana/Pages/Pesan/PesanUser.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 import 'package:petz_invention_udayana/components/WidgetBuilder.dart';
-import 'package:http/http.dart' as http;
+import 'package:petz_invention_udayana/helper/apiHelper.dart';
 
 class EventsPage extends StatefulWidget {
   @override
@@ -38,26 +37,31 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
   //   });
   // }
 
-  // void checkConnectionThenExecuteLoadDataFunction() async {
-  //   try {
-  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //       getFeedMeData();
-  //     }
-  //   } on SocketException catch (_) {
-  //     showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
-  //   }
-  // }
+  _checkConnectionThenExecute() async {
+    try {
+      final result = await InternetAddress.lookup(APIHelper().baseUrl);
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) _getData();
+    } on SocketException catch (_) {
+      MyDialogs().simpleDialog(context, 'Tidak ada Koneksi', 'Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)');
+    }
+  }
+
+  _getData() {
+    APIHelper().getData('index.php/feedme/Post_feedme').then((value) {
+      if(value['result']) {
+        setState(() {
+          data = value['data'];
+          isData = true;
+          isLoadingData = false;
+        });
+      } else MyDialogs().simpleDialog(context, 'Kesalahan', '${value['data']} | ${value['message']}');
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    // checkConnectionThenExecuteLoadDataFunction();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    _checkConnectionThenExecute();
   }
 
   @override
@@ -108,7 +112,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                   child: CircularProgressIndicator(),
                 ) : isData ? ColumnBuilder(
                   textDirection: TextDirection.ltr,
-                  itemCount: data == null ? 0 : data.length + 1,
+                  itemCount: data.isEmpty ? 0 : data.length + 1,
                   itemBuilder: (BuildContext context, int index){
                     return index != data.length ? Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
@@ -151,8 +155,8 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  FlatButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PesanUser())), child: Text('Chat')),
-                                  FlatButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => EventDetailPage())), child: Text('Lihat')),
+                                  TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PesanUser())), child: Text('Chat')),
+                                  TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => EventDetailPage())), child: Text('Lihat')),
                                 ],
                               ),
                             ),

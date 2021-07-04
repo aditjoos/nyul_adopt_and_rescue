@@ -15,7 +15,7 @@ class MySql {
   Future getConnection() async {
     try{
       ConnectionSettings settings = new ConnectionSettings(
-        host: '192.168.42.63',
+        host: '192.168.42.57',
         port: 3306,
         user: 'root',
         db: 'nyul'
@@ -29,12 +29,12 @@ class MySql {
     }
   }
 
-  Future<List<ResultRow>> getData(String query) async {
+  Future<Results> queryProcess(String query) async {
     MySqlConnection conn = await getConnection();
 
     Results results = await conn.query(query);
     
     conn.close();
-    return results.toList();
+    return results;
   }
 }

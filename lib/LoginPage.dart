@@ -7,7 +7,8 @@ import 'package:petz_invention_udayana/components/Buttons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 import 'package:petz_invention_udayana/components/forms.dart';
-import 'package:petz_invention_udayana/database/mysqlHelper.dart';
+import 'package:petz_invention_udayana/helper/mysqlHelper.dart';
+import 'package:petz_invention_udayana/helper/sqliteHelper.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,10 +17,32 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  TextEditingController controllerUsername = TextEditingController(text: '');
-  TextEditingController controllerPassword = TextEditingController(text: '');
+  _getDataUserLogin() async {
+    // APIHelper().loadingDialog(context);
 
-  void checkConnectionThenExecuteLoadDataFunction() async {
+    var data = await SqliteHelper().getData(table: 'login');
+
+    // insert initial login data
+    if(data.isEmpty) {
+      Map<String, dynamic> data = {
+        'id' : 1,
+        'is_login' : 0,
+        'id_member' : '',
+      };
+
+      SqliteHelper().insertData(table: 'login', data: data);
+    } else {
+      if(data[0]['is_login'] == 1) {
+        // Navigator.pop(context);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainPage()));
+      }
+    }
+  }
+
+  TextEditingController _controllerUsername = TextEditingController(text: '');
+  TextEditingController _controllerPassword = TextEditingController(text: '');
+
+  void _checkConnectionThenExecute() async {
     try {
       final result = await InternetAddress.lookup('google.com');
 
@@ -35,10 +58,10 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = true;
 
   _checkLogin() {
-    String username = controllerUsername.text;
-    String password = controllerPassword.text;
+    String username = _controllerUsername.text;
+    String password = _controllerPassword.text;
 
-    _mysql.getData('SELECT kode_member FROM member_login WHERE username = "$username" AND password = "$password"').then((value) {
+    _mysql.queryProcess('SELECT kode_member FROM member_login WHERE username = "$username" AND password = "$password"').then((value) {
       if(value.isNotEmpty) {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainPage()));
       } else {
@@ -53,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
 
     _mysql = new MySql(context);
 
-    checkConnectionThenExecuteLoadDataFunction();
+    _getDataUserLogin();
   }
 
   bool isRegister = false;
@@ -78,21 +101,18 @@ class _LoginPageState extends State<LoginPage> {
                   SafeArea(child: Image.asset('assets/logo/app.png', width: MediaQuery.of(context).size.width/2,)),
                   SizedBox(height: 15.0,),
                   MyTextField(
-                    controller: controllerUsername,
+                    controller: _controllerUsername,
                     hintText: 'Username',
                   ),
                   SizedBox(height: 15.0,),
                   MyTextField(
-                    controller: controllerPassword,
+                    controller: _controllerPassword,
                     hintText: 'Password',
                     obscureText: true,
                   ),
                   SizedBox(height: 15.0,),
                   MyIconButton(
-                    onPressed: (){
-                      // checkLogin();
-                      _checkLogin();
-                    },
+                    onPressed: () => _checkConnectionThenExecute(),
                     backgroundColor: Color(0xFFff971d),
                     color: Colors.white,
                     shadowColorTopLeft: Color(0xFFffffff),

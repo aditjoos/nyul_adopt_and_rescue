@@ -6,15 +6,15 @@ import 'package:line_icons/line_icons.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
 import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
-import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiFavorites.dart';
+// import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiFavorites.dart';
 import 'package:petz_invention_udayana/Pages/Dokter/Dokter.dart';
-import 'package:petz_invention_udayana/Pages/Events/Events.dart';
-import 'package:petz_invention_udayana/Pages/PetShop/PetShop.dart';
+// import 'package:petz_invention_udayana/Pages/Events/Events.dart';
+// import 'package:petz_invention_udayana/Pages/PetShop/PetShop.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/Rescue.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/RescueDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
-import 'package:petz_invention_udayana/database/mysqlHelper.dart';
+import 'package:petz_invention_udayana/helper/mysqlHelper.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,14 +30,12 @@ class _HomePageState extends State<HomePage> {
   bool _isData2 = false;
 
   _getRescueDaruratData() {
-    _mysql.getData('SELECT kode_request_rescue, judul, jenis_hewan, alamat_detail FROM post_rescue WHERE urgensi = 1').then((value) {
+    _mysql.queryProcess('SELECT kode_request_rescue, judul, jenis_hewan, alamat_detail FROM post_rescue WHERE urgensi = 1').then((value) {
       if(value.isNotEmpty) {
         setState(() {
-          _data2 = value;
+          _data2 = value.toList();
           _isLoadingData2 = false;
           _isData2 = true;
-
-          print(_data2[0][0]);
         });
       } else {
         setState(() {
@@ -53,14 +51,12 @@ class _HomePageState extends State<HomePage> {
   bool _isData = false;
 
   _getAdopsiData() {
-    _mysql.getData('SELECT judul, umur, alamat, metode_adopsi FROM post_adopt LIMIT 5').then((value) {
+    _mysql.queryProcess('SELECT judul, umur, alamat, metode_adopsi FROM post_adopt LIMIT 5').then((value) {
       if(value.isNotEmpty) {
         setState(() {
-          _data = value;
+          _data = value.toList();
           _isLoadingData = false;
           _isData = true;
-
-          print(_data[0][0]);
         });
       } else {
         setState(() {
@@ -107,31 +103,20 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 20.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          // Search Bar
-                          Container(
-                            width: MediaQuery.of(context).size.width/1.5,
-                            padding: EdgeInsets.all(5.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text('Cari ', style: TextStyle(fontWeight: FontWeight.bold),),
-                                Icon(LineIcons.search)
-                              ],
-                            ),
-                          ),
-
-                          //Actions Bar
-                          IconButton(icon: Icon(LineIcons.heart, color: Colors.white,), onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiFavoritesPage()))),
-                          Icon(LineIcons.bell, color: Colors.white,),
-                        ],
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.0)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Cari ', style: TextStyle(fontWeight: FontWeight.bold),),
+                            Icon(LineIcons.search)
+                          ],
+                        ),
                       ),
                     ),
                     //text
@@ -185,7 +170,8 @@ class _HomePageState extends State<HomePage> {
                     MainFeatureCard(
                       assetImage: 'assets/images/feedme-bublee.png',
                       title: 'Feeding',
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => EventsPage())),
+                      // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => EventsPage())),
+                      onTap: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                     ),
                   ],
                 ),
@@ -208,7 +194,8 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor: Colors.white,
                         borderColor: Colors.orange.shade300,
                         icon: Icon(FontAwesomeIcons.shoppingBag),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopPage())),
+                        // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PetShopPage())),
+                        onTap: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                         title: 'Pet Shop',
                       ),
                       SizedBox(width: 20.0,),
@@ -240,9 +227,6 @@ class _HomePageState extends State<HomePage> {
                       judul: _data2[i][1],
                       jenisHewan: _data2[i][2],
                       alamat: _data2[i][3],
-                      // jenisHewan: 'test',
-                      // alamat: 'test',
-                      // judul: 'test',
                     ),
                   ),
                 ) : Center(child: Text('Tidak ada data.'),),

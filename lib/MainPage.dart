@@ -119,13 +119,14 @@ class _MainPageState extends State<MainPage> {
                     borderColor: Colors.orange.shade300,
                     icon: Icon(LineIcons.envelope, color: selectedPage == 2 ? Colors.white : Colors.black,),
                     title: 'Pesan',
-                    onTap: (){
-                      setState(() {
-                        tambahMenuOpened = false;
-                        selectedPage = 2;
-                        _tambahMenuHeight = 0;
-                      });
-                    },
+                    // onTap: (){
+                    //   setState(() {
+                    //     tambahMenuOpened = false;
+                    //     selectedPage = 2;
+                    //     _tambahMenuHeight = 0;
+                    //   });
+                    // },
+                    onTap: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                   ),
                   CustomBottomBarButton(
                     backgroundColor: selectedPage == 3 ? Colors.orange.shade300 : Colors.white,
@@ -232,12 +233,6 @@ class _MainPageState extends State<MainPage> {
               ),
             )
           )
-          //  : Positioned(
-          //   bottom: 0,
-          //   left: 0,
-          //   right: 0,
-          //   child: Container(),
-          // )
         ],
       ),
     );
