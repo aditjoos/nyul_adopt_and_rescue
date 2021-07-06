@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class APIHelper {
 
-  String baseUrl = 'nyul.kumpulan-soal.com';
+  String baseUrl = 'rsumitradelima.com:8080';
 
   Future<Map<String, dynamic>> postData(String path, Map<String, dynamic> data, {String? token}) async {
     try {
@@ -17,13 +17,13 @@ class APIHelper {
       };
 
       http.Response response = await http.post(
-        Uri.https(baseUrl, path),
+        Uri.http(baseUrl, path),
         headers: headers,
         body: json.encode(data),
       );
 
       if(response.statusCode == 200) {
-        if(json.decode(response.body)['status'] == '200') {
+        if(json.decode(response.body)['status'] == 'sukses') {
           return {
             'result' : true,
             'message' : json.decode(response.body)['message'],
@@ -65,7 +65,7 @@ class APIHelper {
       int length;
       http.MultipartFile vFile;
 
-      Uri uri = new Uri.https(baseUrl, path);
+      Uri uri = new Uri.http(baseUrl, path);
 
       http.MultipartRequest request = new http.MultipartRequest('POST', uri);
 
@@ -121,10 +121,10 @@ class APIHelper {
         "Authorization" : token?? '',
       };
 
-      var response = await http.get(Uri.https(baseUrl, unencodedPath, queryParameters), headers: headers);
+      var response = await http.get(Uri.http(baseUrl, unencodedPath, queryParameters), headers: headers);
 
       if(response.statusCode == 200) {
-        if(json.decode(response.body)['status'] == '200') {
+        if(json.decode(response.body)['status'] == 'sukses') {
           return {
             'result' : true,
             'data' : json.decode(response.body)['data']

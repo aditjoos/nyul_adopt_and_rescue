@@ -15,9 +15,9 @@ class DokterPage extends StatefulWidget {
 
 class _DokterPageState extends State<DokterPage> {
 
-  late List data;
-  bool isLoadingData = true;
-  bool isData = false;
+  // late List data;
+  bool isLoadingData = false;
+  bool isData = true;
 
   // Future getListDokter() async {
   //   final String url = 'http://nyul.kumpulan-soal.com/index.php/member/?tipe=3';
@@ -95,7 +95,7 @@ class _DokterPageState extends State<DokterPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         // Text((isData ? data.length.toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
-                        Text(data != null ? data.length.toString() + ' Dokter' : (0).toString() + ' Dokter', style: TextStyle(color: Colors.white),),
+                        Text('5 Dokter', style: TextStyle(color: Colors.white),),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -136,13 +136,16 @@ class _DokterPageState extends State<DokterPage> {
                 ),
                 child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ?  ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: data == null ? 0 : data.length,
+                  itemCount: 5,
                   itemBuilder: (BuildContext context, int index){
                     return DokterContainer(
                       foto: 'https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg',
-                      nama: data[index]['nama'],
-                      email: data[index]['email'],
-                      kab: data[index]['alamat'],
+                      nama: 'Rizky',
+                      email: 'rizkytsun@gmail.com',
+                      kab: 'malang',
+                      // nama: data[index]['nama'],
+                      // email: data[index]['email'],
+                      // kab: data[index]['alamat'],
                     );
                   },
                 ) : Center(child: Text('Tidak ada data.'),),
@@ -178,7 +181,7 @@ class DokterContainer extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: ListTile(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DokterDetailPage())),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DokterDetailPage(idDokter: '14.07.0277',))),
             leading: CircleAvatar(
               radius: 20.0,
               backgroundImage: NetworkImage(foto),

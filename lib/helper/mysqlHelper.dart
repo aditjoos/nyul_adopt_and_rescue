@@ -15,7 +15,7 @@ class MySql {
   Future getConnection() async {
     try{
       ConnectionSettings settings = new ConnectionSettings(
-        host: '192.168.42.57',
+        host: '192.168.15.6',
         port: 3306,
         user: 'root',
         db: 'nyul'

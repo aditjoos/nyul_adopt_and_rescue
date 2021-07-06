@@ -1,21 +1,58 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
+import 'package:petz_invention_udayana/helper/apiHelper.dart';
 
 class DokterDetailPage extends StatefulWidget {
+  
+
+  DokterDetailPage({required this.idDokter});
+  final String idDokter;
+
   @override
   _DokterDetailPageState createState() => _DokterDetailPageState();
 }
+
+
 
 class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerProviderStateMixin {
 
   late TabController _tabController;
 
+
+  var data;
+  bool isLoadingData = true;
+  bool isData = false;
+
+  _checkConnectionThenExecute() async {
+    try {
+      final result = await InternetAddress.lookup(APIHelper().baseUrl);
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) _getData();
+    } on SocketException catch (_) {
+      MyDialogs().simpleDialog(context, 'Tidak ada Koneksi', 'Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)');
+    }
+  }
+
+  _getData() {
+    APIHelper().getData('/api-rsmd/index.php/dokter?fungsi=6&kd_dokter='+widget.idDokter).then((value) {
+      if(value['result']) {
+        setState(() {
+          data = value['data'];
+          isData = true;
+          isLoadingData = false;
+        });
+      } else MyDialogs().simpleDialog(context, 'Kesalahan', '${value['data']} | ${value['message']}');
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _checkConnectionThenExecute();
   }
 
   @override

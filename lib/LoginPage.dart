@@ -112,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 15.0,),
                   MyIconButton(
+                    // onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainPage())),
                     onPressed: () => _checkConnectionThenExecute(),
                     backgroundColor: Color(0xFFff971d),
                     color: Colors.white,
