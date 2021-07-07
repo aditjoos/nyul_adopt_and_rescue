@@ -139,7 +139,7 @@ class _DokterPageState extends State<DokterPage> {
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index){
                     return DokterContainer(
-                      foto: 'https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg',
+                      foto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_dbW3zOJTLN5ZuOqXYcH-yXLxxD3Clrj6W4rdJzTWzG7k0vLjzX49CWVHO5LO025SW80&usqp=CAU',
                       nama: 'Rizky',
                       email: 'rizkytsun@gmail.com',
                       kab: 'malang',

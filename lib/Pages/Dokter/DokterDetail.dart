@@ -29,7 +29,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
 
   _checkConnectionThenExecute() async {
     try {
-      final result = await InternetAddress.lookup(APIHelper().baseUrl);
+      final result = await InternetAddress.lookup('www.google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) _getData();
     } on SocketException catch (_) {
       MyDialogs().simpleDialog(context, 'Tidak ada Koneksi', 'Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)');
@@ -37,12 +37,19 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
   }
 
   _getData() {
-    APIHelper().getData('/api-rsmd/index.php/dokter?fungsi=6&kd_dokter='+widget.idDokter).then((value) {
+    Map<String, dynamic> parameters = {
+      'fungsi' : '6',
+      'kd_dokter' : widget.idDokter,
+    };
+
+    APIHelper().getData('api-rsmd/index.php/dokter', parameters).then((value) {
       if(value['result']) {
         setState(() {
           data = value['data'];
           isData = true;
           isLoadingData = false;
+
+          print(data);
         });
       } else MyDialogs().simpleDialog(context, 'Kesalahan', '${value['data']} | ${value['message']}');
     });
@@ -114,7 +121,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                           height: 100.0,
                           child: CircleAvatar(
                             radius: 20.0,
-                            backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
+                            backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_dbW3zOJTLN5ZuOqXYcH-yXLxxD3Clrj6W4rdJzTWzG7k0vLjzX49CWVHO5LO025SW80&usqp=CAU'),
                           ),
                         ),
                         SizedBox(width: 10.0,),
@@ -270,7 +277,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                             child: ListTile(
                               leading: CircleAvatar(
                                 radius: 20.0,
-                                backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
+                                backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_dbW3zOJTLN5ZuOqXYcH-yXLxxD3Clrj6W4rdJzTWzG7k0vLjzX49CWVHO5LO025SW80&usqp=CAU'),
                               ),
                               title: Text('Shelter Kucing Aminah Malang'),
                               subtitle: Text('Dieng, Malang'),
@@ -283,7 +290,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                             child: ListTile(
                               leading: CircleAvatar(
                                 radius: 20.0,
-                                backgroundImage: NetworkImage('https://tecnobella.com/wp-content/uploads/2018/11/our-team-04.jpg'),
+                                backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_dbW3zOJTLN5ZuOqXYcH-yXLxxD3Clrj6W4rdJzTWzG7k0vLjzX49CWVHO5LO025SW80&usqp=CAU'),
                               ),
                               title: Text('Cattery Arjosari'),
                               subtitle: Text('Arjosari, Malang'),
