@@ -14,7 +14,7 @@ import 'package:petz_invention_udayana/Pages/Rescue/Rescue.dart';
 import 'package:petz_invention_udayana/Pages/Rescue/RescueDetail.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
-import 'package:petz_invention_udayana/helper/mysqlHelper.dart';
+import 'package:petz_invention_udayana/helper/apiHelper_nyul.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,17 +23,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  late MySql _mysql;
-
-  late List<ResultRow> _data2;
+  late var _data2;
   bool _isLoadingData2 = true;
   bool _isData2 = false;
 
   _getRescueDaruratData() {
-    _mysql.queryProcess('SELECT kode_request_rescue, judul, jenis_hewan, alamat_detail FROM post_rescue WHERE urgensi = 1').then((value) {
-      if(value.isNotEmpty) {
+    Map<String, dynamic> parameters = {
+      'urgensi' : '1'
+    };
+
+    APIHelperNyul().getData('nyul-codeigniter/index.php/rescue/post_rescue_home', parameters).then((value) {
+      if(value['result']) {
         setState(() {
-          _data2 = value.toList();
+          _data2 = value['data'];
           _isLoadingData2 = false;
           _isData2 = true;
         });
@@ -42,19 +44,25 @@ class _HomePageState extends State<HomePage> {
           _isLoadingData2 = false;
           _isData2 = false;
         });
+
+        MyDialogs().simpleDialog(context, 'Kesalahan', '${value['message']}');
       }
     });
   }
 
-  late List _data;
+  late var _data;
   bool _isLoadingData = true;
   bool _isData = false;
 
   _getAdopsiData() {
-    _mysql.queryProcess('SELECT judul, umur, alamat, metode_adopsi FROM post_adopt LIMIT 5').then((value) {
-      if(value.isNotEmpty) {
+    Map<String, dynamic> parameters = {
+      'fungsi' : '1',
+    };
+
+    APIHelperNyul().getData('nyul-codeigniter/index.php/adopsi/post_adopt', parameters).then((value) {
+      if(value['result']) {
         setState(() {
-          _data = value.toList();
+          _data = value['data'];
           _isLoadingData = false;
           _isData = true;
         });
@@ -63,6 +71,8 @@ class _HomePageState extends State<HomePage> {
           _isLoadingData = false;
           _isData = false;
         });
+
+        MyDialogs().simpleDialog(context, 'Kesalahan', '${value['message']}');
       }
     });
   }
@@ -83,8 +93,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    _mysql = new MySql(context);
 
     checkConnectionThenExecuteLoadDataFunction();
   }
@@ -224,9 +232,9 @@ class _HomePageState extends State<HomePage> {
                     itemCount: _data2.isEmpty ? 0 : _data2.length,
                     itemBuilder: (context, i) => UrgentRescueCard(
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage())),
-                      judul: _data2[i][1],
-                      jenisHewan: _data2[i][2],
-                      alamat: _data2[i][3],
+                      jenisHewan: _data2[i]['Jenis_hewan'],
+                      alamat: _data2[i]['alamat_detail'],
+                      judul: _data2[i]['judul'],
                     ),
                   ),
                 ) : Center(child: Text('Tidak ada data.'),),
@@ -254,12 +262,12 @@ class _HomePageState extends State<HomePage> {
                     itemCount: _data.isEmpty ? 0 : _data.length,
                     itemBuilder: (context, index) => PostAdopsiCard(
                       imgSource: 'assets/images/real-cat.jpg',
-                      judul: _data[index][0],
+                      judul: _data[index]['judul'] == null ? '-' : _data[index]['judul'],
                       jenis: 1,
                       ras: '-',
-                      umur: _data[index][1].toString(),
-                      alamat: _data[index][2],
-                      metodeAdopsi: _data[index][3],
+                      umur: _data[index]['umur'] == null ? '-' : _data[index]['umur'],
+                      alamat: _data[index]['alamat'] == null ? '-' : _data[index]['alamat'],
+                      metodeAdopsi: int.parse(_data[index]['metode_adopsi'] == null ? '0' : _data[index]['metode_adopsi']),
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
                     ),
                   ),
@@ -277,12 +285,12 @@ class _HomePageState extends State<HomePage> {
                     itemCount: _data.isEmpty ? 0 : _data.length,
                     itemBuilder: (context, index) => PostAdopsiCard(
                       imgSource: 'assets/images/real-dog.jpg',
-                      judul: _data[index][0],
+                      judul: _data[index]['judul'] == null ? '-' : _data[index]['judul'],
                       jenis: 1,
                       ras: '-',
-                      umur: _data[index][1].toString(),
-                      alamat: _data[index][2],
-                      metodeAdopsi: _data[index][3],
+                      umur: _data[index]['umur'] == null ? '-' : _data[index]['umur'],
+                      alamat: _data[index]['alamat'] == null ? '-' : _data[index]['alamat'],
+                      metodeAdopsi: int.parse(_data[index]['metode_adopsi'] == null ? '0' : _data[index]['metode_adopsi']),
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
                     ),
                   ),
@@ -300,12 +308,12 @@ class _HomePageState extends State<HomePage> {
                     itemCount: _data.isEmpty ? 0 : _data.length,
                     itemBuilder: (context, index) => PostAdopsiCard(
                       imgSource: 'assets/images/real-rabbit.jpg',
-                      judul: _data[index][0],
+                      judul: _data[index]['judul'] == null ? '-' : _data[index]['judul'],
                       jenis: 1,
                       ras: '-',
-                      umur: _data[index][1].toString(),
-                      alamat: _data[index][2],
-                      metodeAdopsi: _data[index][3],
+                      umur: _data[index]['umur'] == null ? '-' : _data[index]['umur'],
+                      alamat: _data[index]['alamat'] == null ? '-' : _data[index]['alamat'],
+                      metodeAdopsi: int.parse(_data[index]['metode_adopsi'] == null ? '0' : _data[index]['metode_adopsi']),
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
                     ),
                   ),

@@ -7,6 +7,7 @@ import 'package:petz_invention_udayana/components/Buttons.dart';
 import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
 import 'package:petz_invention_udayana/components/Dialogs.dart';
 import 'package:petz_invention_udayana/components/forms.dart';
+import 'package:petz_invention_udayana/helper/apiHelper_nyul.dart';
 import 'package:petz_invention_udayana/helper/mysqlHelper.dart';
 import 'package:petz_invention_udayana/helper/sqliteHelper.dart';
 
@@ -43,10 +44,12 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _controllerPassword = TextEditingController(text: '');
 
   void _checkConnectionThenExecute() async {
+    MyDialogs().loadingDialog(context);
+
     try {
       final result = await InternetAddress.lookup('google.com');
 
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) _checkLogin();
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) _checkLoginAPI();
       else MyDialogs().simpleDialog(context, 'Kesalahan', 'Ada kesalahan koneksi internet.');
     } on SocketException catch (_) {
       MyDialogs().simpleDialog(context, 'Kesalahan', 'Kamu tidak ada koneksi internet.');
@@ -55,9 +58,24 @@ class _LoginPageState extends State<LoginPage> {
 
   late MySql _mysql;
 
-  bool isLoading = true;
+  _checkLoginAPI() {
+    Map<String, dynamic> parameters = {
+      'username' : _controllerUsername.text,
+      'password' : _controllerPassword.text
+    };
 
-  _checkLogin() {
+    APIHelperNyul().getData('nyul-codeigniter/index.php/member_login', parameters).then((value) {
+      if(value['result']) {
+        Navigator.pop(context);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainPage()));
+      } else {
+        Navigator.pop(context);
+        MyDialogs().simpleDialog(context, 'Kesalahan', '${value['message']}');
+      }
+    });
+  }
+
+  _checkLoginMysql() {
     String username = _controllerUsername.text;
     String password = _controllerPassword.text;
 
@@ -112,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 15.0,),
                   MyIconButton(
-                    // onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainPage())),
                     onPressed: () => _checkConnectionThenExecute(),
                     backgroundColor: Color(0xFFff971d),
                     color: Colors.white,
