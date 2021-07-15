@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainPage()));
       } else {
         Navigator.pop(context);
-        MyDialogs().simpleDialog(context, 'Kesalahan', '${value['message']}');
+        MyDialogs().simpleDialog(context, 'Kesalahan', '${value['data']}');
       }
     });
   }

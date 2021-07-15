@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
 import 'package:nyul_adopt_rescue/components/Dialogs.dart';
 import 'package:nyul_adopt_rescue/helper/apiHelper.dart';
+// import 'package:shimmer/shimmer.dart';
 
 class DokterDetailPage extends StatefulWidget {
   
@@ -46,10 +47,8 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
       if(value['result']) {
         setState(() {
           data = value['data'];
-          isData = true;
           isLoadingData = false;
-
-          print(data);
+          isData = true;
         });
       } else MyDialogs().simpleDialog(context, 'Kesalahan', '${value['data']} | ${value['message']}');
     });
@@ -58,6 +57,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
   @override
   void initState() {
     super.initState();
+    
     _tabController = TabController(length: 3, vsync: this);
     _checkConnectionThenExecute();
   }
@@ -112,71 +112,75 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          width: 100.0,
-                          height: 100.0,
-                          child: CircleAvatar(
-                            radius: 20.0,
-                            backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_dbW3zOJTLN5ZuOqXYcH-yXLxxD3Clrj6W4rdJzTWzG7k0vLjzX49CWVHO5LO025SW80&usqp=CAU'),
-                          ),
-                        ),
-                        SizedBox(width: 10.0,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  isLoadingData ? Center(child: CircularProgressIndicator(),) : Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Row(
                           children: <Widget>[
-                            Text('Megumi Kobayashi', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Icon(LineIcons.mapMarker, size: 15.0, color: Colors.white,),
-                                Text(' Malang', style: TextStyle(color: Colors.white),),
-                              ],
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              child: CircleAvatar(
+                                radius: 20.0,
+                                backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_dbW3zOJTLN5ZuOqXYcH-yXLxxD3Clrj6W4rdJzTWzG7k0vLjzX49CWVHO5LO025SW80&usqp=CAU'),
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            SizedBox(width: 10.0,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Icon(LineIcons.user, size: 15.0, color: Colors.white,),
-                                Text(' 123 Pengikut', style: TextStyle(color: Colors.white),),
+                                Text(data[0]['nm_dokter'], style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(LineIcons.mapMarker, size: 15.0, color: Colors.white,),
+                                    Text(' Malang', style: TextStyle(color: Colors.white),),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(LineIcons.user, size: 15.0, color: Colors.white,),
+                                    Text(' 123 Pengikut', style: TextStyle(color: Colors.white),),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(LineIcons.check, size: 15.0, color: Colors.white,),
+                                    Text(' Terpercaya', style: TextStyle(color: Colors.white),),
+                                  ],
+                                ),
                               ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Icon(LineIcons.check, size: 15.0, color: Colors.white,),
-                                Text(' Terpercaya', style: TextStyle(color: Colors.white),),
-                              ],
-                            ),
+                            )
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                  TabBar(
-                    controller: _tabController,
-                    indicatorColor: Colors.white,
-                    labelColor: Colors.white,
-                    tabs: <Widget>[
-                      Tab(
-                        child: Text('Informasi'),
+                        ),
                       ),
-                      Tab(
-                        child: Text('Afiliasi'),
-                      ),
-                      Tab(
-                        child: Text('Penilaian'),
-                      ),
+                      TabBar(
+                        controller: _tabController,
+                        indicatorColor: Colors.white,
+                        labelColor: Colors.white,
+                        tabs: <Widget>[
+                          Tab(
+                            child: Text('Informasi'),
+                          ),
+                          Tab(
+                            child: Text('Afiliasi'),
+                          ),
+                          Tab(
+                            child: Text('Penilaian'),
+                          ),
+                        ],
+                      )
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
           ),
           Expanded(
-            child: Container(
+            child: isLoadingData ? Center(child: CircularProgressIndicator(),) : Container(
               child: TabBarView(
                 physics: BouncingScrollPhysics(),
                 controller: _tabController,
@@ -198,7 +202,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text('Tentang dokter', style: TextStyle(fontWeight: FontWeight.bold),),
-                                Text('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', style: TextStyle(color: Colors.grey),),
+                                Text(data[0]['tentang'], style: TextStyle(color: Colors.grey),),
                                 SizedBox(height: 10.0,),
                                 Text('Pendidikan terakhir', style: TextStyle(fontWeight: FontWeight.bold),),
                                 Text('S2-Kedokteran UB', style: TextStyle(color: Colors.grey),),
@@ -234,7 +238,7 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text('Lihat sertifikat', style: TextStyle(color: Colors.grey)),
-                                          Icon(LineIcons.chevronCircleLeft, color: Colors.grey)
+                                          Icon(LineIcons.chevronCircleRight, color: Colors.grey)
                                         ],
                                       ),
                                     ),
@@ -425,16 +429,20 @@ class _DokterDetailPageState extends State<DokterDetailPage> with SingleTickerPr
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: FlatButton(
-                    color: Colors.orange[400],
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.orange[400],
+                    ),
                     onPressed: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                     child: Text('Chat Dokter', style: TextStyle(color: Colors.white))
                   )
                 ),
                 SizedBox(width: 10.0,),
                 Expanded(
-                  child: FlatButton(
-                    color: Colors.orange[400],
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.orange[400],
+                    ),
                     onPressed: () => MyDialogs().simpleDialog(context, 'Kesalahan', 'Halaman/fitur ini masih dalam tahap konstruksi, mohon ditunggu ya~ \n^_^)/'),
                     child: Text('Pemesanan', style: TextStyle(color: Colors.white))
                   )
