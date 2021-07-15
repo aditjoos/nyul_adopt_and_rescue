@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/Pages/Account.dart';
-import 'package:petz_invention_udayana/Pages/Adopsi/PostAdopsi.dart';
-import 'package:petz_invention_udayana/Pages/Aktivitas.dart';
-// import 'package:petz_invention_udayana/Pages/Feed.dart';
-import 'package:petz_invention_udayana/Pages/Home.dart';
-import 'package:petz_invention_udayana/Pages/Pesan.dart';
-import 'package:petz_invention_udayana/Pages/Rescue/PostRescue.dart';
-import 'package:petz_invention_udayana/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/Pages/Account.dart';
+import 'package:nyul_adopt_rescue/Pages/Adopsi/PostAdopsi.dart';
+import 'package:nyul_adopt_rescue/Pages/Aktivitas.dart';
+// import 'package:nyul_adopt_rescue/Pages/Feed.dart';
+import 'package:nyul_adopt_rescue/Pages/Home.dart';
+import 'package:nyul_adopt_rescue/Pages/Pesan.dart';
+import 'package:nyul_adopt_rescue/Pages/Rescue/PostRescue.dart';
+import 'package:nyul_adopt_rescue/components/Dialogs.dart';
 
 class MainPage extends StatefulWidget {
   @override

@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/LoginPage.dart';
-import 'package:petz_invention_udayana/MainPage.dart';
-import 'package:petz_invention_udayana/components/Buttons.dart';
-// import 'package:petz_invention_udayana/sqlite/helper.dart';
-// import 'package:petz_invention_udayana/sqlite/model.dart';
+import 'package:nyul_adopt_rescue/LoginPage.dart';
+import 'package:nyul_adopt_rescue/MainPage.dart';
+import 'package:nyul_adopt_rescue/components/Buttons.dart';
+// import 'package:nyul_adopt_rescue/sqlite/helper.dart';
+// import 'package:nyul_adopt_rescue/sqlite/model.dart';
 
 import 'components/Dialogs.dart';
 

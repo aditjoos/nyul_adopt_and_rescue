@@ -3,18 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:mysql1/mysql1.dart';
-import 'package:petz_invention_udayana/Pages/Adopsi/Adopsi.dart';
-import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiDetail.dart';
-// import 'package:petz_invention_udayana/Pages/Adopsi/AdopsiFavorites.dart';
-import 'package:petz_invention_udayana/Pages/Dokter/Dokter.dart';
-// import 'package:petz_invention_udayana/Pages/Events/Events.dart';
-// import 'package:petz_invention_udayana/Pages/PetShop/PetShop.dart';
-import 'package:petz_invention_udayana/Pages/Rescue/Rescue.dart';
-import 'package:petz_invention_udayana/Pages/Rescue/RescueDetail.dart';
-import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
-import 'package:petz_invention_udayana/components/Dialogs.dart';
-import 'package:petz_invention_udayana/helper/apiHelper_nyul.dart';
+import 'package:nyul_adopt_rescue/Pages/Adopsi/Adopsi.dart';
+import 'package:nyul_adopt_rescue/Pages/Adopsi/AdopsiDetail.dart';
+import 'package:nyul_adopt_rescue/Pages/Dokter/Dokter.dart';
+import 'package:nyul_adopt_rescue/Pages/Rescue/Rescue.dart';
+import 'package:nyul_adopt_rescue/Pages/Rescue/RescueDetail.dart';
+import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/helper/apiHelper_nyul.dart';
 
 class HomePage extends StatefulWidget {
   @override

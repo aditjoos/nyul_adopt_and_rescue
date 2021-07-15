@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
-import 'package:petz_invention_udayana/components/Dialogs.dart';
-import 'package:petz_invention_udayana/components/forms.dart';
-import 'package:petz_invention_udayana/helper/mysqlHelper.dart';
-import 'package:petz_invention_udayana/helper/sqliteHelper.dart';
+import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/components/forms.dart';
+import 'package:nyul_adopt_rescue/helper/mysqlHelper.dart';
+import 'package:nyul_adopt_rescue/helper/sqliteHelper.dart';
+import 'package:location/location.dart' as loc;
+// import 'package:geocoder/geocoder.dart';
+import 'package:geocoding/geocoding.dart';
 
 class PostRescuePage extends StatefulWidget {
   @override
@@ -58,10 +61,6 @@ class _PostRescuePageState extends State<PostRescuePage> {
     });
   }
 
-  _ambilLokasi() {
-
-  }
-
   void _checkConnectionThenExecute() async {
     try {
       final result = await InternetAddress.lookup('google.com');
@@ -72,12 +71,54 @@ class _PostRescuePageState extends State<PostRescuePage> {
     }
   }
 
+  late loc.LocationData _currentPosition;
+
+  _getLatLong() async{
+    loc.Location _location = loc.Location();
+
+    bool _serviceEnabled;
+
+    _serviceEnabled = await _location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await _location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    loc.PermissionStatus _permissionGranted;
+
+    _permissionGranted = await _location.hasPermission();
+    if (_permissionGranted == loc.PermissionStatus.denied) {
+      _permissionGranted = await _location.requestPermission();
+      if (_permissionGranted != loc.PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _currentPosition = await _location.getLocation();
+
+    _ambilDataAlamat();
+  }
+
+  String _alamat = '-';
+
+  _ambilDataAlamat() async {
+    // final Coordinates coordinates = new Coordinates(_currentPosition.latitude, _currentPosition.longitude);
+    // List<Address> addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(_currentPosition.latitude!, _currentPosition.longitude!);
+
+    setState(() => _alamat = '${placemarks.first.locality}, ${placemarks.first.subAdministrativeArea}');
+  }
+
   @override
   void initState() {
     super.initState();
 
     _mysql = new MySql(context);
 
+    _getLatLong();
     _getDataUserLogin();
     _checkConnectionThenExecute();
   }
@@ -94,7 +135,7 @@ class _PostRescuePageState extends State<PostRescuePage> {
               SafeArea(
                 child: Row(
                   children: <Widget>[
-                    IconButton(icon: Icon(LineIcons.cross), onPressed: () => MyDialogs().functionDialog(context, 'Konfirmasi', 'Kamu yakin tidak jadi posting?', () {
+                    IconButton(icon: Icon(LineIcons.times), onPressed: () => MyDialogs().functionDialog(context, 'Konfirmasi', 'Kamu yakin tidak jadi posting?', () {
                       Navigator.pop(context);
                     })),
                     Text('Batal')
@@ -121,16 +162,17 @@ class _PostRescuePageState extends State<PostRescuePage> {
                       controller: _controllerJudulPostingan,
                       hintText: 'Judul Postingan',
                     ),
+                    SizedBox(height: 10,),
                     Text('Lokasi', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
                     Row(
                       children: <Widget>[
                         // Auto Wrap
-                        Expanded(child: Text('Jl. Hambalaaasng no.13', style: TextStyle(color: Colors.grey))),
+                        Expanded(child: Text(_alamat, style: TextStyle(color: Colors.grey))),
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
                             borderRadius: BorderRadius.circular(15.0),
-                            onTap: () => _ambilLokasi(),
+                            onTap: () => _ambilDataAlamat(),
                             child: Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: Row(

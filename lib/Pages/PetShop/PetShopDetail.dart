@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/Pages/Pesan/PesanUser.dart';
-import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/Pages/Pesan/PesanUser.dart';
+import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
 
 class PetShopDetailPage extends StatefulWidget {
   @override

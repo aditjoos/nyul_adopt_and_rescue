@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
-import 'package:petz_invention_udayana/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/components/Dialogs.dart';
 
 class PostAdopsiPage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _PostAdopsiPageState extends State<PostAdopsiPage> {
               SafeArea(
                 child: Row(
                   children: <Widget>[
-                    IconButton(icon: Icon(LineIcons.cross), onPressed: () {
+                    IconButton(icon: Icon(LineIcons.times), onPressed: () {
                       // showDialog(
                       //   barrierDismissible: false,
                       //   context: context,

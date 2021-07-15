@@ -1,4 +1,4 @@
-name: petz_invention_udayana
+name: nyul_adopt_rescue
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -36,10 +36,18 @@ dependencies:
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
   mysql1: ^0.19.2
+  location: ^4.1.1
+  # geocoder: ^0.2.1
+  geocoding: ^2.0.0
+  flutter_native_splash: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#facda2"
+  image: assets/logo/app.png
 
 flutter_icons:
   android: true 
@@ -48,6 +56,9 @@ flutter_icons:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+module:
+  androidX: true
 
 # The following section is specific to Flutter.
 flutter:

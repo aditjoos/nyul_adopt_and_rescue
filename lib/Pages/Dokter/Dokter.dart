@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/Pages/Dokter/DokterDetail.dart';
-import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
-import 'package:petz_invention_udayana/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/Pages/Dokter/DokterDetail.dart';
+import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/components/Dialogs.dart';
 
 class DokterPage extends StatefulWidget {
   @override

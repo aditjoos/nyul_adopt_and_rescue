@@ -2,9 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:petz_invention_udayana/Pages/Pesan/PesanUser.dart';
-import 'package:petz_invention_udayana/Pages/Rescue/RescueProcess.dart';
-import 'package:petz_invention_udayana/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/Pages/Pesan/PesanUser.dart';
+import 'package:nyul_adopt_rescue/Pages/Rescue/RescueProcess.dart';
+import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
 
 class RescueDetailPage extends StatefulWidget {
   @override

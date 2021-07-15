@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
-import 'package:petz_invention_udayana/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/components/Dialogs.dart';
 
 class MySql {
 
