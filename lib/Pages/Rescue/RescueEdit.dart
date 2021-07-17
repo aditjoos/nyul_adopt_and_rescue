@@ -1,27 +1,29 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-// import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
 import 'package:nyul_adopt_rescue/components/Dialogs.dart';
 import 'package:nyul_adopt_rescue/components/forms.dart';
 import 'package:nyul_adopt_rescue/helper/apiHelper_nyul.dart';
-import 'package:nyul_adopt_rescue/helper/mysqlHelper.dart';
 import 'package:nyul_adopt_rescue/helper/sqliteHelper.dart';
 import 'package:location/location.dart' as loc;
 // import 'package:geocoder/geocoder.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 
-class PostRescuePage extends StatefulWidget {
+class EditRescuePage extends StatefulWidget {
+  EditRescuePage({
+    required this.idPostRescue
+  });
+
+  final String idPostRescue;
+
   @override
-  _PostRescuePageState createState() => _PostRescuePageState();
+  _EditRescuePageState createState() => _EditRescuePageState();
 }
 
-class _PostRescuePageState extends State<PostRescuePage> {
-
-  late MySql _mysql;
+class _EditRescuePageState extends State<EditRescuePage> {
 
   bool postAsAnonymous = false;
 
@@ -47,22 +49,6 @@ class _PostRescuePageState extends State<PostRescuePage> {
 
   int _levelUrgensi = 3;
 
-  _postRescueMySql() {
-    String judulPostingan = _controllerJudulPostingan.text;
-    String jenisHewan = _controllerJenisHewan.text;
-    String deskripsi = _controllerDeskripsiHewan.text;
-    String lokasiTambahan = _controllerLokasiTambahan.text;
-    String idMember = dataUserLogin[0]['id_member'];
-
-    _mysql.queryProcess('INSERT INTO post_rescue(judul, jenis_hewan, deskripsi, lokasi_map, alamat_detail, x_kode_member) VALUES("$judulPostingan", "$jenisHewan", "$deskripsi", "lokasi", "$lokasiTambahan", "$idMember")').then((value) {
-      if(value.affectedRows! > 0){
-        Navigator.pop(context);
-      } else {
-        MyDialogs().simpleDialog(context, 'Kesalahan', 'Gagal membuat postingan.');
-      }
-    });
-  }
-
   _postRescue() {
     DateTime now = new DateTime.now();
 
@@ -81,9 +67,8 @@ class _PostRescuePageState extends State<PostRescuePage> {
       "x_kota" : "90",
     };
 
-    APIHelperNyul().postData('nyul-codeigniter/index.php/rescue/post_rescue_home_klik', data).then((value) {
-      if(value['result']) MyDialogs().simpleDialog(context, 'Sukses', 'Berhasil membuat postingan rescue.');
-      else MyDialogs().simpleDialog(context, 'Kesalahan', value['message']);
+    APIHelperNyul().updateData('nyul-codeigniter/index.php/rescue/post_rescue_home_klik/${widget.idPostRescue}', data).then((value) {
+      Navigator.pop(context);
     });
   }
 
@@ -141,8 +126,6 @@ class _PostRescuePageState extends State<PostRescuePage> {
   @override
   void initState() {
     super.initState();
-
-    _mysql = new MySql(context);
 
     _getLatLong();
     _getDataUserLogin();

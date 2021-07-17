@@ -47,24 +47,24 @@ class _AdopsiDetailPageState extends State<AdopsiDetailPage> {
                     height: MediaQuery.of(context).size.width,
                     child: Stack(
                       children: <Widget>[
-                        // Positioned.fill(
-                        //   child: CarouselSlider(
-                        //     height: MediaQuery.of(context).size.width,
-                        //     viewportFraction: 1.0,
-                        //     aspectRatio: MediaQuery.of(context).size.aspectRatio,
-                        //     initialPage: _currentSlide,
-                        //     reverse: false,
-                        //     enableInfiniteScroll: false,
-                        //     onPageChanged: (index){
-                        //       setState(() {
-                        //         _currentSlide = index;
-                        //       });
-                        //     },
-                        //     items: imgList.map((imgUrl){
-                        //       return Container(width: MediaQuery.of(context).size.width, child: Image.asset(imgUrl, fit: BoxFit.fill,));
-                        //     }).toList(),
-                        //   ),
-                        // ),
+                        Positioned.fill(
+                          child: CarouselSlider(
+                            options: CarouselOptions(
+                              height: MediaQuery.of(context).size.width,
+                              viewportFraction: 1.0,
+                              aspectRatio: MediaQuery.of(context).size.aspectRatio,
+                              initialPage: _currentSlide,
+                              reverse: false,
+                              enableInfiniteScroll: false,
+                              onPageChanged: (index, reason){
+                                setState(() => _currentSlide = index);
+                              },
+                            ),
+                            items: imgList.map((imgUrl){
+                              return Container(width: MediaQuery.of(context).size.width, child: Image.asset(imgUrl, fit: BoxFit.fill,));
+                            }).toList(),
+                          ),
+                        ),
                         Material(
                           color: Colors.transparent,
                           child: SafeArea(

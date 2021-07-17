@@ -1,17 +1,49 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:nyul_adopt_rescue/Pages/Pesan/PesanUser.dart';
+import 'package:nyul_adopt_rescue/Pages/Rescue/RescueEdit.dart';
 import 'package:nyul_adopt_rescue/Pages/Rescue/RescueProcess.dart';
 import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/helper/apiHelper_nyul.dart';
 
 class RescueDetailPage extends StatefulWidget {
+  RescueDetailPage({
+    required this.idPostRescue
+  });
+
+  final String idPostRescue;
+
   @override
   _RescueDetailPageState createState() => _RescueDetailPageState();
 }
 
 class _RescueDetailPageState extends State<RescueDetailPage> {
+
+  late var data;
+  bool isLoadingData = true;
+
+  _getDetailRescue() {
+    Map<String, dynamic> parameters = {
+      'kode_request_rescue' : widget.idPostRescue
+    };
+
+    APIHelperNyul().getData('nyul-codeigniter/index.php/rescue/Post_rescue_home_klik', parameters).then((value) {
+      if(value['result']) {
+        setState(() {
+          isLoadingData = false;
+          data = value['data'];
+        });
+      } else MyDialogs().simpleDialog(context, 'Kesalahan', value['message']);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getDetailRescue();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +51,7 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Expanded(
-            child: SingleChildScrollView(
+            child: isLoadingData ? Center(child: CircularProgressIndicator(),) : SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   Container(
@@ -41,8 +73,16 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
                                   Text('Kembali', style: TextStyle(color: Colors.white),)
                                 ],),
                                 Row(children: <Widget>[
-                                  IconButton(icon: Icon(LineIcons.share, color: Colors.white), onPressed: (){}),
-                                  IconButton(icon: Icon(LineIcons.dotCircle, color: Colors.white), onPressed: (){}),
+                                  IconButton(icon: Icon(LineIcons.pen, color: Colors.white), onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => EditRescuePage(idPostRescue: widget.idPostRescue,))).then((value) {
+                                      _getDetailRescue();
+                                    });
+                                  }),
+                                  IconButton(icon: Icon(LineIcons.trash, color: Colors.white), onPressed: () {
+                                    APIHelperNyul().deleteData('nyul-codeigniter/index.php/rescue/Post_rescue_home_klik/${widget.idPostRescue}').then((value) {
+                                      Navigator.pop(context);
+                                    });
+                                  }),
                                 ],),
                               ],
                             ),
@@ -59,14 +99,14 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Orang memelihara harimau', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                          Text(data[0]['judul'], style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
                           SizedBox(height: 5.0,),
                           Text('Deskripsi'),
-                          Text('Tolong selamatkan harimau yang dipelihara tetangga saya, dan keberadaan harimau tersebut sangat meresahkan warga.', style: TextStyle(color: Colors.grey)),
+                          Text(data[0]['deskripsi'], style: TextStyle(color: Colors.grey)),
                           SizedBox(height: 5.0,),
                           Text('Alamat'),
-                          Text('Kab. Malang', style: TextStyle(color: Colors.grey)),
-                          Text('Blambangan, Krebet.', style: TextStyle(color: Colors.grey)),
+                          Text(data[0]['lokasi_map'], style: TextStyle(color: Colors.grey)),
+                          Text(data[0]['alamat_detail'], style: TextStyle(color: Colors.grey)),
                         ],
                       ),
                     ),
@@ -81,12 +121,12 @@ class _RescueDetailPageState extends State<RescueDetailPage> {
                         children: <Widget>[
                           Text('Thread Starter', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
                           SizedBox(height: 5.0,),
-                          Text('Bagus Muhaiminul Azis.', style: TextStyle(color: Colors.grey)),
+                          Text('Mohamad Rizky.', style: TextStyle(color: Colors.grey)),
                           SizedBox(height: 5.0,),
                           Row(
                             children: <Widget>[
                               Text('Tanggal posting : '),
-                              Text('2020-05-05', style: TextStyle(color: Colors.grey)),
+                              Text(data[0]['tanggal_posting'], style: TextStyle(color: Colors.grey)),
                             ],
                           ),
                         ],

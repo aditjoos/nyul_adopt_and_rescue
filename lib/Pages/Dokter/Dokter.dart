@@ -136,12 +136,12 @@ class _DokterPageState extends State<DokterPage> {
                 ),
                 child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ?  ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: 5,
+                  itemCount: 1,
                   itemBuilder: (BuildContext context, int index){
                     return DokterContainer(
                       foto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_dbW3zOJTLN5ZuOqXYcH-yXLxxD3Clrj6W4rdJzTWzG7k0vLjzX49CWVHO5LO025SW80&usqp=CAU',
-                      nama: 'Rizky',
-                      email: 'rizkytsun@gmail.com',
+                      nama: 'dr. M. luqman Fadil, Sp. PA',
+                      email: 'luqmaaaan@gmail.com',
                       kab: 'malang',
                       // nama: data[index]['nama'],
                       // email: data[index]['email'],

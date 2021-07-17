@@ -1,12 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:http/http.dart' as http;
 import 'package:nyul_adopt_rescue/Pages/Rescue/RescueDetail.dart';
 import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
 import 'package:nyul_adopt_rescue/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/helper/apiHelper_nyul.dart';
 
 class RescuePage extends StatefulWidget {
   @override
@@ -15,53 +15,51 @@ class RescuePage extends StatefulWidget {
 
 class _RescuePageState extends State<RescuePage> {
 
-  late List data;
-  bool isLoadingData = true;
-  bool isData = false;
+  late List _data;
+  bool _isLoadingData = true;
+  bool _isData = false;
 
-  // Future getRescueData() async {
-  //   final String url = 'http://nyul.kumpulan-soal.com/index.php/rescue/post_rescue';
-  //   var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+  _getRescueData() {
+    setState(() {
+      _data = [];
+      _isLoadingData = true;
+      _isData = false;
+    });
+    
+    APIHelperNyul().getData('nyul-codeigniter/index.php/rescue/post_rescue').then((value) {
+      if(value['result']) {
+        setState(() {
+          _data = value['data'];
+          _isLoadingData = false;
+          _isData = true;
+        });
+      } else {
+        setState(() {
+          _isLoadingData = false;
+          _isData = false;
+        });
 
-  //   setState(() {
-  //     if(result.statusCode == 200){
-  //       var content = json.decode(result.body);
-  //       if(content['result'] = true){
-  //         data = content['data'];
-  //         isData = true;
-  //       }else if(content['result'] = false){
-  //         showDialog(
-  //           barrierDismissible: true,
-  //           context: context,
-  //           builder: (_) => FunkyOverlay(
-  //             content['data'],
-  //             [
-  //               FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-  //             ]
-  //           )
-  //         );
-  //       }
-  //     }
-  //     isLoadingData = false;
-  //   });
-  // }
+        MyDialogs().simpleDialog(context, 'Kesalahan', '${value['message']}');
+      }
+    });
+  }
 
-  // void checkConnectionThenExecuteLoadDataFunction() async {
-  //   try {
-  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //       // Lakukan getRescueData ketika ada internet
-  //       getRescueData();
-  //     }
-  //   } on SocketException catch (_) {
-  //     MyDialogs().simpleDialog(context, 'Kesalahan', 'Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)');
-  //   }
-  // }
+  _checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) _getRescueData();
+      else MyDialogs().simpleDialog(context, 'Kesalahan', 'Ada kesalahan koneksi internet.');
+    } on SocketException catch (_) {
+      MyDialogs().simpleDialog(context, 'Kesalahan', 'Kamu tidak ada koneksi internet.');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    // checkConnectionThenExecuteLoadDataFunction();
+
+    _checkConnectionThenExecuteLoadDataFunction();
   }
 
   bool filterOpened = false;
@@ -100,7 +98,7 @@ class _RescuePageState extends State<RescuePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text((isData ? data.length.toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
+                              Text((_isData ? _data.length.toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -139,9 +137,9 @@ class _RescuePageState extends State<RescuePage> {
                         color: Color(0xFFFAFAFA),
                         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                       ),
-                      child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? ListView.builder(
+                      child: _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? ListView.builder(
                         physics: BouncingScrollPhysics(),
-                        itemCount: data == null ? 0 : data.length,
+                        itemCount: _data.isEmpty ? 0 : _data.length,
                         itemBuilder: (BuildContext contex, int index){
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
@@ -151,7 +149,9 @@ class _RescuePageState extends State<RescuePage> {
                                 color: Colors.transparent,
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage())), // TODO
+                                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage(idPostRescue: _data[index]['kode_request_rescue'],))).then((value) {
+                                    _getRescueData();
+                                  }),
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
@@ -173,21 +173,21 @@ class _RescuePageState extends State<RescuePage> {
                                                 padding: EdgeInsets.all(5.0),
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(5.0),
-                                                  color: data[index]['urgensi'] == "1" ? Colors.red : data[index]['urgensi'] == "2" ? Colors.yellow[700] : data[index]['urgensi'] == "3" ? Colors.green : Colors.black,
+                                                  color: _data[index]['urgensi'] == "1" ? Colors.red : _data[index]['urgensi'] == "2" ? Colors.yellow[700] : _data[index]['urgensi'] == "3" ? Colors.green : Colors.black,
                                                 ),
-                                                child: Text(data[index]['urgensi'] == "1" ? 'Darurat' : data[index]['urgensi'] == "2" ? 'Sedang' : data[index]['urgensi'] == "3" ? 'Rendah' : '-', style: TextStyle(color: Colors.white)),
+                                                child: Text(_data[index]['urgensi'] == "1" ? 'Darurat' : _data[index]['urgensi'] == "2" ? 'Sedang' : _data[index]['urgensi'] == "3" ? 'Rendah' : '-', style: TextStyle(color: Colors.white)),
                                               ),
                                               SizedBox(height: 10.0,),
-                                              Text(data[index]['judul'], style: TextStyle(fontWeight: FontWeight.bold),),
+                                              Text(_data[index]['judul']?? 'Test', style: TextStyle(fontWeight: FontWeight.bold),),
                                               SizedBox(height: 10.0,),
-                                              Text(data[index]['deskripsi'], style: TextStyle(color: Colors.grey),),
+                                              Text(_data[index]['deskripsi']?? 'Test', style: TextStyle(color: Colors.grey),),
                                               SizedBox(height: 10.0,),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: <Widget>[
-                                                  Text(data[index]['tanggal_posting']),
-                                                  Text(data[index]['alamat_detail']),
+                                                  Text(_data[index]['tanggal_posting']?? DateFormat('yyyy-MM-dd').format(DateTime.now())),
+                                                  Text(_data[index]['alamat_detail']?? 'Test'),
                                                 ],
                                               ),
                                             ],

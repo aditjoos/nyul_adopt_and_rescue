@@ -227,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: _data2.isEmpty ? 0 : _data2.length,
                     itemBuilder: (context, i) => UrgentRescueCard(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage())),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RescueDetailPage(idPostRescue: _data2[i]['kode_request_rescue'],))),
                       jenisHewan: _data2[i]['Jenis_hewan'],
                       alamat: _data2[i]['alamat_detail'],
                       judul: _data2[i]['judul'],
@@ -251,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.centerLeft,
                 ),
                 _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? SizedBox(
-                  height: 250.0,
+                  height: 320.0,
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
@@ -274,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.centerLeft,
                 ),
                 _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? SizedBox(
-                  height: 250.0,
+                  height: 320.0,
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
@@ -297,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.centerLeft,
                 ),
                 _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? SizedBox(
-                  height: 250.0,
+                  height: 320.0,
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:nyul_adopt_rescue/LoginPage.dart';
 import 'package:nyul_adopt_rescue/Pages/AccountTambah.dart';
 import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
+import 'package:nyul_adopt_rescue/helper/sqliteHelper.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -189,7 +191,16 @@ class _AccountPageState extends State<AccountPage> with SingleTickerProviderStat
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: () => Navigator.pop(context), // TODO : page ini digabung sama LoginPage.dart
+                              onTap: () {
+                                Map<String, dynamic> data = {
+                                  'id' : 1,
+                                  'is_login' : 0,
+                                  'id_member' : '',
+                                };
+                                
+                                SqliteHelper().updateData(data: data, table: 'login');
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginPage()));
+                              },
                               borderRadius: BorderRadius.circular(25.0),
                               child: Padding(padding: EdgeInsets.all(10.0), child: Text('Keluar', style: TextStyle(fontSize: 18.0, color: Colors.red,))),
                             ),

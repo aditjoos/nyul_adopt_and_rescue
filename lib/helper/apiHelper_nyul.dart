@@ -150,4 +150,94 @@ class APIHelperNyul {
       };
     }
   }
+
+  Future<Map<String, dynamic>> deleteData(String unencodedPath, [Map<String, dynamic>? data, String? token]) async {
+    try {
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        "Authorization" : token?? '',
+      };
+
+      http.Response response = await http.delete(
+        Uri.http(baseUrl, unencodedPath),
+        headers: headers,
+        body: json.encode(data),
+      );
+
+      if(response.statusCode == 200) {
+        if(json.decode(response.body)['result'] == true) {
+          return {
+            'result' : true,
+            'data' : json.decode(response.body)['data']
+          };
+        } else {
+          return {
+            'result' : false,
+            'message' : json.decode(response.body)['data']
+          };
+        }
+      } else {
+        return {
+          'result' : false,
+          'message' : '${response.statusCode} | ${json.decode(response.body)['data']}',
+        };
+      }
+
+    } on SocketException {
+      return {
+        'result' : false,
+        'data' : 'Tidak dapat menjangkau server, pastikan terdapat koneksi internet.'
+      };
+    } on FormatException {
+      return {
+        'result' : false,
+        'data' : 'URL tidak sesuai.'
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> updateData(String unencodedPath, [Map<String, dynamic>? data, String? token]) async {
+    try {
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        "Authorization" : token?? '',
+      };
+
+      http.Response response = await http.put(
+        Uri.http(baseUrl, unencodedPath),
+        headers: headers,
+        body: json.encode(data),
+      );
+
+      if(response.statusCode == 200) {
+        if(json.decode(response.body)['result'] == true) {
+          return {
+            'result' : true,
+            'data' : json.decode(response.body)['data']
+          };
+        } else {
+          return {
+            'result' : false,
+            'message' : json.decode(response.body)['data']
+          };
+        }
+      } else {
+        return {
+          'result' : false,
+          'message' : '${response.statusCode} | ${json.decode(response.body)['data']}',
+        };
+      }
+
+    } on SocketException {
+      return {
+        'result' : false,
+        'data' : 'Tidak dapat menjangkau server, pastikan terdapat koneksi internet.'
+      };
+    } on FormatException {
+      return {
+        'result' : false,
+        'data' : 'URL tidak sesuai.'
+      };
+    }
+  }
 }

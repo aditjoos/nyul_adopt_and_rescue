@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:meta/meta.dart';
 
 class MyContainer extends StatelessWidget {
   MyContainer({
@@ -87,20 +86,20 @@ class PostAdopsiCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: 150.0,
-                  height: 150.0,
+                  width: MediaQuery.of(context).size.width / 2 - 20,
+                  height: MediaQuery.of(context).size.width / 2 - 20,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.asset(imgSource, fit: BoxFit.fill,)
                   ),
                 ),
                 Container(
-                  width: 150.0,
-                  padding: EdgeInsets.all(5.0),
+                  width: MediaQuery.of(context).size.width / 2 - 20,
+                  padding: EdgeInsets.all(15.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(judul, style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text(judul, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                       Text(ras+', '+umur),
                       Text(alamat),
                       Row(

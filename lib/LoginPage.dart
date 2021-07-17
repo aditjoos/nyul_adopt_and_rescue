@@ -67,6 +67,16 @@ class _LoginPageState extends State<LoginPage> {
     APIHelperNyul().getData('nyul-codeigniter/index.php/member_login', parameters).then((value) {
       if(value['result']) {
         Navigator.pop(context);
+
+        var loginData = value['data'];
+
+        Map<String, dynamic> data = {
+          'id' : 1,
+          'is_login' : 1,
+          'id_member' : loginData[0]['id'],
+        };
+
+        SqliteHelper().updateData(data: data, table: 'login');
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainPage()));
       } else {
         Navigator.pop(context);

@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:line_icons/line_icons.dart';
 import 'package:nyul_adopt_rescue/Pages/Adopsi/AdopsiDetail.dart';
 import 'package:nyul_adopt_rescue/components/ContainerAndButtons.dart';
 import 'package:nyul_adopt_rescue/components/Dialogs.dart';
+import 'package:nyul_adopt_rescue/helper/apiHelper_nyul.dart';
 
 class AdopsiPage extends StatefulWidget {
   @override
@@ -15,52 +14,48 @@ class AdopsiPage extends StatefulWidget {
 
 class _AdopsiPageState extends State<AdopsiPage> {
   
-  late List data;
-  bool isLoadingData = true;
-  bool isData = false;
+  late List _data;
+  bool _isLoadingData = true;
+  bool _isData = false;
+  
+  _getAdopsiData() {
+    Map<String, dynamic> parameters = {
+      'fungsi' : '1'
+    };
+    APIHelperNyul().getData('nyul-codeigniter/index.php/adopsi/post_adopt', parameters).then((value) {
+      if(value['result']) {
+        setState(() {
+          _data = value['data'];
+          _isLoadingData = false;
+          _isData = true;
+        });
+      } else {
+        setState(() {
+          _isLoadingData = false;
+          _isData = false;
+        });
 
-  // Future getAdopsiData() async {
-  //   final String url = 'http://nyul.kumpulan-soal.com/index.php/adopsi/post_adopt?fungsi=1';
-  //   var result = await http.get(Uri.encodeFull(url), headers: { 'accept':'application/json' });
+        MyDialogs().simpleDialog(context, 'Kesalahan', '${value['message']}');
+      }
+    });
+  }
 
-  //   setState(() {
-  //     if(result.statusCode == 200){
-  //       var content = json.decode(result.body);
-  //       if(content['result'] = true){
-  //         data = content['data'];
-  //         isData = true;
-  //       }else if(content['result'] = false){
-  //         showDialog(
-  //           barrierDismissible: true,
-  //           context: context,
-  //           builder: (_) => FunkyOverlay(
-  //             content['data'],
-  //             [
-  //               FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
-  //             ]
-  //           )
-  //         );
-  //       }
-  //     }
-  //     isLoadingData = false;
-  //   });
-  // }
+  _checkConnectionThenExecuteLoadDataFunction() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
 
-  // void checkConnectionThenExecuteLoadDataFunction() async {
-  //   try {
-  //     final result = await InternetAddress.lookup('nyul.kumpulan-soal.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //       getAdopsiData();
-  //     }
-  //   } on SocketException catch (_) {
-  //     showDialog(barrierDismissible: true, context: context, builder: (_) => FunkyOverlay('Sepertinya kamu tidak ada koneksi internet, periksa dulu ya.. \n(´。＿。｀)', [FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))]));
-  //   }
-  // }
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) _getAdopsiData();
+      else MyDialogs().simpleDialog(context, 'Kesalahan', 'Ada kesalahan koneksi internet.');
+    } on SocketException catch (_) {
+      MyDialogs().simpleDialog(context, 'Kesalahan', 'Kamu tidak ada koneksi internet.');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    // checkConnectionThenExecuteLoadDataFunction();
+
+    _checkConnectionThenExecuteLoadDataFunction();
   }
 
   @override
@@ -112,7 +107,7 @@ class _AdopsiPageState extends State<AdopsiPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text((isData ? (data.length-1).toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
+                        Text((_isData ? (_data.length-1).toString() : 'Tidak ada') + ' unggahan', style: TextStyle(color: Colors.white),),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -159,22 +154,22 @@ class _AdopsiPageState extends State<AdopsiPage> {
                   color: Color(0xFFFAFAFA),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
                 ),
-                child: isLoadingData ? Center(child: CircularProgressIndicator(),) : isData ? GridView.builder(
+                child: _isLoadingData ? Center(child: CircularProgressIndicator(),) : _isData ? GridView.builder(
                   physics: BouncingScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.660
                   ),
-                  itemCount: data == null ? 0 : data.length,
+                  itemCount: _data.isEmpty ? 0 : _data.length,
                   itemBuilder: (BuildContext contex, int index){
                     return PostAdopsiCard(
                       imgSource: 'assets/images/real-cat.jpg',
-                      judul: data[index]['judul'],
+                      judul: _data[index]['judul'],
                       jenis: 1,
                       ras: '-',
-                      umur: data[index]['umur'],
-                      alamat: data[index]['alamat'],
-                      metodeAdopsi: int.parse(data[index]['metode_adopsi']),
+                      umur: _data[index]['umur']?? '-',
+                      alamat: _data[index]['alamat']?? '-',
+                      metodeAdopsi: int.parse(_data[index]['metode_adopsi']?? '1'),
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AdopsiDetailPage())),
                     );
                   },
